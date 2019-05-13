@@ -1,24 +1,8 @@
 #include "test.h"
 
-int compareStrings(char word_list[][30], char *user_input, int which_one);
-void generateDict(char word[][30]);
-void startGame(char word_list[][30]);
 int main(void) {
-    //char word[1000][30] = {""};
     //Change Seed based on time
     srand((unsigned)time(NULL));
-    generateDict(word);
-    /*printf("char word_list[9990][30] = {\n");
-    for (int i = 0; i < 9897; i++) {
-        printf("    {\"%s\"},\n", word[i]);
-    }
-    printf("};");*/
-    //printf("Word saved!\n");
-    //printf("%s", word[990]);
-    //startGame(word);
-
-    //enerateWordList(filedir);
-
     startGame(word);
     return 0;
 }
@@ -37,33 +21,12 @@ void startGame(char word_list[][30]) {
         scanf("%s", user_input);
 
         //Check whether user entered same thing with computer.
-        check = compareStrings(word_list, user_input, which_one);
-        if (check == 1) {
+        if (!strcmp(word_list[which_one], user_input)) {
             printf("You are correct!\n");
-        } else if (check == 0) {
+        } else {
             printf("You are wrong!\n");
         }
         printf("\n");
-    }
-}
-
-int compareStrings(char word_list[][30], char *user_input, int which_one) {
-    int counter = 0;
-
-    //If user entered same thing with computer, strlen(user_input) and strlen(word_list[which_one]) should be same.
-    //But anyway, the important part is, each part of array SHOULD BE SAME with both computer and user input. So let's check that
-    for (int i = 0; i < strlen(user_input); i++) {
-        if (word_list[which_one][i] == user_input[i]) {
-            counter++;
-        } else {
-            // No need to loop till strlen(user_input), just exit loop.
-            break;
-        }
-    }
-    if (counter == strlen(user_input)) {
-        return 1; //You are correct
-    } else {
-        return 0; //You are wrong
     }
 }
 

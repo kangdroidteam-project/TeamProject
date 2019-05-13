@@ -3,6 +3,9 @@
 #include <time.h>
 #include <string.h>
 
+void generateDict(char word[][30]);
+void startGame(char word_list[][30]);
+
 char word[9990][30] = {
     {"the"},
     {"of"},
