@@ -14,19 +14,19 @@ int showTypingMenu() {
     switch (user_input_typing) {
         case 1:
             // GAME STARTS
-        return user_input_typing;
+        return 0;
         case 2:
             // GAME STARTS
-        return user_input_typing;
+        return 0;
         case 3:
             // GAME STARTS
-        return user_input_typing;
+        return 0;
         case 4:
             // GAME STARTS
-        return user_input_typing;
+        return 0;
         case 0:
             // Return to last menu
-        return user_input_typing;
+        return 0;
         default:
             // Get another input;
         return 10;
