@@ -57,6 +57,11 @@ int showMenu() {
 
         case 4:
             // Score - per - Game MENU Function
+            do {
+                // Clear screen before we start anything;
+                clearScreen();
+                typ_menu_ret = showMainScoreMenu();
+            } while (typ_menu_ret != 0);
         return user_choice;
 
         case 5:
