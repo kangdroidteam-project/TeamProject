@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include "game.h"
 
 int showMenu();
 
@@ -12,7 +12,7 @@ int main(void) {
 
 int showMenu() {
     int user_choice;
-    
+
     printf("1. 타자 연습\n");
     printf("2. 미니게임\n");
     printf("3. 타임 어텍\n");
