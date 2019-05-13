@@ -1,17 +1,19 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <string.h>
+#include "test.h"
 
 int compareStrings(char word_list[][30], char *user_input, int which_one);
 void generateDict(char word[][30]);
 void startGame(char word_list[][30]);
 int main(void) {
-    char word[1000][30] = {""};
+    //char word[1000][30] = {""};
     //Change Seed based on time
     srand((unsigned)time(NULL));
     generateDict(word);
-    printf("Word saved!\n");
+    /*printf("char word_list[9990][30] = {\n");
+    for (int i = 0; i < 9897; i++) {
+        printf("    {\"%s\"},\n", word[i]);
+    }
+    printf("};");*/
+    //printf("Word saved!\n");
     //printf("%s", word[990]);
     //startGame(word);
 
@@ -28,7 +30,7 @@ void startGame(char word_list[][30]) {
 
     for (int i = 0; i < 5; i++) {
         //Select which word computer is going to show 2 user.
-        which_one = rand() % 1000;
+        which_one = rand() % 9896;
 
         //Show word that computer chose, and get input from user.
         printf("%s\n", word_list[which_one]);
@@ -69,7 +71,7 @@ int compareStrings(char word_list[][30], char *user_input, int which_one) {
 void generateDict(char word[][30]) {
     char ch;
     int lines = 0, x = 0;
-    FILE * fp = fopen("/Users/kangdroid/Desktop/University/1st/CPrgramming/TeamProject/source/dict.txt", "r");
+    FILE * fp = fopen("/Users/kangdroid/Desktop/test.txt", "r");
     while (!feof(fp)) {
         ch = fgetc(fp);
         //printf("LINES: %d\nX: %d\n", lines, x);
