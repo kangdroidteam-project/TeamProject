@@ -11,7 +11,7 @@ int main(void) {
 }
 
 int showMenu() {
-    int user_choice;
+    int user_choice, typ_menu_ret;
 
     printf("1. 타자 연습\n");
     printf("2. 미니게임\n");
@@ -25,14 +25,23 @@ int showMenu() {
     switch (user_choice) {
         case 1:
             // Typing practice MENU Function
+            do {
+                typ_menu_ret = showTypingMenu();
+            } while (typ_menu_ret != 0);
         return user_choice;
 
         case 2:
             // Mini game MENU Function
+            do {
+                typ_menu_ret = showMiniGameMenu();
+            } while (typ_menu_ret != 0);
         return user_choice;
 
         case 3:
             // Time Attack MENU Function
+            do {
+                typ_menu_ret = showTimeAttackMenu();
+            } while (typ_menu_ret != 0);
         return user_choice;
 
         case 4:
