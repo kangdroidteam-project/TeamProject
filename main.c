@@ -7,12 +7,17 @@ int main(void) {
     do {
         menu_ret_value = showMenu();
     } while (menu_ret_value != 6);
+
+    // Clear screen before exit!
+    clearScreen();
     return 0;
 }
 
 int showMenu() {
     int user_choice, typ_menu_ret;
 
+    // Clear screen before we start anything;
+    clearScreen();
     printf("1. 타자 연습\n");
     printf("2. 미니게임\n");
     printf("3. 타임 어텍\n");
@@ -26,6 +31,8 @@ int showMenu() {
         case 1:
             // Typing practice MENU Function
             do {
+                // Clear screen before we start anything;
+                clearScreen();
                 typ_menu_ret = showTypingMenu();
             } while (typ_menu_ret != 0);
         return user_choice;
@@ -33,6 +40,8 @@ int showMenu() {
         case 2:
             // Mini game MENU Function
             do {
+                // Clear screen before we start anything;
+                clearScreen();
                 typ_menu_ret = showMiniGameMenu();
             } while (typ_menu_ret != 0);
         return user_choice;
@@ -40,6 +49,8 @@ int showMenu() {
         case 3:
             // Time Attack MENU Function
             do {
+                // Clear screen before we start anything;
+                clearScreen();
                 typ_menu_ret = showTimeAttackMenu();
             } while (typ_menu_ret != 0);
         return user_choice;
@@ -59,4 +70,13 @@ int showMenu() {
         default:
         return 0;
     }
+}
+
+void clearScreen() {
+    #if defined(_WIN32) || defined(__CYGWIN__) || defined(_WIN64)
+    // Clear Console for Windows
+    system("cls");
+    #else
+    system("clear && printf '\e[3J'");
+    #endif
 }
