@@ -29,25 +29,3 @@ void startGame(char word_list[][30]) {
         printf("\n");
     }
 }
-
-// TODO: EXCEPTION MAINTANCE
-void generateDict(char word[][30]) {
-    char ch;
-    int lines = 0, x = 0;
-    FILE * fp = fopen("/Users/kangdroid/Desktop/test.txt", "r");
-    while (!feof(fp)) {
-        ch = fgetc(fp);
-        //printf("LINES: %d\nX: %d\n", lines, x);
-        if (ch == '\n') {
-            lines++;
-            x = 0;
-        } else {
-            word[lines][x] = ch;
-            x++;
-        }
-    }
-    if (word[lines][strlen(word[lines]) - 1] == -1) {
-        word[lines][strlen(word[lines]) - 1] = '\0';
-    }
-    fclose(fp);
-}
