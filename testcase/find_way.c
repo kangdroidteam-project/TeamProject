@@ -36,7 +36,7 @@ int main(void) {
         }
 
         printf("Where do you want to go?\n");
-        printf("Enter \"%s\" to go up, \"%s\" to go down, \"%s\" to go right, \"%s\" to go left.\n", word[random_number[0]], word[random_number[1]], word[random_number[2]], word[random_number[3]]);
+        printf("Enter \"%s\" to go up, \"%s\" to go down, \"%s\" to go right, \"%s\" to go left, exit to end this game(not saved!).\n", word[random_number[0]], word[random_number[1]], word[random_number[2]], word[random_number[3]]);
     
         fgets(user_input, sizeof(user_input), stdin);
         user_input[strlen(user_input) - 1] = 0;
