@@ -17,6 +17,7 @@ int showMiniGameMenu() {
         return 0;
         case 2:
             // GAME STARTS
+            mini_maze();
         return 0;
         case 3:
             // GAME STARTS

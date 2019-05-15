@@ -4,6 +4,7 @@ int showMenu();
 
 int main(void) {
     int menu_ret_value;
+
     do {
         menu_ret_value = showMenu();
     } while (menu_ret_value != 6);
