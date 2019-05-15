@@ -2,6 +2,8 @@
 
 void printArray(int** input_array, int col_count);
 void resetArray(int** input_array, int col_count);
+void moveLogic(int** input_array, int what, int col_count, int* x, int* y);
+void sleepfor(int sec);
 void clearScreen();
 
 int main(void) {
@@ -12,9 +14,13 @@ int main(void) {
 
     srand((unsigned)time(NULL));
 
+    clearScreen();
+
     printf("How many rows do you want to use?  ");
     scanf("%d", &how_many_col);
     while (getchar() != '\n');
+
+    clearScreen();
 
     // 2-dimension array by dynamic memory allocation
     array_pointer = (int**)malloc(sizeof(int*) * how_many_col);
@@ -28,11 +34,11 @@ int main(void) {
     // First location = 0, 0, 5 is the where game character located in.
     array_pointer[0][0] = 5;
 
-    while (strcmp("exit", user_input) || array_pointer[how_many_col-1][how_many_col-1] != 5) {
+    while (strcmp("exit", user_input) && array_pointer[how_many_col-1][how_many_col-1] != 5) {
         printArray(array_pointer, how_many_col);
         // Put random numbers to int array
         for (int i = 0; i < 5; i++) {
-            random_number[i] = rand() % 9896;
+            random_number[i] = rand() % MAX_WORD;
         }
 
         printf("Where do you want to go?\n");
@@ -42,49 +48,20 @@ int main(void) {
         user_input[strlen(user_input) - 1] = 0;
 
         if (!strcmp(word[random_number[0]], user_input)) {
-            printf("Move up!\n");
-            if (y == 0) {
-                printf("Cannot move up. We are on the top!\n");
-                clearScreen();
-                continue;
-            }
-            array_pointer[y][x] = 0;
-            y--;
-            array_pointer[y][x] = 5;
-            clearScreen();
+            moveLogic(array_pointer, 1, how_many_col, &x, &y);
         } else if (!strcmp(word[random_number[1]], user_input)) {
-            printf("Move down!\n");
-            if (y == how_many_col- 1) {
-                printf("Cannot move down. We are on the low-level!\n");
-                clearScreen();
-                continue;
-            }
-            array_pointer[y][x] = 0;
-            y++;
-            array_pointer[y][x] = 5;
-            clearScreen();
+            moveLogic(array_pointer, 2, how_many_col, &x, &y);
         } else if (!strcmp(word[random_number[2]], user_input)) {
-            printf("Move right!\n");
-            if (x == how_many_col- 1) {
-                printf("Cannot move right. We are on the most right!\n");
-                clearScreen();
-                continue;
-            }
-            array_pointer[y][x] = 0;
-            x++;
-            array_pointer[y][x] = 5;
-            clearScreen();
+            moveLogic(array_pointer, 3, how_many_col, &x, &y);
         } else if (!strcmp(word[random_number[3]], user_input)) {
-            printf("Move left!\n");
-            if (x == 0) {
-                printf("Cannot move left. We are on the most left!\n");
-                clearScreen();
-                continue;
-            }
-            array_pointer[y][x] = 0;
-            x--;
-            array_pointer[y][x] = 5;
+            moveLogic(array_pointer, 4, how_many_col, &x, &y);
+        } else {
             clearScreen();
+        }
+        
+        if (array_pointer[how_many_col-1][how_many_col-1] == 5) {
+            printf("Congratulations! You ended the maze!\n");
+            sleepfor(3);
         }
     }
 
@@ -95,6 +72,59 @@ int main(void) {
     free(array_pointer);
 
     return 0;
+}
+
+void moveLogic(int** input_array, int what, int col_count, int* x, int* y) {
+    switch (what) {
+        case 1: //up
+            if (*y == 0) {
+                printf("Cannot move up. We are on the top!\n");
+                sleepfor(SLEEP_SECOND);
+            } else {
+                printf("Move up!\n");
+                input_array[*y][*x] = 0;
+                (*y)--;
+                input_array[*y][*x] = 5;
+            }
+            clearScreen();
+            break;
+        case 2: //down
+            if (*y == col_count- 1) {
+                printf("Cannot move down. We are on the low-level!\n");
+                sleepfor(SLEEP_SECOND);
+            } else {
+                printf("Move down!\n");
+                input_array[*y][*x] = 0;
+                (*y)++;
+                input_array[*y][*x] = 5;
+            }
+            clearScreen();
+            break;
+        case 3: //right
+            if (*x == col_count- 1) {
+                printf("Cannot move right. We are on the most right!\n");
+                sleepfor(SLEEP_SECOND);
+            } else {
+                printf("Move right!\n");
+                input_array[*y][*x] = 0;
+                (*x)++;
+                input_array[*y][*x] = 5;
+            }
+            clearScreen();
+            break;
+        case 4: //left
+            if (*x == 0) {
+                printf("Cannot move left. We are on the most left!\n");
+                sleepfor(SLEEP_SECOND);
+            } else {
+                printf("Move left!\n");
+                input_array[*y][*x] = 0;
+                (*x)--;
+                input_array[*y][*x] = 5;
+            }
+            clearScreen();
+            break;
+    }
 }
 
 void resetArray(int** input_array, int col_count) {
@@ -120,5 +150,13 @@ void clearScreen() {
     system("cls");
     #else
     system("clear && printf '\e[3J'");
+    #endif
+}
+
+void sleepfor(int sec) {
+    #if defined(_WIN32) || defined(__CYGWIN__) || defined(_WIN64)
+    Sleep(sec * 1000);
+    #else
+    sleep(sec);
     #endif
 }

@@ -3,6 +3,15 @@
 #include <time.h>
 #include <string.h>
 
+#if defined(_WIN32) || defined(__CYGWIN__) || defined(_WIN64)
+    #include <windows.h>
+#else
+    #include <unistd.h>
+#endif
+
+#define SLEEP_SECOND 2
+#define MAX_WORD 9896
+
 void generateDict(char word[][30]);
 void startGame(char word_list[][30]);
 
