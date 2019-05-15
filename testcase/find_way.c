@@ -2,6 +2,7 @@
 
 void printArray(int** input_array, int col_count);
 void resetArray(int** input_array, int col_count);
+void clearScreen();
 
 int main(void) {
     int how_many_col, x = 0, y = 0;
@@ -27,9 +28,8 @@ int main(void) {
     // First location = 0, 0, 5 is the where game character located in.
     array_pointer[0][0] = 5;
 
-    printArray(array_pointer, how_many_col);
-
-    while (1) {
+    while (strcmp("exit", user_input) || array_pointer[how_many_col-1][how_many_col-1] != 5) {
+        printArray(array_pointer, how_many_col);
         // Put random numbers to int array
         for (int i = 0; i < 5; i++) {
             random_number[i] = rand() % 9896;
@@ -45,46 +45,46 @@ int main(void) {
             printf("Move up!\n");
             if (y == 0) {
                 printf("Cannot move up. We are on the top!\n");
+                clearScreen();
                 continue;
             }
             array_pointer[y][x] = 0;
             y--;
             array_pointer[y][x] = 5;
-            printArray(array_pointer, how_many_col);
+            clearScreen();
         } else if (!strcmp(word[random_number[1]], user_input)) {
             printf("Move down!\n");
             if (y == how_many_col- 1) {
                 printf("Cannot move down. We are on the low-level!\n");
+                clearScreen();
                 continue;
             }
             array_pointer[y][x] = 0;
             y++;
             array_pointer[y][x] = 5;
-            printArray(array_pointer, how_many_col);
+            clearScreen();
         } else if (!strcmp(word[random_number[2]], user_input)) {
             printf("Move right!\n");
             if (x == how_many_col- 1) {
                 printf("Cannot move right. We are on the most right!\n");
+                clearScreen();
                 continue;
             }
             array_pointer[y][x] = 0;
             x++;
             array_pointer[y][x] = 5;
-            printArray(array_pointer, how_many_col);
+            clearScreen();
         } else if (!strcmp(word[random_number[3]], user_input)) {
             printf("Move left!\n");
             if (x == 0) {
                 printf("Cannot move left. We are on the most left!\n");
+                clearScreen();
                 continue;
             }
             array_pointer[y][x] = 0;
             x--;
             array_pointer[y][x] = 5;
-            printArray(array_pointer, how_many_col);
-        }
-
-        if (!strcmp("exit", user_input) || array_pointer[how_many_col-1][how_many_col-1] == 5) {
-            break;
+            clearScreen();
         }
     }
 
@@ -112,4 +112,13 @@ void printArray(int** input_array, int col_count) {
         }
         printf("\n");
     }
+}
+
+void clearScreen() {
+    #if defined(_WIN32) || defined(__CYGWIN__) || defined(_WIN64)
+    // Clear Console for Windows
+    system("cls");
+    #else
+    system("clear && printf '\e[3J'");
+    #endif
 }
