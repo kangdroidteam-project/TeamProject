@@ -10,7 +10,7 @@ void mini_maze() {
 
     clearScreen();
 
-    printf("How many rows do you want to use?  ");
+    printf("미로판의 크기를 입력하세요.(n * n 형식, n - 정수만 입력)  ");
     scanf("%d", &how_many_col);
     while (getchar() != '\n');
 
@@ -35,9 +35,10 @@ void mini_maze() {
             random_number[i] = rand() % MAX_WORD;
         }
 
-        printf("Where do you want to go?\n");
-        printf("Enter \"%s\" to go up, \"%s\" to go down, \"%s\" to go right, \"%s\" to go left, exit to end this game(not saved!).\n", word_list[random_number[0]], word_list[random_number[1]], word_list[random_number[2]], word_list[random_number[3]]);
-    
+        printf("어떤 방향으로 갈래?\n");
+        printf("\"%s\" 을 입력하면 위로 한칸, \"%s\" 을 입력하면 아래로 한칸, \"%s\" 을 입력하면 오른쪽으로 한칸, \"%s\" 을 입력하면 왼쪽으로 한칸, exit을 입력하면 저장하지 않고 게임 나가기.\n", word_list[random_number[0]], word_list[random_number[1]], word_list[random_number[2]], word_list[random_number[3]]);
+        printf("목적지 까지는 x방향으로는 %d만큼, y방향으로는 %d만큼 남았어!\n", (how_many_col - 1) - x, (how_many_col - 1) - y);
+        
         fgets(user_input, sizeof(user_input), stdin);
         user_input[strlen(user_input) - 1] = 0;
 
@@ -54,7 +55,7 @@ void mini_maze() {
         }
         
         if (array_pointer[how_many_col-1][how_many_col-1] == 5) {
-            printf("Congratulations! You ended the maze!\n");
+            printf("축하드립니다! 목적지에 도착하셨어요!!!\n");
             sleepfor(3);
         }
     }
@@ -70,10 +71,10 @@ void moveLogic(int** input_array, int what, int col_count, int* x, int* y) {
     switch (what) {
         case 1: //up
             if (*y == 0) {
-                printf("Cannot move up. We are on the top!\n");
+                printf("이미 맨 꼭대기에 있어서 더이상 올라가질 못합니다.\n");
                 sleepfor(SLEEP_SECOND);
             } else {
-                printf("Move up!\n");
+                printf("위로 갑니다~!\n");
                 input_array[*y][*x] = 0;
                 (*y)--;
                 input_array[*y][*x] = 5;
@@ -82,10 +83,10 @@ void moveLogic(int** input_array, int what, int col_count, int* x, int* y) {
             break;
         case 2: //down
             if (*y == col_count- 1) {
-                printf("Cannot move down. We are on the low-level!\n");
+                printf("이미 맨 아래에 있어서 더이상 내려가질 못합니다.\n");
                 sleepfor(SLEEP_SECOND);
             } else {
-                printf("Move down!\n");
+                printf("아래로 갑니다~!\n");
                 input_array[*y][*x] = 0;
                 (*y)++;
                 input_array[*y][*x] = 5;
@@ -94,10 +95,10 @@ void moveLogic(int** input_array, int what, int col_count, int* x, int* y) {
             break;
         case 3: //right
             if (*x == col_count- 1) {
-                printf("Cannot move right. We are on the most right!\n");
+                printf("이미 맨 오른쪽에 있어서 더이상 오른쪽으로 가지 못합니다.\n");
                 sleepfor(SLEEP_SECOND);
             } else {
-                printf("Move right!\n");
+                printf("오른쪽으로 갑니다~!\n");
                 input_array[*y][*x] = 0;
                 (*x)++;
                 input_array[*y][*x] = 5;
@@ -106,10 +107,10 @@ void moveLogic(int** input_array, int what, int col_count, int* x, int* y) {
             break;
         case 4: //left
             if (*x == 0) {
-                printf("Cannot move left. We are on the most left!\n");
+                printf("이미 맨 왼쪽에 있어서 더이상 왼쪽으로 가지 못합니다.\n");
                 sleepfor(SLEEP_SECOND);
             } else {
-                printf("Move left!\n");
+                printf("왼쪽으로 갑니다~!\n");
                 input_array[*y][*x] = 0;
                 (*x)--;
                 input_array[*y][*x] = 5;
