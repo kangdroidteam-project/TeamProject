@@ -10,7 +10,7 @@ void *getValue(void* value);
 struct test {
     int scan_return;
     char array_input[50];
-};
+} test_struct;
 
 int main(void) {
     //Change Seed based on time
@@ -23,12 +23,12 @@ void startGame(char word_list[][30]) {
     char user_input[60];
     int which_one, check; // Which one are you going to show?
     int result, result_test = 0, counter = 0;
-    struct test test_struct;
     pthread_t timer_test, scan_test;
-    //unsigned long count = sizeof(word_list)/sizeof(word_list[0]); // VERTICAL COUNT
 
     for (int i = 0; i < 5; i++) {
         counter = 0;
+        result_test = 0;
+        test_struct.scan_return = 0;
         //Select which word computer is going to show 2 user.
         which_one = rand() % 9896;
 
@@ -44,16 +44,21 @@ void startGame(char word_list[][30]) {
                 printf("%s\n", word_list[which_one]);
             }
 
-            if (result_test == 5) {
+            if (result_test == 50) {
                 //TIMEOUT
                 // cancel scanf thread
                 pthread_cancel(scan_test);
                 break;
             }
+
             if (test_struct.scan_return == 1) {
                 // Successfully entered scan
                 // Force finish timer thread using some tricks
-                result_test = 6;
+                result_test = 60;
+                
+                // Let thread finishes its work.
+                pthread_join(timer_test, NULL);
+
                 break;
             }
             counter++;
@@ -70,10 +75,9 @@ void startGame(char word_list[][30]) {
 }
 
 void *retTime(void* result_lol) {
-    (*((int*)result_lol)) = 0;
-    for (int i = 0; i < 5; i++) {
-        sleep(1);
-        (*((int*)result_lol))++;
+    struct timespec time_value;
+    for ((*((int*)result_lol)) = 0; (*((int*)result_lol)) < 50; (*((int*)result_lol))++) {
+        usleep(100000);
     }
     return NULL;
 }
@@ -89,9 +93,11 @@ void clearScreen() {
 
 void *getValue(void* value) {
     struct test *test_st_th = value;
-    if (scanf("%s", test_st_th -> array_input) == 1) {
-        // newline break
+
+    if (fgets(test_st_th -> array_input, sizeof(test_st_th -> array_input), stdin) != NULL) {
+        test_st_th -> array_input[strlen(test_st_th -> array_input) - 1] = '\0';
         test_st_th -> scan_return = 1;
     }
+
     return NULL;
 }
