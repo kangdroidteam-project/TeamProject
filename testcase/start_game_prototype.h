@@ -12,7 +12,7 @@
 
 #define SLEEP_SECOND 2
 #define MAX_WORD 9896
-#define TIME_LIMIT 5
+#define TIME_LIMIT_LOOP_COUNT 50
 
 void generateDict(char word[][30]);
 void startGame(char word_list[][30]);

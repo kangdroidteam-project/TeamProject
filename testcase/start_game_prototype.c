@@ -22,7 +22,7 @@ void startGame(char word_list[][30]) {
         result_test = 0;
         scanStruct.scan_return = 0;
         //Select which word computer is going to show 2 user.
-        which_one = rand() % 9896;
+        which_one = rand() % MAX_WORD;
 
         // Timer starts
         pthread_create(&timer_test, NULL, retTime, (void*)&result_test);
@@ -36,7 +36,7 @@ void startGame(char word_list[][30]) {
                 printf("%s\n", word_list[which_one]);
             }
 
-            if (result_test == 50) {
+            if (result_test == TIME_LIMIT_LOOP_COUNT) {
                 //TIMEOUT
                 // cancel scanf thread
                 pthread_cancel(scan_test);
@@ -50,7 +50,6 @@ void startGame(char word_list[][30]) {
                 
                 // Let thread finishes its work.
                 pthread_join(timer_test, NULL);
-
                 break;
             }
             counter++;
@@ -67,7 +66,7 @@ void startGame(char word_list[][30]) {
 }
 
 void *retTime(void* result_counter) {
-    for ((*((int*)result_counter)) = 0; (*((int*)result_counter)) < 50; (*((int*)result_counter))++) {
+    for ((*((int*)result_counter)) = 0; (*((int*)result_counter)) < TIME_LIMIT_LOOP_COUNT; (*((int*)result_counter))++) {
         usleep(100000);
     }
     return NULL;
