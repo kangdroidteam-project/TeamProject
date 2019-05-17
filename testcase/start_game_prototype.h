@@ -6,8 +6,10 @@
 
 #if defined(_WIN32) || defined(__CYGWIN__) || defined(_WIN64)
     #include <windows.h>
+    #include <conio.h>
 #else
     #include <unistd.h>
+    #include <termios.h>
 #endif
 
 #define SLEEP_SECOND 2
@@ -19,6 +21,9 @@ void startGame(char word_list[][30]);
 void *retTime(void* result_counter);
 void clearScreen();
 void *getValue(void* value);
+#if defined(__APPLE__) || defined(__linux__) || defined(__unix__) || defined(__unix) || defined(unix)
+int getch(void);
+#endif
 
 char word[9990][30] = {
     {"the"},
