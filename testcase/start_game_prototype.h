@@ -16,7 +16,7 @@
 
 void generateDict(char word[][30]);
 void startGame(char word_list[][30]);
-void *retTime(void* result_counter)
+void *retTime(void* result_counter);
 void clearScreen();
 void *getValue(void* value);
 
