@@ -1,4 +1,4 @@
-CC=gcc-8
+CC=gcc-9
 CFLAGS=-Wall -O3
 
 all: main.o check_vocab.o score_menu.o time_attack.o mini_game.o typing_game.o init.o find_way.o
