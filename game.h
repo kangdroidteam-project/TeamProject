@@ -5,8 +5,10 @@
 
 #if defined(_WIN32) || defined(__CYGWIN__) || defined(_WIN64)
     #include <windows.h>
+    #include <conio.h>
 #else
     #include <unistd.h>
+    #include <termios.h>
 #endif
 
 #define SLEEP_SECOND 2
@@ -23,6 +25,11 @@ void moveLogic(int** input_array, int what, int col_count, int* x, int* y);
 void sleepfor(int sec);
 void clearScreen();
 void mini_maze();
+void showScore();
+int getInput();
+#if defined(__APPLE__) || defined(__linux__) || defined(__unix__) || defined(__unix) || defined(unix)
+int getch(void);
+#endif
 
 typedef struct typing_score {
     int easy;

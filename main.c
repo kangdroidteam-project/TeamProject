@@ -67,6 +67,7 @@ int showMenu() {
 
         case 5:
             // Check Vocab function
+            showScore();
         return user_choice;
         
         case 6:

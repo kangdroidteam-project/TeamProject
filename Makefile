@@ -1,8 +1,8 @@
 CC=gcc-9
 CFLAGS=-Wall -O3
 
-all: main.o check_vocab.o score_menu.o time_attack.o mini_game.o typing_game.o init.o find_way.o
-	$(CC) $(CFLAGS) -o app.out main.o check_vocab.o score_menu.o time_attack.o mini_game.o typing_game.o init.o find_way.o
+all: main.o check_vocab.o score_menu.o time_attack.o mini_game.o typing_game.o init.o find_way.o show_vocab.o
+	$(CC) $(CFLAGS) -o app.out main.o check_vocab.o score_menu.o time_attack.o mini_game.o typing_game.o init.o find_way.o show_vocab.o
 
 main.o:
 	$(CC) $(CFLAGS) -c -o main.o main.c
@@ -27,6 +27,9 @@ init.o:
 
 find_way.o:
 	$(CC) $(CFLAGS) -c -o find_way.o find_way.c
+
+show_vocab.o:
+	$(CC) $(CFLAGS) -c -o show_vocab.o show_vocab.c
 
 clean:
 	rm -rf ./*.out ./*.o
