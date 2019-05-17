@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <pthread.h>
 
 #if defined(_WIN32) || defined(__CYGWIN__) || defined(_WIN64)
     #include <windows.h>
@@ -11,9 +12,13 @@
 
 #define SLEEP_SECOND 2
 #define MAX_WORD 9896
+#define TIME_LIMIT 5
 
 void generateDict(char word[][30]);
 void startGame(char word_list[][30]);
+void *retTime(void* result_counter)
+void clearScreen();
+void *getValue(void* value);
 
 char word[9990][30] = {
     {"the"},

@@ -1,16 +1,9 @@
 #include "start_game_prototype.h"
-#include <pthread.h>
 
-#define TIME_LIMIT 5
-
-void *retTime(void* result_lol);
-void clearScreen();
-void *getValue(void* value);
-
-struct test {
+struct scan_save_structure {
     int scan_return;
     char array_input[60];
-} test_struct;
+} scanStruct;
 
 int main(void) {
     //Change Seed based on time
@@ -20,14 +13,14 @@ int main(void) {
 }
 
 void startGame(char word_list[][30]) {
-    int which_one, check; // Which one are you going to show?
-    int result, result_test = 0, counter = 0;
-    pthread_t timer_test, scan_test;
+    int which_one; // Which one are you going to show?
+    int result_test = 0, counter = 0;
+    pthread_t timer_test, scan_test; // Thread function
 
     for (int i = 0; i < 5; i++) {
         counter = 0;
         result_test = 0;
-        test_struct.scan_return = 0;
+        scanStruct.scan_return = 0;
         //Select which word computer is going to show 2 user.
         which_one = rand() % 9896;
 
@@ -35,7 +28,7 @@ void startGame(char word_list[][30]) {
         pthread_create(&timer_test, NULL, retTime, (void*)&result_test);
 
         // scanf starts
-        pthread_create(&scan_test, NULL, getValue, (void*)&test_struct);
+        pthread_create(&scan_test, NULL, getValue, (void*)&scanStruct);
 
         while (1) {
             if (counter == 0) {
@@ -50,7 +43,7 @@ void startGame(char word_list[][30]) {
                 break;
             }
 
-            if (test_struct.scan_return == 1) {
+            if (scanStruct.scan_return == 1) {
                 // Successfully entered scan
                 // Force finish timer thread using some tricks
                 result_test = 60;
@@ -64,7 +57,7 @@ void startGame(char word_list[][30]) {
         }
 
         //Check whether user entered same thing with computer.
-        if (!strcmp(word_list[which_one], test_struct.array_input)) {
+        if (!strcmp(word_list[which_one], scanStruct.array_input)) {
             printf("You are correct!\n");
         } else {
             printf("You are wrong!\n");
@@ -73,9 +66,8 @@ void startGame(char word_list[][30]) {
     }
 }
 
-void *retTime(void* result_lol) {
-    struct timespec time_value;
-    for ((*((int*)result_lol)) = 0; (*((int*)result_lol)) < 50; (*((int*)result_lol))++) {
+void *retTime(void* result_counter) {
+    for ((*((int*)result_counter)) = 0; (*((int*)result_counter)) < 50; (*((int*)result_counter))++) {
         usleep(100000);
     }
     return NULL;
@@ -91,11 +83,11 @@ void clearScreen() {
 }
 
 void *getValue(void* value) {
-    struct test *test_st_th = value;
+    struct scan_save_structure *scan_structure_ptr = value;
 
-    if (fgets(test_st_th -> array_input, sizeof(test_st_th -> array_input), stdin) != NULL) {
-        test_st_th -> array_input[strlen(test_st_th -> array_input) - 1] = '\0';
-        test_st_th -> scan_return = 1;
+    if (fgets(scan_structure_ptr -> array_input, sizeof(scan_structure_ptr -> array_input), stdin) != NULL) {
+        scan_structure_ptr -> array_input[strlen(scan_structure_ptr -> array_input) - 1] = '\0';
+        scan_structure_ptr -> scan_return = 1;
     }
 
     return NULL;
