@@ -1,5 +1,7 @@
 #include "start_game_prototype.h"
 
+// This is the example of how to use getch
+
 int main(void) {
     if (getch() == '\033') { // if the first value is esc
         getch(); // skip the [
