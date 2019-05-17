@@ -9,7 +9,7 @@ void *getValue(void* value);
 
 struct test {
     int scan_return;
-    char array_input[50];
+    char array_input[60];
 } test_struct;
 
 int main(void) {
@@ -20,7 +20,6 @@ int main(void) {
 }
 
 void startGame(char word_list[][30]) {
-    char user_input[60];
     int which_one, check; // Which one are you going to show?
     int result, result_test = 0, counter = 0;
     pthread_t timer_test, scan_test;
@@ -65,7 +64,7 @@ void startGame(char word_list[][30]) {
         }
 
         //Check whether user entered same thing with computer.
-        if (!strcmp(word_list[which_one], user_input)) {
+        if (!strcmp(word_list[which_one], test_struct.array_input)) {
             printf("You are correct!\n");
         } else {
             printf("You are wrong!\n");
