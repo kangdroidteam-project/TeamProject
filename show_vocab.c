@@ -6,7 +6,7 @@ void showScore() {
         printf("%s\n", word_list[i]);
         if (i != 0) {
             if (i % 20 == 0) {
-                printf("Press up key to move 1 page up, press down key to move to next page, press left/right key to exit.");
+                printf("윗 방향키로 이전 페이지로, 아래 방향키로 다음 페이지로 이동하거나, 왼쪽/오른쪽 키로 이 메뉴를 종료합니다.");
                 success = 0;
                 while (success == 0) {
                     switch(getInput()) {
@@ -53,7 +53,6 @@ int getInput() {
                 return 3;
                 break;
             default:
-                printf("Please enter arrow key!\n");
                 return 0;
                 break;
         }
