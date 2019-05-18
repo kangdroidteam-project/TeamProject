@@ -57,6 +57,8 @@ int getInput() {
                 return 0;
                 break;
         }
+    } else {
+        return 0;
     }
 }
 
