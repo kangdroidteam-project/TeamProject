@@ -2,7 +2,6 @@ CC=gcc-9
 CFLAGS=-Wall -O3
 TARGET=app.out
 OBJS=main.o \
-	check_vocab.o \
 	score_menu.o \
 	time_attack.o \
 	mini_game.o \
