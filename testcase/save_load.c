@@ -4,25 +4,10 @@ void save(char* wtf);
 void makeArray(int value, char* wtf);
 void load();
 
-struct test {
-    int a;
-    int b;
-    int c;
-    int d;
-} TEST;
-
-int main(void) {
+void saveLogic() {
     char test[30];
-    TEST.a = 1;
-    TEST.b = 2;
-    TEST.c = 3;
-    TEST.d = 0;
     makeArray(TEST.a, test);
-    makeArray(TEST.b, test);
-    makeArray(TEST.c, test);
     save(test);
-    load();
-    return 0;
 }
 
 void makeArray(int value, char* wtf) {
