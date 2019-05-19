@@ -37,28 +37,42 @@ void showVocab() {
 }
 
 int getInput() {
-    if (_getch() == '\033') { // if the first value is esc
-        _getch(); // skip the [
-        switch(_getch()) { // the real value
-            case 'A':
-                // code for arrow up
+    #if defined(__APPLE__) || defined(__linux__) || defined(__unix__) || defined(__unix) || defined(unix)
+        if (_getch() == '\033') {
+            _getch();
+            switch(_getch()) {
+                case 'A':
                 return 1;
-                break;
-            case 'B':
-                // code for arrow down
+                case 'B':
                 return 2;
-                break;
-            case 'C': case 'D':
-                // code for arrow right
+                case 'C': case 'D':
                 return 3;
-                break;
-            default:
+                default:
                 return 0;
-                break;
+            }
+        } else {
+            return 0;
         }
-    } else {
-        return 0;
-    }
+    #else
+        if (_getch() == 224) {
+            _getch();
+            switch(_getch()) {
+                case 72:
+                return 1;
+
+                case 80:
+                return 2;
+
+                case 75: case 77:
+                return 3;
+
+                default:
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    #endif
 }
 
 #if defined(__APPLE__) || defined(__linux__) || defined(__unix__) || defined(__unix) || defined(unix)
