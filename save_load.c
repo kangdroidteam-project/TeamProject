@@ -56,7 +56,23 @@ void saveLogic(char *save_dir) {
     char test[50] = {0};
 
     //Save logic: Call make array for struct time
-    makeArray(10, test);
+
+    // type_score
+    makeArray(type_score.easy, test);
+    makeArray(type_score.moderate, test);
+    makeArray(type_score.hard, test);
+    makeArray(type_score.extreme, test);
+
+    // mini_score
+    makeArray(mini_score.timecalc, test);
+    makeArray(mini_score.find_road, test);
+    makeArray(mini_score.fight_computer, test);
+    makeArray(mini_score.mem_word, test);
+
+    // timeat_score
+    makeArray(timeat_score.word_n1, test);
+    makeArray(timeat_score.word_n2, test);
+    makeArray(timeat_score.word_n3, test);
 
     //finally, save it
     save(test, save_dir);
