@@ -1,7 +1,5 @@
 #include "game.h"
 
-
-
 int slMenu() {
     int user_input_typing;
     static char save_file_dir[100] = {0}, info_file[] = "현재 파일 경로: %s\n";
