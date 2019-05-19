@@ -28,7 +28,7 @@ void mini_maze();
 void showVocab();
 int getInput();
 #if defined(__APPLE__) || defined(__linux__) || defined(__unix__) || defined(__unix) || defined(unix)
-int getch(void);
+int _getch(void);
 #endif
 void saveLogic(char *save_dir);
 void save(char* wtf, char *save_file_dir);

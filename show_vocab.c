@@ -37,9 +37,9 @@ void showVocab() {
 }
 
 int getInput() {
-    if (getch() == '\033') { // if the first value is esc
-        getch(); // skip the [
-        switch(getch()) { // the real value
+    if (_getch() == '\033') { // if the first value is esc
+        _getch(); // skip the [
+        switch(_getch()) { // the real value
             case 'A':
                 // code for arrow up
                 return 1;
@@ -62,7 +62,7 @@ int getInput() {
 }
 
 #if defined(__APPLE__) || defined(__linux__) || defined(__unix__) || defined(__unix) || defined(unix)
-int getch(void) {
+int _getch(void) {
     struct termios oldt, newt;
     int ch;
     tcgetattr(STDIN_FILENO, &oldt);
