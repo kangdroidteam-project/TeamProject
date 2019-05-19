@@ -25,11 +25,16 @@ void moveLogic(int** input_array, int what, int col_count, int* x, int* y);
 void sleepfor(int sec);
 void clearScreen();
 void mini_maze();
-void showScore();
+void showVocab();
 int getInput();
 #if defined(__APPLE__) || defined(__linux__) || defined(__unix__) || defined(__unix) || defined(unix)
 int getch(void);
 #endif
+void saveLogic(char *save_dir);
+void save(char* wtf, char *save_file_dir);
+void makeArray(int value, char* wtf);
+void load(char *save_file_dir);
+int slMenu();
 
 typedef struct typing_score {
     int easy;

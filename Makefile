@@ -8,7 +8,8 @@ OBJS=main.o \
 	typing_game.o \
 	init.o \
 	find_way.o \
-	show_vocab.o
+	show_vocab.o \
+	save_load.o
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@

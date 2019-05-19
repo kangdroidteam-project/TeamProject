@@ -1,6 +1,6 @@
 #include "game.h"
 
-void showScore() {
+void showVocab() {
     int success = 0;
     for (int i = 0; i < MAX_WORD; i++) {
         printf("%s\n", word_list[i]);

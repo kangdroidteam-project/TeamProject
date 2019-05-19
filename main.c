@@ -7,7 +7,7 @@ int main(void) {
 
     do {
         menu_ret_value = showMenu();
-    } while (menu_ret_value != 6);
+    } while (menu_ret_value != 7);
 
     // Clear screen before exit!
     clearScreen();
@@ -24,7 +24,8 @@ int showMenu() {
     printf("3. 타임 어텍\n");
     printf("4. 게임별 점수 확인\n");
     printf("5. 게임에 사용된 단어 훑어보기!\n");
-    printf("6. 끝내기\n");
+    printf("6. 저장/불러오기!\n");
+    printf("7. 끝내기\n");
     printf("하고 싶은 메뉴를 선택하세요: ");
     scanf("%d", &user_choice);
 
@@ -66,11 +67,20 @@ int showMenu() {
         return user_choice;
 
         case 5:
+            clearScreen();
             // Check Vocab function
-            showScore();
+            showVocab();
+        return user_choice;
+
+        case 6:
+            do {
+                clearScreen();
+                // Check Vocab function
+                typ_menu_ret = slMenu();
+            } while (typ_menu_ret != 0);
         return user_choice;
         
-        case 6:
+        case 7:
             // END
         return user_choice;
 
