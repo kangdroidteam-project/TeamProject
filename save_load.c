@@ -93,7 +93,9 @@ void makeArray(int value, char* wtf) {
     // Roll back to positive way.
     for (int i = strlen(temp); i >= 0; i--) {
         //printf("COUNTER: %d, I: %d, temp[i]: %d\n", counter, i, temp[i-1]);
-        wtf[wtf_counter] = temp[i-1];
+        if (i != 0) {
+            wtf[wtf_counter] = temp[i-1];
+        }
         wtf_counter++;
     }
 
