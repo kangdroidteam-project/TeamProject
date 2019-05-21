@@ -1,4 +1,4 @@
-CC=gcc-9
+CC=gcc-8
 CFLAGS=-Wall -O3
 TARGET=app.out
 OBJS=main.o \
