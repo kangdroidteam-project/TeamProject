@@ -33,7 +33,6 @@ int showMenu() {
         case 1:
             // Typing practice MENU Function
             do {
-                // Clear screen before we start anything;
                 clearScreen();
                 typ_menu_ret = showTypingMenu();
             } while (typ_menu_ret != 0);
@@ -42,7 +41,6 @@ int showMenu() {
         case 2:
             // Mini game MENU Function
             do {
-                // Clear screen before we start anything;
                 clearScreen();
                 typ_menu_ret = showMiniGameMenu();
             } while (typ_menu_ret != 0);
@@ -51,7 +49,6 @@ int showMenu() {
         case 3:
             // Time Attack MENU Function
             do {
-                // Clear screen before we start anything;
                 clearScreen();
                 typ_menu_ret = showTimeAttackMenu();
             } while (typ_menu_ret != 0);
@@ -60,22 +57,21 @@ int showMenu() {
         case 4:
             // Score - per - Game MENU Function
             do {
-                // Clear screen before we start anything;
                 clearScreen();
                 typ_menu_ret = showMainScoreMenu();
             } while (typ_menu_ret != 0);
         return user_choice;
 
         case 5:
+            // Show Vocab list
             clearScreen();
-            // Check Vocab function
             showVocab();
         return user_choice;
 
         case 6:
+            // Save-Load Menu
             do {
                 clearScreen();
-                // Check Vocab function
                 typ_menu_ret = slMenu();
             } while (typ_menu_ret != 0);
         return user_choice;

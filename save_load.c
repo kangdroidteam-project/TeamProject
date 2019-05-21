@@ -14,14 +14,14 @@ int slMenu() {
 
     switch (user_input_typing) {
         case 1:
-            // GAME STARTS
+            // Input save-load file directory
             while(getchar() != '\n');
             printf("저장파일의 경로를 입력하세요: ");
             fgets(save_file_dir, sizeof(save_file_dir), stdin);
-            //scanf("%s", save_file_dir);
             save_file_dir[strlen(save_file_dir) - 1] = 0;
         return 1;
         case 2:
+            // Save
             if (strlen(save_file_dir) == 0) {
                 printf("1번 메뉴를 통해 파일 경로를 입력해주세요!\n");
                 sleepfor(2);
@@ -32,6 +32,7 @@ int slMenu() {
             }
         return 1;
         case 3:
+            // Load
             if (strlen(save_file_dir) == 0) {
                 printf("1번 메뉴를 통해 파일 경로를 입력해주세요!\n");
                 sleepfor(2);
@@ -52,8 +53,6 @@ int slMenu() {
 
 void saveLogic(char *save_dir) {
     char test[50] = {0};
-
-    //Save logic: Call make array for struct time
 
     // type_score
     makeArray(type_score.easy, test);
@@ -92,20 +91,20 @@ void makeArray(int value, char* wtf) {
 
     // Roll back to positive way.
     for (int i = strlen(temp); i >= 0; i--) {
-        //printf("COUNTER: %d, I: %d, temp[i]: %d\n", counter, i, temp[i-1]);
         if (i != 0) {
             wtf[wtf_counter] = temp[i-1];
         }
         wtf_counter++;
     }
 
-    // Put blan on last bits
+    // Put blank on last bits
     wtf[strlen(wtf)] = ' ';
 }
 
 void save(char* wtf, char *save_file_dir) {
     //int temp_counter = 0, wtf_counter = 0;
     FILE *test_file = fopen(save_file_dir, "w");
+    
     // Trail last bits
     wtf[strlen(wtf) - 1] = 0;
     fputs(wtf, test_file);

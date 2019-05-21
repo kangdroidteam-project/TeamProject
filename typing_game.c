@@ -13,16 +13,16 @@ int showTypingMenu() {
 
     switch (user_input_typing) {
         case 1:
-            // GAME STARTS
+            // Beginner
         return 0;
         case 2:
-            // GAME STARTS
+            // Intermediates
         return 0;
         case 3:
-            // GAME STARTS
+            // Expert
         return 0;
         case 4:
-            // GAME STARTS
+            // Extremely-hard
         return 0;
         case 0:
             // Return to last menu

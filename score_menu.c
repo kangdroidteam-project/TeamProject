@@ -13,6 +13,7 @@ int showMainScoreMenu() {
     clearScreen();
     switch (user_input_typing) {
         case 1:
+            // Typing Score
             printf("1. 초급: %d점\n", type_score.easy);
             printf("2. 중급: %d점\n", type_score.moderate);
             printf("3. 고급: %d점\n", type_score.hard);
@@ -21,7 +22,7 @@ int showMainScoreMenu() {
             scanf("%d", &dummy);
         return 0;
         case 2:
-            // GAME STARTS
+            // Minigame Score
             printf("1. 구구단: %d점\n", mini_score.timecalc);
             printf("2. 길찾기: %d점\n", mini_score.find_road);
             printf("3. 컴퓨터와의 대결: %d점\n", mini_score.fight_computer);
@@ -30,7 +31,7 @@ int showMainScoreMenu() {
             scanf("%d", &dummy);
         return 0;
         case 3:
-            // GAME STARTS
+            // Word Time-Attack Score
             printf("1. 단어 n개: %d점\n", timeat_score.word_n1);
             printf("2. 단어 n개: %d점\n", timeat_score.word_n2);
             printf("3. 단어 n개: %d점\n", timeat_score.word_n3);
