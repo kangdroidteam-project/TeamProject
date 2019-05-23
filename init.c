@@ -17545,7 +17545,7 @@ char mid_word[5461][10] = {
     {"arbor"},
     {"poison"},
 };
-char long_word[2244][10] = {
+char long_word[2244][30] = {
     {"information"},
     {"available"},
     {"copyright"},
