@@ -61,3 +61,6 @@ MINISCORE mini_score;
 TIMEATTSCORE timeat_score;
 
 extern char word_list[9990][30];
+extern char short_word[2185][10];
+extern char mid_word[5461][10];
+extern char long_word[2244][10];
