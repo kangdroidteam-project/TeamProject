@@ -9897,7 +9897,7 @@ char word_list[9990][30] = {
     {"configurations"},
     {"poison"},
 };
-char short_word[2185][10] = {
+char short_word[2185][18] = {
     {"the"},
     {"of"},
     {"and"},
@@ -12083,7 +12083,7 @@ char short_word[2185][10] = {
     {"bent"},
     {"laos"},
 };
-char mid_word[5461][10] = {
+char mid_word[5461][18] = {
     {"about"},
     {"search"},
     {"other"},
@@ -17545,7 +17545,7 @@ char mid_word[5461][10] = {
     {"arbor"},
     {"poison"},
 };
-char long_word[2244][30] = {
+char long_word[2244][18] = {
     {"information"},
     {"available"},
     {"copyright"},

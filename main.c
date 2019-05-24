@@ -64,8 +64,10 @@ int showMenu() {
 
         case 5:
             // Show Vocab list
-            clearScreen();
-            showVocab();
+            do {
+                clearScreen();
+                typ_menu_ret = showVocabMenu();
+            } while (typ_menu_ret != 0);
         return user_choice;
 
         case 6:
