@@ -46,33 +46,35 @@ void showVocab(char list_word[][18], int max_word_end) {
     int success = 0, ch = 0;
     for (int i = 0; i < max_word_end; i++) {
         printf("%s\n", list_word[i]);
-        if (i != 0) {
-            if (i % 20 == 0) {
-                printf("윗 방향키로 이전 페이지로, 아래 방향키로 다음 페이지로 이동하거나, 왼쪽/오른쪽 키로 이 메뉴를 종료합니다.");
-                success = 0;
-                while (success == 0) {
-                    ch = _getch();
-					if (ch == 224) {
-						ch = _getch();
-						switch (ch) {
-						case 72:
-							i = (i <= 40) ? 0 : i - 40;
-							success = 1;
-							break;
-						case 80:
-							success = 1;
-							break;
-						case 75: case 77:
-							i = max_word_end + 2;
-							success = 1;
-							break;
-						default:
-							success = 0;
-						}
+        if (i == max_word_end - 1) {
+            printf("이게 다입니다! 메뉴로 돌아갑니다..\n");
+            sleepfor(2);
+        }
+        if ((i != 0) && (i % 20 == 0)) {
+            printf("윗 방향키로 이전 페이지로, 아래 방향키로 다음 페이지로 이동하거나, 왼쪽/오른쪽 키로 이 메뉴를 종료합니다.");
+            success = 0;
+            while (success == 0) {
+                ch = _getch();
+				if (ch == 224) {
+					ch = _getch();
+					switch (ch) {
+					case 72:
+						i = (i <= 40) ? 0 : i - 40;
+						success = 1;
+						break;
+					case 80:
+						success = 1;
+						break;
+					case 75: case 77:
+						i = max_word_end + 2;
+						success = 1;
+						break;
+					default:
+						success = 0;
 					}
-                }
-                clearScreen();
+				}
             }
+            clearScreen();
         }
     }
 }
