@@ -3,11 +3,11 @@
 int showTimeAttackMenu() {
     int user_input_typing;
 
-    printf("1. ë‹¨ì–´ nê°œ\n");
-    printf("2. ë‹¨ì–´ nê°œ\n");
-    printf("3. ë‹¨ì–´ nê°œ\n");
-    printf("0. ì „ ë©”ë‰´ë¡œ ëŒì•„ê°€ê¸°\n");
-    printf("ì›í•˜ëŠ” ë‹¨ê³„ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”! ");
+    printf("1. ´Ü¾î n°³\n");
+    printf("2. ´Ü¾î n°³\n");
+    printf("3. ´Ü¾î n°³\n");
+    printf("0. Àü ¸Ş´º·Î µ¹¾Æ°¡±â\n");
+    printf("¿øÇÏ´Â ´Ü°è¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä! ");
     scanf("%d", &user_input_typing);
 
     switch (user_input_typing) {

@@ -10,7 +10,7 @@ void mini_maze() {
 
     clearScreen();
 
-    printf("ë¯¸ë¡œíŒì˜ í¬ê¸°ë¥¼ ì…ë ¥í•˜ì„¸ìš”.(n * n í˜•ì‹, n - ì •ìˆ˜ë§Œ ì…ë ¥)  ");
+    printf("¹Ì·ÎÆÇÀÇ Å©±â¸¦ ÀÔ·ÂÇÏ¼¼¿ä.(n * n Çü½Ä, n - Á¤¼ö¸¸ ÀÔ·Â)  ");
     scanf("%d", &how_many_col);
     while (getchar() != '\n');
 
@@ -35,9 +35,9 @@ void mini_maze() {
             random_number[i] = rand() % MAX_WORD;
         }
 
-        printf("ì–´ë–¤ ë°©í–¥ìœ¼ë¡œ ê°ˆë˜?\n");
-        printf("\"%s\" ì„ ì…ë ¥í•˜ë©´ ìœ„ë¡œ í•œì¹¸, \"%s\" ì„ ì…ë ¥í•˜ë©´ ì•„ë˜ë¡œ í•œì¹¸, \"%s\" ì„ ì…ë ¥í•˜ë©´ ì˜¤ë¥¸ìª½ìœ¼ë¡œ í•œì¹¸, \"%s\" ì„ ì…ë ¥í•˜ë©´ ì™¼ìª½ìœ¼ë¡œ í•œì¹¸, exitì„ ì…ë ¥í•˜ë©´ ì €ì¥í•˜ì§€ ì•Šê³  ê²Œì„ ë‚˜ê°€ê¸°.\n", word_list[random_number[0]], word_list[random_number[1]], word_list[random_number[2]], word_list[random_number[3]]);
-        printf("ëª©ì ì§€ ê¹Œì§€ëŠ” xë°©í–¥ìœ¼ë¡œëŠ” %dë§Œí¼, yë°©í–¥ìœ¼ë¡œëŠ” %dë§Œí¼ ë‚¨ì•˜ì–´!\n", (how_many_col - 1) - x, (how_many_col - 1) - y);
+        printf("¾î¶² ¹æÇâÀ¸·Î °¥·¡?\n");
+        printf("\"%s\" À» ÀÔ·ÂÇÏ¸é À§·Î ÇÑÄ­, \"%s\" À» ÀÔ·ÂÇÏ¸é ¾Æ·¡·Î ÇÑÄ­, \"%s\" À» ÀÔ·ÂÇÏ¸é ¿À¸¥ÂÊÀ¸·Î ÇÑÄ­, \"%s\" À» ÀÔ·ÂÇÏ¸é ¿ŞÂÊÀ¸·Î ÇÑÄ­, exitÀ» ÀÔ·ÂÇÏ¸é ÀúÀåÇÏÁö ¾Ê°í °ÔÀÓ ³ª°¡±â.\n", word_list[random_number[0]], word_list[random_number[1]], word_list[random_number[2]], word_list[random_number[3]]);
+        printf("¸ñÀûÁö ±îÁö´Â x¹æÇâÀ¸·Î´Â %d¸¸Å­, y¹æÇâÀ¸·Î´Â %d¸¸Å­ ³²¾Ò¾î!\n", (how_many_col - 1) - x, (how_many_col - 1) - y);
         
         fgets(user_input, sizeof(user_input), stdin);
         user_input[strlen(user_input) - 1] = 0;
@@ -55,7 +55,7 @@ void mini_maze() {
         }
         
         if (array_pointer[how_many_col-1][how_many_col-1] == 5) {
-            printf("ì¶•í•˜ë“œë¦½ë‹ˆë‹¤! ëª©ì ì§€ì— ë„ì°©í•˜ì…¨ì–´ìš”!!!\n");
+            printf("ÃàÇÏµå¸³´Ï´Ù! ¸ñÀûÁö¿¡ µµÂøÇÏ¼Ì¾î¿ä!!!\n");
             sleepfor(3);
         }
     }
@@ -71,10 +71,10 @@ void moveLogic(int** input_array, int what, int col_count, int* x, int* y) {
     switch (what) {
         case 1: //up
             if (*y == 0) {
-                printf("ì´ë¯¸ ë§¨ ê¼­ëŒ€ê¸°ì— ìˆì–´ì„œ ë”ì´ìƒ ì˜¬ë¼ê°€ì§ˆ ëª»í•©ë‹ˆë‹¤.\n");
+                printf("ÀÌ¹Ì ¸Ç ²À´ë±â¿¡ ÀÖ¾î¼­ ´õÀÌ»ó ¿Ã¶ó°¡Áú ¸øÇÕ´Ï´Ù.\n");
                 sleepfor(SLEEP_SECOND);
             } else {
-                printf("ìœ„ë¡œ ê°‘ë‹ˆë‹¤~!\n");
+                printf("À§·Î °©´Ï´Ù~!\n");
                 input_array[*y][*x] = 0;
                 (*y)--;
                 input_array[*y][*x] = 5;
@@ -83,10 +83,10 @@ void moveLogic(int** input_array, int what, int col_count, int* x, int* y) {
             break;
         case 2: //down
             if (*y == col_count- 1) {
-                printf("ì´ë¯¸ ë§¨ ì•„ë˜ì— ìˆì–´ì„œ ë”ì´ìƒ ë‚´ë ¤ê°€ì§ˆ ëª»í•©ë‹ˆë‹¤.\n");
+                printf("ÀÌ¹Ì ¸Ç ¾Æ·¡¿¡ ÀÖ¾î¼­ ´õÀÌ»ó ³»·Á°¡Áú ¸øÇÕ´Ï´Ù.\n");
                 sleepfor(SLEEP_SECOND);
             } else {
-                printf("ì•„ë˜ë¡œ ê°‘ë‹ˆë‹¤~!\n");
+                printf("¾Æ·¡·Î °©´Ï´Ù~!\n");
                 input_array[*y][*x] = 0;
                 (*y)++;
                 input_array[*y][*x] = 5;
@@ -95,10 +95,10 @@ void moveLogic(int** input_array, int what, int col_count, int* x, int* y) {
             break;
         case 3: //right
             if (*x == col_count- 1) {
-                printf("ì´ë¯¸ ë§¨ ì˜¤ë¥¸ìª½ì— ìˆì–´ì„œ ë”ì´ìƒ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°€ì§€ ëª»í•©ë‹ˆë‹¤.\n");
+                printf("ÀÌ¹Ì ¸Ç ¿À¸¥ÂÊ¿¡ ÀÖ¾î¼­ ´õÀÌ»ó ¿À¸¥ÂÊÀ¸·Î °¡Áö ¸øÇÕ´Ï´Ù.\n");
                 sleepfor(SLEEP_SECOND);
             } else {
-                printf("ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°‘ë‹ˆë‹¤~!\n");
+                printf("¿À¸¥ÂÊÀ¸·Î °©´Ï´Ù~!\n");
                 input_array[*y][*x] = 0;
                 (*x)++;
                 input_array[*y][*x] = 5;
@@ -107,10 +107,10 @@ void moveLogic(int** input_array, int what, int col_count, int* x, int* y) {
             break;
         case 4: //left
             if (*x == 0) {
-                printf("ì´ë¯¸ ë§¨ ì™¼ìª½ì— ìˆì–´ì„œ ë”ì´ìƒ ì™¼ìª½ìœ¼ë¡œ ê°€ì§€ ëª»í•©ë‹ˆë‹¤.\n");
+                printf("ÀÌ¹Ì ¸Ç ¿ŞÂÊ¿¡ ÀÖ¾î¼­ ´õÀÌ»ó ¿ŞÂÊÀ¸·Î °¡Áö ¸øÇÕ´Ï´Ù.\n");
                 sleepfor(SLEEP_SECOND);
             } else {
-                printf("ì™¼ìª½ìœ¼ë¡œ ê°‘ë‹ˆë‹¤~!\n");
+                printf("¿ŞÂÊÀ¸·Î °©´Ï´Ù~!\n");
                 input_array[*y][*x] = 0;
                 (*x)--;
                 input_array[*y][*x] = 5;

@@ -19,14 +19,14 @@ int showMenu() {
 
     // Clear screen before we start anything;
     clearScreen();
-    printf("1. íƒ€ì ì—°ìŠµ\n");
-    printf("2. ë¯¸ë‹ˆê²Œì„\n");
-    printf("3. íƒ€ì„ ì–´í…\n");
-    printf("4. ê²Œì„ë³„ ì ìˆ˜ í™•ì¸\n");
-    printf("5. ê²Œì„ì— ì‚¬ìš©ëœ ë‹¨ì–´ í›‘ì–´ë³´ê¸°!\n");
-    printf("6. ì €ì¥/ë¶ˆëŸ¬ì˜¤ê¸°!\n");
-    printf("7. ëë‚´ê¸°\n");
-    printf("í•˜ê³  ì‹¶ì€ ë©”ë‰´ë¥¼ ì„ íƒí•˜ì„¸ìš”: ");
+    printf("1. Å¸ÀÚ ¿¬½À\n");
+    printf("2. ¹Ì´Ï°ÔÀÓ\n");
+    printf("3. Å¸ÀÓ ¾îÅØ\n");
+    printf("4. °ÔÀÓº° Á¡¼ö È®ÀÎ\n");
+    printf("5. °ÔÀÓ¿¡ »ç¿ëµÈ ´Ü¾î ÈÈ¾îº¸±â!\n");
+    printf("6. ÀúÀå/ºÒ·¯¿À±â!\n");
+    printf("7. ³¡³»±â\n");
+    printf("ÇÏ°í ½ÍÀº ¸Ş´º¸¦ ¼±ÅÃÇÏ¼¼¿ä: ");
     scanf("%d", &user_choice);
 
     switch (user_choice) {

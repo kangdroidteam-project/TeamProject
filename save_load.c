@@ -2,43 +2,43 @@
 
 int slMenu() {
     int user_input_typing;
-    static char save_file_dir[100] = {0}, info_file[] = "í˜„ì¬ íŒŒì¼ ê²½ë¡œ: %s\n";
+    static char save_file_dir[100] = {0}, info_file[] = "ÇöÀç ÆÄÀÏ °æ·Î: %s\n";
 
-    printf("1. ì €ì¥íŒŒì¼ ê²½ë¡œ ì…ë ¥.\n");
-    printf("2. ê²½ë¡œì— ì €ì¥í•˜ê¸°!\n");
-    printf("3. ê²½ë¡œì—ì„œ ë¶ˆëŸ¬ì˜¤ê¸°!\n");
-    printf("0. ì „ ë©”ë‰´ë¡œ ëŒì•„ê°€ê¸°\n");
+    printf("1. ÀúÀåÆÄÀÏ °æ·Î ÀÔ·Â.\n");
+    printf("2. °æ·Î¿¡ ÀúÀåÇÏ±â!\n");
+    printf("3. °æ·Î¿¡¼­ ºÒ·¯¿À±â!\n");
+    printf("0. Àü ¸Ş´º·Î µ¹¾Æ°¡±â\n");
     printf(info_file, save_file_dir);
-    printf("ì›í•˜ëŠ” ë‹¨ê³„ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”! ");
+    printf("¿øÇÏ´Â ´Ü°è¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä! ");
     scanf("%d", &user_input_typing);
 
     switch (user_input_typing) {
         case 1:
             // Input save-load file directory
             while(getchar() != '\n');
-            printf("ì €ì¥íŒŒì¼ì˜ ê²½ë¡œë¥¼ ì…ë ¥í•˜ì„¸ìš”: ");
+            printf("ÀúÀåÆÄÀÏÀÇ °æ·Î¸¦ ÀÔ·ÂÇÏ¼¼¿ä: ");
             fgets(save_file_dir, sizeof(save_file_dir), stdin);
             save_file_dir[strlen(save_file_dir) - 1] = 0;
         return 1;
         case 2:
             // Save
             if (strlen(save_file_dir) == 0) {
-                printf("1ë²ˆ ë©”ë‰´ë¥¼ í†µí•´ íŒŒì¼ ê²½ë¡œë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”!\n");
+                printf("1¹ø ¸Ş´º¸¦ ÅëÇØ ÆÄÀÏ °æ·Î¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä!\n");
                 sleepfor(2);
             } else {
                 saveLogic(save_file_dir);
-                printf("íŒŒì¼ ì €ì¥ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤!\n");
+                printf("ÆÄÀÏ ÀúÀåÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù!\n");
                 sleepfor(2);
             }
         return 1;
         case 3:
             // Load
             if (strlen(save_file_dir) == 0) {
-                printf("1ë²ˆ ë©”ë‰´ë¥¼ í†µí•´ íŒŒì¼ ê²½ë¡œë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”!\n");
+                printf("1¹ø ¸Ş´º¸¦ ÅëÇØ ÆÄÀÏ °æ·Î¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä!\n");
                 sleepfor(2);
             } else {
                 load(save_file_dir);
-                printf("ë¡œë”©ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤!\n");
+                printf("·ÎµùÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù!\n");
                 sleepfor(2);
             }
         return 0;

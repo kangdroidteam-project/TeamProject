@@ -3,12 +3,12 @@
 int showMiniGameMenu() {
     int user_input_typing;
 
-    printf("1. êµ¬êµ¬ë‹¨\n");
-    printf("2. ê¸¸ì°¾ê¸°\n");
-    printf("3. ì»´í“¨í„°ì™€ì˜ ëŒ€ê²°!\n");
-    printf("4. ë‹¨ì–´ ê¸°ì–µë ¥!\n");
-    printf("0. ì „ ë©”ë‰´ë¡œ ëŒì•„ê°€ê¸°\n");
-    printf("ì›í•˜ëŠ” ë‹¨ê³„ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”! ");
+    printf("1. ±¸±¸´Ü\n");
+    printf("2. ±æÃ£±â\n");
+    printf("3. ÄÄÇ»ÅÍ¿ÍÀÇ ´ë°á!\n");
+    printf("4. ´Ü¾î ±â¾ï·Â!\n");
+    printf("0. Àü ¸Ş´º·Î µ¹¾Æ°¡±â\n");
+    printf("¿øÇÏ´Â ´Ü°è¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä! ");
     scanf("%d", &user_input_typing);
 
     switch (user_input_typing) {

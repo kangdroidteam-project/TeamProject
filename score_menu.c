@@ -3,39 +3,39 @@
 int showMainScoreMenu() {
     int user_input_typing, dummy;
 
-    printf("1. íƒ€ì ì—°ìŠµ\n");
-    printf("2. ë¯¸ë‹ˆê²Œì„\n");
-    printf("3. íƒ€ì„ì–´íƒ\n");
-    printf("0. ì „ ë©”ë‰´ë¡œ ëŒì•„ê°€ê¸°\n");
-    printf("ì›í•˜ëŠ” ë‹¨ê³„ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”! ");
+    printf("1. Å¸ÀÚ ¿¬½À\n");
+    printf("2. ¹Ì´Ï°ÔÀÓ\n");
+    printf("3. Å¸ÀÓ¾îÅÃ\n");
+    printf("0. Àü ¸Ş´º·Î µ¹¾Æ°¡±â\n");
+    printf("¿øÇÏ´Â ´Ü°è¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä! ");
     scanf("%d", &user_input_typing);
 
     clearScreen();
     switch (user_input_typing) {
         case 1:
             // Typing Score
-            printf("1. ì´ˆê¸‰: %dì \n", type_score.easy);
-            printf("2. ì¤‘ê¸‰: %dì \n", type_score.moderate);
-            printf("3. ê³ ê¸‰: %dì \n", type_score.hard);
-            printf("4. ìƒê¸‰: %dì \n", type_score.extreme);
-            printf("ì´ì „ ë©”ë‰´ë¡œ ëŒì•„ê°€ë ¤ë©´ 1ì„ ì…ë ¥í•˜ì„¸ìš”. ");
+            printf("1. ÃÊ±Ş: %dÁ¡\n", type_score.easy);
+            printf("2. Áß±Ş: %dÁ¡\n", type_score.moderate);
+            printf("3. °í±Ş: %dÁ¡\n", type_score.hard);
+            printf("4. »ó±Ş: %dÁ¡\n", type_score.extreme);
+            printf("ÀÌÀü ¸Ş´º·Î µ¹¾Æ°¡·Á¸é 1À» ÀÔ·ÂÇÏ¼¼¿ä. ");
             scanf("%d", &dummy);
         return 0;
         case 2:
             // Minigame Score
-            printf("1. êµ¬êµ¬ë‹¨: %dì \n", mini_score.timecalc);
-            printf("2. ê¸¸ì°¾ê¸°: %dì \n", mini_score.find_road);
-            printf("3. ì»´í“¨í„°ì™€ì˜ ëŒ€ê²°: %dì \n", mini_score.fight_computer);
-            printf("4. ë‹¨ì–´ ê¸°ì–µë ¥: %dì \n", mini_score.mem_word);
-            printf("ì´ì „ ë©”ë‰´ë¡œ ëŒì•„ê°€ë ¤ë©´ 1ì„ ì…ë ¥í•˜ì„¸ìš”. ");
+            printf("1. ±¸±¸´Ü: %dÁ¡\n", mini_score.timecalc);
+            printf("2. ±æÃ£±â: %dÁ¡\n", mini_score.find_road);
+            printf("3. ÄÄÇ»ÅÍ¿ÍÀÇ ´ë°á: %dÁ¡\n", mini_score.fight_computer);
+            printf("4. ´Ü¾î ±â¾ï·Â: %dÁ¡\n", mini_score.mem_word);
+            printf("ÀÌÀü ¸Ş´º·Î µ¹¾Æ°¡·Á¸é 1À» ÀÔ·ÂÇÏ¼¼¿ä. ");
             scanf("%d", &dummy);
         return 0;
         case 3:
             // Word Time-Attack Score
-            printf("1. ë‹¨ì–´ nê°œ: %dì \n", timeat_score.word_n1);
-            printf("2. ë‹¨ì–´ nê°œ: %dì \n", timeat_score.word_n2);
-            printf("3. ë‹¨ì–´ nê°œ: %dì \n", timeat_score.word_n3);
-            printf("ì´ì „ ë©”ë‰´ë¡œ ëŒì•„ê°€ë ¤ë©´ 1ì„ ì…ë ¥í•˜ì„¸ìš”. ");
+            printf("1. ´Ü¾î n°³: %dÁ¡\n", timeat_score.word_n1);
+            printf("2. ´Ü¾î n°³: %dÁ¡\n", timeat_score.word_n2);
+            printf("3. ´Ü¾î n°³: %dÁ¡\n", timeat_score.word_n3);
+            printf("ÀÌÀü ¸Ş´º·Î µ¹¾Æ°¡·Á¸é 1À» ÀÔ·ÂÇÏ¼¼¿ä. ");
             scanf("%d", &dummy);
         return 0;
         case 0:

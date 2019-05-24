@@ -3,12 +3,12 @@
 int showTypingMenu() {
     int user_input_typing;
 
-    printf("1. ì´ˆê¸‰\n");
-    printf("2. ì¤‘ê¸‰\n");
-    printf("3. ê³ ê¸‰\n");
-    printf("4. ìµœìƒê¸‰\n");
-    printf("0. ì „ ë©”ë‰´ë¡œ ëŒì•„ê°€ê¸°\n");
-    printf("ì›í•˜ëŠ” ë‹¨ê³„ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”! ");
+    printf("1. ÃÊ±Ş\n");
+    printf("2. Áß±Ş\n");
+    printf("3. °í±Ş\n");
+    printf("4. ÃÖ»ó±Ş\n");
+    printf("0. Àü ¸Ş´º·Î µ¹¾Æ°¡±â\n");
+    printf("¿øÇÏ´Â ´Ü°è¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä! ");
     scanf("%d", &user_input_typing);
 
     switch (user_input_typing) {
