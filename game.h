@@ -38,6 +38,9 @@ void makeArray(int value, char* wtf);
 void load(char *save_file_dir);
 int slMenu();
 void fight_computer();
+void show_rule();
+void set_difficulty(struct difficulty_var *diff_var);
+void start_game(struct difficulty_var *diff_var);
 
 typedef struct typing_score {
     int easy;
