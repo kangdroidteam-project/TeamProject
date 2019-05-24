@@ -13,9 +13,9 @@
 
 #define SLEEP_SECOND 2
 #define MAX_WORD 9896
-#define MAX_WORD_SHORT 2185
-#define MAX_WORD_MID 5461
-#define MAX_WORD_HD 2244
+#define MAX_WORD_SHORT 2184
+#define MAX_WORD_MID 5460
+#define MAX_WORD_HD 2243
 
 int showMenu();
 int showTypingMenu();
@@ -64,6 +64,6 @@ MINISCORE mini_score;
 TIMEATTSCORE timeat_score;
 
 extern char word_list[9990][30];
-extern char short_word[2185][18];
-extern char mid_word[5461][18];
-extern char long_word[2244][18];
+extern char short_word[MAX_WORD_SHORT][18];
+extern char mid_word[MAX_WORD_MID][18];
+extern char long_word[MAX_WORD_HD][18];
