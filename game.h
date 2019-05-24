@@ -22,6 +22,7 @@ int showTypingMenu();
 int showMiniGameMenu();
 int showTimeAttackMenu();
 int showMainScoreMenu();
+int showVocabMenu();
 void printArray(int** input_array, int col_count);
 void resetArray(int** input_array, int col_count);
 void moveLogic(int** input_array, int what, int col_count, int* x, int* y);
@@ -30,9 +31,6 @@ void clearScreen();
 void showVocab(char list_word[][18], int max_word_end);
 void mini_maze();
 int getInput();
-#if defined(__APPLE__) || defined(__linux__) || defined(__unix__) || defined(__unix) || defined(unix)
-int _getch(void);
-#endif
 void saveLogic(char *save_dir);
 void save(char* wtf, char *save_file_dir);
 void makeArray(int value, char* wtf);
