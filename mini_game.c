@@ -21,6 +21,7 @@ int showMiniGameMenu() {
         return 0;
         case 3:
             // GAME STARTS
+			fight_computer();
         return 0;
         case 4:
             // GAME STARTS

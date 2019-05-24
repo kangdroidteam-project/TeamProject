@@ -17,6 +17,7 @@
 #define MAX_WORD_MID 5460
 #define MAX_WORD_HD 2243
 
+
 int showMenu();
 int showTypingMenu();
 int showMiniGameMenu();
@@ -36,6 +37,7 @@ void save(char* wtf, char *save_file_dir);
 void makeArray(int value, char* wtf);
 void load(char *save_file_dir);
 int slMenu();
+void fight_computer();
 
 typedef struct typing_score {
     int easy;
