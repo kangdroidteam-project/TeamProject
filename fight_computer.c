@@ -8,8 +8,7 @@ struct difficulty_var {
 	int difficult_lock;
 };
 
-void fight_computer()
-{
+void fight_computer() {
 	int input_user_menu, exit_sig = 0;
 	struct difficulty_var diff_var = { 0, 0, 0, 0, 0};
 
@@ -19,8 +18,7 @@ void fight_computer()
 
 	printf("컴퓨터와 대결하기 게임을 시작합니다.\n");
 
-	do
-	{
+	do {
 		printf("시작 : start, 규칙 : rule, 난이도 설정 : difficulty, 나가기 : quit\n");	// 메뉴
 		printf("1. 시작\n");
 		printf("2. 규칙\n");
@@ -80,8 +78,7 @@ void set_difficulty(struct difficulty_var *diff_var) {
 	printf("---------------------------------------------\n");
 	printf("normal 은 1을, hard는 2를 선택하세요!\n");
 	printf("---------------------------------------------\n");
-	do                            // 3점 획득해야 어려움 설정 가능
-	{
+	do { // 3점 획득해야 어려움 설정 가능
 		printf("해당하는 난이도 번호를 입력하세요: ");
 		scanf("%d", &user_difficult);
 		while (getchar() != '\n');
@@ -97,8 +94,7 @@ void set_difficulty(struct difficulty_var *diff_var) {
 			if (diff_var -> difficult_lock < 3) {
 				printf("어려움 난이도는 보통 난이도에서 3점 이상 획득하셔야 선택할 수 있습니다.\n");
 				break;
-			}
-			else {
+			} else {
 				diff_var -> sleep_time = 3000;
 				diff_var -> game_duration = 30;
 				diff_var -> time_attack = 4;
@@ -116,8 +112,7 @@ void start_game(struct difficulty_var *diff_var) {
 	char user_input[30], computer_input[30];
 	int user_power = 0, computer_power = 0, i, n = 0, t1 = 0, t2 = 0, t3 = 0, t4 = 0, rand_number = 0, array[5], judgement, user_burf, computer_burf, burf;
 
-	for (i = 0; i < 3; i++)			// 3초 뒤 시작
-	{
+	for (i = 0; i < 3; i++)	{
 		system("cls");
 		printf("%d...\n", 3 - i);
 		Sleep(1000);
@@ -127,20 +122,17 @@ void start_game(struct difficulty_var *diff_var) {
 	Sleep(1000);
 
 	t3 = time(0);
-	do
-	{
+	do {
 		user_burf = 0;
 		computer_burf = 0;
-		for (i = 0; i < 5; i++)
-		{
+		for (i = 0; i < 5; i++) {
 			array[i] = rand() % MAX_WORD;
 		}
 		printf("%s %s %s %s %s\n", word_list[array[0]], word_list[array[1]], word_list[array[2]], word_list[array[3]], word_list[array[4]]);
 		Sleep(diff_var -> sleep_time);		// 난이도에 따른 시간 동안 5개 단어 출력
 		system("cls");
 		burf = rand() % 6;		// 버프 결정
-		switch (burf)
-		{
+		switch (burf) {
 		case(0):
 		case(1):
 			break;		// 33% 확률로 버프 X
@@ -179,36 +171,31 @@ void start_game(struct difficulty_var *diff_var) {
 		t2 = time(0);
 		user_input[strlen(user_input) - 1] = 0;
 
-		for (i = 0; i < 30; i++)
-		{
-			if (user_input[i] == 0)
-			{
+		for (i = 0; i < 30; i++) {
+			if (user_input[i] == 0) {
 				n = i + user_burf;
 				break;
 			}
 		}
 		judgement = 0;
-		if (t2 - t1 >= diff_var -> time_attack)
-		{
+		if (t2 - t1 >= diff_var -> time_attack) {
 			printf("시간 초과되었습니다.\n");
 			judgement++;
 		}
-		if (!(!strcmp(user_input, word_list[array[0]]) || !strcmp(user_input, word_list[array[1]]) || !strcmp(user_input, word_list[array[2]]) || !strcmp(user_input, word_list[array[3]]) || !strcmp(user_input, word_list[array[4]])))
-		{
+		if (!(!strcmp(user_input, word_list[array[0]]) || !strcmp(user_input, word_list[array[1]]) || !strcmp(user_input, word_list[array[2]]) || !strcmp(user_input, word_list[array[3]]) || !strcmp(user_input, word_list[array[4]]))) {
 			printf("제시된 단어와 같지 않습니다.\n");
 			judgement++;
 		}
-		if (judgement == 0)		// judgement 가 0이상일 경우 공격력 증가하지 않음
+		if (judgement == 0) {	// judgement 가 0이상일 경우 공격력 증가하지 않음
 			user_power += n;
+		}
 
 		rand_number = rand() % MAX_WORD;
 		word_list[rand_number];
 
 
-		for (i = 0; i < 30; i++)
-		{
-			if (word_list[rand_number][i] == 0)
-			{
+		for (i = 0; i < 30; i++) {
+			if (word_list[rand_number][i] == 0) {
 				n = i - (diff_var -> com_penalty) + computer_burf;
 				break;
 			}
@@ -220,20 +207,17 @@ void start_game(struct difficulty_var *diff_var) {
 		t4 = time(0);
 	} while (t4 - t3 < (diff_var -> game_duration));
 	printf("당신의 공격력은 %d 이고 컴퓨터의 공격력은 %d 입니다.\n", user_power, computer_power);		// 입력에 따른 결과 출력
-	if (user_power > computer_power)
-	{
+	if (user_power > computer_power) {
 		printf("압도적인 힘의 차이로 당신이 승리하셨습니다.\n\n");
 		(diff_var -> difficult_lock) += 2;
 		// 전체 스코어 +2점
 	}
-	else if (user_power == computer_power)
-	{
+	else if (user_power == computer_power) {
 		printf("컴퓨터를 무찔렀지만 당신도 이내 쓰러지고 맙니다.\n\n");
 		(diff_var -> difficult_lock)++;
 		// 전체 스코어 +1점
 	}
-	else if (user_power < computer_power)
-	{
+	else if (user_power < computer_power) {
 		printf("쓰러진 당신을 보고 컴퓨터는 기뻐합니다.\n\n");
 		// 전체 스코어 +0점
 	}
