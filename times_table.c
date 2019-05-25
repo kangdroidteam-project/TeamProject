@@ -15,6 +15,7 @@ void times_table() {
 		printf("시작 : 1, 규칙 : 2, 나가기 : 3\n");
 
 		scanf("%d", &input_start);
+		while (getchar() != '\n');
 
 		switch (input_start) {
 		case 1:
