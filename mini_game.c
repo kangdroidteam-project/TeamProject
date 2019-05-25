@@ -14,6 +14,7 @@ int showMiniGameMenu() {
     switch (user_input_typing) {
         case 1:
             // GAME STARTS
+			times_table();
         return 0;
         case 2:
             // GAME STARTS

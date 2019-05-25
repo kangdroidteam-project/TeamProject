@@ -41,6 +41,9 @@ void fight_computer();
 void show_rule();
 void set_difficulty(struct difficulty_var *diff_var);
 void start_game(struct difficulty_var *diff_var);
+void get_the_digit(int, char*, char number_1[][30], char number_2[][30], char number_3[][30], char number_4[][30]);
+void show_question(int*, char number_list[][30]);
+void value_clear(int*count, char answer[], char player_answer[]);
 
 typedef struct typing_score {
     int easy;
