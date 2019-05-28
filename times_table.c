@@ -1,6 +1,4 @@
 #include "game.h"
-
-#define TIME_LIMIT 10
 void start_game_time_table();
 void show_rule_time_table();
 void score_time_table();
@@ -126,7 +124,7 @@ void start_game_time_table() {
 	s_time = time(0);
 
 	while (1) {
-		if (time(0) == s_time + TIME_LIMIT) {
+		if (time(0) == s_time + TIME_LIMIT_TIMES) {
 			system("cls");
 			printf("시간 초과되었습니다.\n");
 			value_clear(&count, answer, player_answer);

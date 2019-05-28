@@ -17,6 +17,7 @@
 #define MAX_WORD_MID 5460
 #define MAX_WORD_HD 2243
 #define TIME_LIMIT 5
+#define TIME_LIMIT_TIMES 10
 
 int showMenu();
 int showTypingMenu();
@@ -31,7 +32,6 @@ void sleepfor(int sec);
 void clearScreen();
 void showVocab(char list_word[][18], int max_word_end);
 void mini_maze();
-int getInput();
 void saveLogic(char *save_dir);
 void save(char* wtf, char *save_file_dir);
 void makeArray(int value, char* wtf);
