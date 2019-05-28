@@ -27,7 +27,7 @@ int showMainScoreMenu() {
         return 0;
         case 2:
             // Minigame Score
-            printf("1. 구구단: %d점\n", mini_score.timecalc);
+            printf("1. 구구단(정답률): %.2lf점\n", ((mini_score.timecalc_try) != 0) ? (double)(mini_score.timecalc_ans) / (mini_score.timecalc_try) * 100 : 0);
             printf("2. 길찾기: %d점\n", mini_score.find_road);
             printf("3. 컴퓨터와의 대결: %d점\n", mini_score.fight_computer);
             printf("4. 단어 기억력: %d점\n", mini_score.mem_word);

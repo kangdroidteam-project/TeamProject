@@ -3,6 +3,9 @@
 #define TIME_LIMIT 10
 void start_game_time_table();
 void show_rule_time_table();
+void score_time_table();
+
+struct minigame_score mini_score;
 
 void times_table() {
 	int input_start, exit_signal = 0;
@@ -12,7 +15,7 @@ void times_table() {
 	printf("구구단 게임을 시작합니다.\n");
 
 	do {
-		printf("시작 : 1, 규칙 : 2, 나가기 : 3\n");
+		printf("시작 : 1, 규칙 : 2, 획득한 점수 보기 : 3, 나가기 : 4\n");
 
 		scanf("%d", &input_start);
 		while (getchar() != '\n');
@@ -25,6 +28,9 @@ void times_table() {
 			show_rule_time_table();
 			break;
 		case 3:
+			score_time_table();
+			break;
+		case 4:
 			exit_signal = 1;
 			break;
 		default:
@@ -42,7 +48,7 @@ void show_question(int*result, char number_list[][30]) { // 문제 출제
 	*result = question_1 * question_2;
 }
 
-void get_the_digit(int calculate, char *answer, char number_1[][30], char number_2[][30], char number_3[][30], char number_4[][30])	{ // 자릿수 구하고 자릿수에 해당하는 영어 입력, answer 구하기
+void get_the_digit(int calculate, char *answer, char number_1[][30], char number_2[][30], char number_3[][30], char number_4[][30]) { // 자릿수 구하고 자릿수에 해당하는 영어 입력, answer 구하기
 	int one_digit = 0, ten_digit = 0, hundred_digit = 0;
 	// if calculate = 16
 	one_digit = calculate % 10; // == 6
@@ -51,7 +57,7 @@ void get_the_digit(int calculate, char *answer, char number_1[][30], char number
 	calculate /= 10;
 	hundred_digit = calculate % 10; // == 0
 
-	if (hundred_digit != 0)	{ // 스페이스 처리로 인해 복잡해짐
+	if (hundred_digit != 0) { // 스페이스 처리로 인해 복잡해짐
 		strcpy(answer, number_4[hundred_digit]);
 		switch (ten_digit) {
 		case 1:
@@ -77,7 +83,7 @@ void get_the_digit(int calculate, char *answer, char number_1[][30], char number
 		if (ten_digit == 1) {
 			strcat(answer, number_3[one_digit]); // one_digit == 6 --> number_3[6] == sixteen;
 		} else {
-			strcat(answer, number_2[ten_digit]); 
+			strcat(answer, number_2[ten_digit]);
 			if (one_digit != 0) {
 				strcat(answer, " "); // Put space because eg: 68 is sixty eight;
 				strcat(answer, number_1[one_digit]); // sixty + eight
@@ -151,6 +157,7 @@ void start_game_time_table() {
 			}
 		}
 		if (count == strlen(answer)) { // 문제의 정답의 길이만큼 입력 시 정답 비교
+			(mini_score.timecalc_try)++;
 			for (int i = 0; i < strlen(answer); i++) {
 				if (player_answer[i] != answer[i]) { // 글자 하나라도 틀리면 flag 0으로 바뀌고 오답 처리
 					flag = 0;
@@ -160,6 +167,7 @@ void start_game_time_table() {
 				}
 			}
 			if (flag == 1) {
+				(mini_score.timecalc_ans)++;
 				system("cls");
 				printf("정답은 %s 입니다.\n", answer);
 				printf("정답입니다.\n");
@@ -174,8 +182,17 @@ void start_game_time_table() {
 			value_clear(&count, answer, player_answer);
 			show_question(&calculate, number_1);
 			get_the_digit(calculate, answer, number_1, number_2, number_3, number_4);
+			score_time_table;
 		}
 	}
+}
+
+void score_time_table() {
+	printf("시도 횟수 : %d\n", (mini_score.timecalc_try));
+	printf("맞춘 횟수 : %d\n", (mini_score.timecalc_ans));
+	printf("정답률 : %lf(%%)\n", ((mini_score.timecalc_try) != 0) ? (double)(mini_score.timecalc_ans) / (mini_score.timecalc_try) * 100 : 0);
+	// 추후 수정
+
 }
 
 void show_rule_time_table() {

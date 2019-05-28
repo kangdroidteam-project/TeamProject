@@ -55,7 +55,8 @@ struct typing_score {
 } TYPSCORE;
 
 struct minigame_score {
-    int timecalc;
+    int timecalc_try;
+	int timecalc_ans;
     int find_road;
     int fight_computer;
 	int fight_computer_lock_info;

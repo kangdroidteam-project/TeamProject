@@ -65,7 +65,8 @@ void saveLogic(char *save_dir) {
     makeArray(type_score.extreme, test);
 
     // mini_score
-    makeArray(mini_score.timecalc, test);
+	makeArray(mini_score.timecalc_try, test);
+    makeArray(mini_score.timecalc_ans, test);
     makeArray(mini_score.find_road, test);
     makeArray(mini_score.fight_computer, test);
 	makeArray(mini_score.fight_computer_lock_info, test);
@@ -144,17 +145,17 @@ void load(char *save_file_dir) {
 	type_score.moderate = score_saved[1];
 	type_score.hard = score_saved[2];
 	type_score.extreme = score_saved[3];
-	mini_score.timecalc = score_saved[4];
-	mini_score.find_road = score_saved[5];
-	mini_score.fight_computer = score_saved[6];
-	mini_score.fight_computer_lock_info = score_saved[7];
-	mini_score.mem_word = score_saved[8];
-	timeat_score.word_n1 = score_saved[9];
+
+	mini_score.timecalc_try = score_saved[4];
+	mini_score.timecalc_ans = score_saved[5];
+	mini_score.find_road = score_saved[6];
+	mini_score.fight_computer = score_saved[7];
+	mini_score.fight_computer_lock_info = score_saved[8];
+	mini_score.mem_word = score_saved[9];
+
 	timeat_score.word_n1 = score_saved[10];
 	timeat_score.word_n1 = score_saved[11];
+	timeat_score.word_n1 = score_saved[12];
 
-    /*for (int i = 0; i < intcounter + 1; i++) {
-        printf("array: %d\n", score_saved[i]);
-    }*/
     fclose(test_file);
 }
