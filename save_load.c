@@ -1,5 +1,8 @@
 #include "game.h"
 
+void scrambleArray(char *arr);
+void restoreArray(char *arr);
+
 struct typing_score type_score;
 struct minigame_score mini_score;
 struct timeattack_score timeat_score;
@@ -77,8 +80,25 @@ void saveLogic(char *save_dir) {
     makeArray(timeat_score.word_n2, test);
     makeArray(timeat_score.word_n3, test);
 
+	//Scramble it before save it.
+	//scrambleArray(test);
+
     //finally, save it
     save(test, save_dir);
+}
+
+void scrambleArray(char *arr) {
+	int a = strlen(arr);
+	for (int i = 0; i < a; i++) {
+		arr[i] = (arr[i] - pow(i + 1, 2) + i + 1) + 5;
+	}
+}
+
+void restoreArray(char *arr) {
+	int a = strlen(arr);
+	for (int i = 0; i < a; i++) {
+		arr[i] = arr[i] - 5 - 1 - i + pow(i + 1, 2);
+	}
 }
 
 void makeArray(int value, char* wtf) {
