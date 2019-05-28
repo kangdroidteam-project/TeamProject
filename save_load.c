@@ -1,4 +1,5 @@
 #include "game.h"
+#include <math.h>
 
 void scrambleArray(char *arr);
 void restoreArray(char *arr);
@@ -81,9 +82,8 @@ void saveLogic(char *save_dir) {
     makeArray(timeat_score.word_n3, test);
 
 	//Scramble it before save it.
-	//scrambleArray(test);
+	scrambleArray(test);
 
-    //finally, save it
     save(test, save_dir);
 }
 
@@ -132,7 +132,7 @@ void save(char* wtf, char *save_file_dir) {
     FILE *test_file = fopen(save_file_dir, "w");
     
     // Trail last bits
-    wtf[strlen(wtf) - 1] = 0;
+    //wtf[strlen(wtf) - 1] = 0;
     fputs(wtf, test_file);
     fclose(test_file);
 }
@@ -143,6 +143,8 @@ void load(char *save_file_dir) {
     int score_saved[40] = {0,}, counter = 0, res = 0, intcounter = 0;
 
     fgets(test, sizeof(test), test_file);
+	restoreArray(test);
+	test[strlen(test) - 1] = 0;
 
     while (counter != strlen(test)) {
         if (test[counter] == ' ') {
