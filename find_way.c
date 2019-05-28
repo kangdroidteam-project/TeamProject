@@ -1,8 +1,11 @@
 #include "game.h"
 
+struct minigame_score mini_score;
+
 void mini_maze() {
     int how_many_col, x = 0, y = 0;
     int random_number[5] = {0,};
+	int dest_x, dest_y, time_start, time_end, hint_count = 0;
     int** array_pointer = NULL;
     char user_input[50];
 
@@ -13,6 +16,8 @@ void mini_maze() {
     printf("미로판의 크기를 입력하세요.(n * n 형식, n - 정수만 입력)  ");
     scanf("%d", &how_many_col);
     while (getchar() != '\n');
+	dest_x = rand() % (how_many_col - 1) + 1;
+	dest_y = rand() % (how_many_col - 1) + 1;
 
     clearScreen();
 
@@ -28,7 +33,11 @@ void mini_maze() {
     // First location = 0, 0, 5 is the where game character located in.
     array_pointer[0][0] = 5;
 
-    while (strcmp("exit", user_input) && array_pointer[how_many_col-1][how_many_col-1] != 5) {
+	// And Destination needs to be highlighted as 7
+
+	time_start = time(0);
+
+    while (strcmp("exit", user_input) && array_pointer[dest_y][dest_x] != 5) {
         printArray(array_pointer, how_many_col);
         // Put random numbers to int array
         for (int i = 0; i < 5; i++) {
@@ -36,8 +45,7 @@ void mini_maze() {
         }
 
         printf("어떤 방향으로 갈래?\n");
-        printf("\"%s\" 을 입력하면 위로 한칸, \"%s\" 을 입력하면 아래로 한칸, \"%s\" 을 입력하면 오른쪽으로 한칸, \"%s\" 을 입력하면 왼쪽으로 한칸, exit을 입력하면 저장하지 않고 게임 나가기.\n", word_list[random_number[0]], word_list[random_number[1]], word_list[random_number[2]], word_list[random_number[3]]);
-        printf("목적지 까지는 x방향으로는 %d만큼, y방향으로는 %d만큼 남았어!\n", (how_many_col - 1) - x, (how_many_col - 1) - y);
+        printf("\"%s\" 을 입력하면 위로 한칸, \"%s\" 을 입력하면 아래로 한칸, \"%s\" 을 입력하면 오른쪽으로 한칸, \"%s\" 을 입력하면 왼쪽으로 한칸, exit을 입력하면 저장하지 않고 게임 나가기.\nhint를 입력해 점수 차감 후 힌트 얻기\n", word_list[random_number[0]], word_list[random_number[1]], word_list[random_number[2]], word_list[random_number[3]]);
         
         fgets(user_input, sizeof(user_input), stdin);
         user_input[strlen(user_input) - 1] = 0;
@@ -48,14 +56,28 @@ void mini_maze() {
             moveLogic(array_pointer, 2, how_many_col, &x, &y);
         } else if (!strcmp(word_list[random_number[2]], user_input)) {
             moveLogic(array_pointer, 3, how_many_col, &x, &y);
-        } else if (!strcmp(word_list[random_number[3]], user_input)) {
-            moveLogic(array_pointer, 4, how_many_col, &x, &y);
+		}
+		else if (!strcmp(word_list[random_number[3]], user_input)) {
+			moveLogic(array_pointer, 4, how_many_col, &x, &y);
+		} else if (!strcmp("hint", user_input)) {
+			if (rand() % 2) {
+				printf("목적지 까지는 x방향으로는 %d만큼, y방향으로는 글쎄?\n", (dest_x)-x);
+			} else {
+				printf("목적지 까지는 y방향으로는 %d만큼 x방향으로는 글쎄?\n", (dest_y)-y);
+			}
+			hint_count++;
+			clearScreen();
         } else {
             clearScreen();
         }
+
+		time_end = time(0);
         
-        if (array_pointer[how_many_col-1][how_many_col-1] == 5) {
+        if (array_pointer[dest_y][dest_x] == 5) {
+			mini_score.find_road = ((time_end - time_start) - (hint_count * 10)) / how_many_col;
             printf("축하드립니다! 목적지에 도착하셨어요!!!\n");
+			printf("소요된 시간은 총 %d분, %d초\n", (time_end - time_start)/60, (time_end - time_start) % 60);
+			printf("총 점수는 %d 입니다.\n", mini_score.find_road);
             sleepfor(3);
         }
     }
