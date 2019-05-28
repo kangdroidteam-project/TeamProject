@@ -1,29 +1,33 @@
 #include "game.h"	
 
+void now_total_score(struct difficulty_var *diff_var);
+
 struct difficulty_var {
 	int sleep_time;
 	int game_duration;
 	int time_attack;
 	int com_penalty;
 	int difficult_lock;
+	int game_score;
 };
+
+struct minigame_score mini_score;
 
 void fight_computer() {
 	int input_user_menu, exit_sig = 0;
-	struct difficulty_var diff_var = { 0, 0, 0, 0, 0};
-
 	srand(time(NULL));
+	static struct difficulty_var diff_var = { 0, 0, 0, 0, 0, 0 };
 
 	system("cls");
 
 	printf("컴퓨터와 대결하기 게임을 시작합니다.\n");
 
 	do {
-		printf("시작 : start, 규칙 : rule, 난이도 설정 : difficulty, 나가기 : quit\n");	// 메뉴
-		printf("1. 시작\n");
+		printf("1. 시작\n");				// 메뉴
 		printf("2. 규칙\n");
 		printf("3. 난이도 설정\n");
-		printf("4. 나가기\n");
+		printf("4. 획득한 점수 보기\n");
+		printf("5. 나가기\n");
 		scanf("%d", &input_user_menu);
 		while (getchar() != '\n');
 
@@ -44,7 +48,10 @@ void fight_computer() {
 		case 3:
 			set_difficulty(&diff_var);
 			break;
-		case 4: // exit
+		case 4:
+			now_total_score(&diff_var);
+			break;
+		case 5: // exit
 			exit_sig = 1;
 			break;
 		default:
@@ -84,21 +91,22 @@ void set_difficulty(struct difficulty_var *diff_var) {
 		while (getchar() != '\n');
 		switch (user_difficult) {
 		case 1: //normal
-			diff_var -> sleep_time = 7000;
-			diff_var -> game_duration = 50;
-			diff_var -> time_attack = 7;
-			diff_var -> com_penalty = 3;
+			diff_var->sleep_time = 7000;
+			diff_var->game_duration = 50;
+			diff_var->time_attack = 7;
+			diff_var->com_penalty = 3;
 			exit_sig_dif = 1;
 			break;
 		case 2: //Hard
-			if (diff_var -> difficult_lock < 3) {
+			if (diff_var->difficult_lock < 3) {
 				printf("어려움 난이도는 보통 난이도에서 3점 이상 획득하셔야 선택할 수 있습니다.\n");
 				break;
-			} else {
-				diff_var -> sleep_time = 3000;
-				diff_var -> game_duration = 30;
-				diff_var -> time_attack = 4;
-				diff_var -> com_penalty = 1;
+			}
+			else {
+				diff_var->sleep_time = 3000;
+				diff_var->game_duration = 30;
+				diff_var->time_attack = 4;
+				diff_var->com_penalty = 1;
 				exit_sig_dif = 1;
 				break;
 			}
@@ -112,7 +120,7 @@ void start_game(struct difficulty_var *diff_var) {
 	char user_input[30], computer_input[30];
 	int user_power = 0, computer_power = 0, i, n = 0, t1 = 0, t2 = 0, t3 = 0, t4 = 0, rand_number = 0, array[5], judgement, user_burf, computer_burf, burf;
 
-	for (i = 0; i < 3; i++)	{
+	for (i = 0; i < 3; i++) {
 		system("cls");
 		printf("%d...\n", 3 - i);
 		Sleep(1000);
@@ -129,7 +137,7 @@ void start_game(struct difficulty_var *diff_var) {
 			array[i] = rand() % MAX_WORD;
 		}
 		printf("%s %s %s %s %s\n", word_list[array[0]], word_list[array[1]], word_list[array[2]], word_list[array[3]], word_list[array[4]]);
-		Sleep(diff_var -> sleep_time);		// 난이도에 따른 시간 동안 5개 단어 출력
+		Sleep(diff_var->sleep_time);		// 난이도에 따른 시간 동안 5개 단어 출력
 		system("cls");
 		burf = rand() % 6;		// 버프 결정
 		switch (burf) {
@@ -178,7 +186,7 @@ void start_game(struct difficulty_var *diff_var) {
 			}
 		}
 		judgement = 0;
-		if (t2 - t1 >= diff_var -> time_attack) {
+		if (t2 - t1 >= diff_var->time_attack) {
 			printf("시간 초과되었습니다.\n");
 			judgement++;
 		}
@@ -196,7 +204,7 @@ void start_game(struct difficulty_var *diff_var) {
 
 		for (i = 0; i < 30; i++) {
 			if (word_list[rand_number][i] == 0) {
-				n = i - (diff_var -> com_penalty) + computer_burf;
+				n = i - (diff_var->com_penalty) + computer_burf;
 				break;
 			}
 		}
@@ -205,20 +213,47 @@ void start_game(struct difficulty_var *diff_var) {
 		printf("사용자가 %s 를 입력하여 공격력이 %d 가 되었습니다.\n", user_input, user_power);
 		printf("컴퓨터가 %s 를 입력하여 공격력이 %d 가 되었습니다.\n\n", word_list[rand_number], computer_power);
 		t4 = time(0);
-	} while (t4 - t3 < (diff_var -> game_duration));
+	} while (t4 - t3 < (diff_var->game_duration));
 	printf("당신의 공격력은 %d 이고 컴퓨터의 공격력은 %d 입니다.\n", user_power, computer_power);		// 입력에 따른 결과 출력
 	if (user_power > computer_power) {
 		printf("압도적인 힘의 차이로 당신이 승리하셨습니다.\n\n");
-		(diff_var -> difficult_lock) += 2;
-		// 전체 스코어 +2점
+		(diff_var->difficult_lock) += 2;
+		if (diff_var->sleep_time == 7000) // 난이도 따른 점수 획득 차별화
+			(diff_var->game_score) += 2;
+		else
+			(diff_var->game_score) += 3;
 	}
 	else if (user_power == computer_power) {
 		printf("컴퓨터를 무찔렀지만 당신도 이내 쓰러지고 맙니다.\n\n");
-		(diff_var -> difficult_lock)++;
-		// 전체 스코어 +1점
+		(diff_var->difficult_lock)++;
+		if (diff_var->sleep_time == 3000)
+			(diff_var->game_score) -= 1;
 	}
 	else if (user_power < computer_power) {
 		printf("쓰러진 당신을 보고 컴퓨터는 기뻐합니다.\n\n");
-		// 전체 스코어 +0점
+		if (diff_var->sleep_time == 7000)
+			(diff_var->game_score) -= 3;
+		else
+			(diff_var->game_score) -= 5;
 	}
+
+	//Save RIGHT NOW
+	mini_score.fight_computer = diff_var->game_score;
+	mini_score.fight_computer_lock_info = diff_var->difficult_lock;
+	//printf("%d\n%d\n", mini_score.fight_computer, mini_score.fight_computer_lock_info);
+}
+
+void now_total_score(struct difficulty_var *diff_var) {
+	printf("현재 스코어 : %d\n", diff_var->game_score);
+	printf("현재 스코어에 따른 호칭\n");
+	if (diff_var->game_score < -20)					// ~ -20
+		printf("컴퓨터의 하수인\n");
+	else if (diff_var->game_score < 0)				// -20 ~ 0
+		printf("컴퓨터에 굴복한 자\n");
+	else if (diff_var->game_score < 5)				// 0~5
+		printf("생존자\n");
+	else if (diff_var->game_score < 10)				// 5~10
+		printf("컴퓨터를 굴복시킨 자\n");
+	else
+		printf("컴퓨터에 벌레를 풀어놓는 자\n");	// 10~
 }

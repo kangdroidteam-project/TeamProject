@@ -47,29 +47,30 @@ void value_clear(int*count, char answer[], char player_answer[]);
 void word_game(int);
 void showString(char *input, int mode, int count);
 
-typedef struct typing_score {
+struct typing_score {
     int easy;
     int moderate;
     int hard;
     int extreme;
 } TYPSCORE;
 
-typedef struct minigame_score {
+struct minigame_score {
     int timecalc;
     int find_road;
     int fight_computer;
+	int fight_computer_lock_info;
     int mem_word;
 } MINISCORE;
 
-typedef struct timeattack_score {
+struct timeattack_score {
     int word_n1;
     int word_n2;
     int word_n3;
 } TIMEATTSCORE;
 
-TYPSCORE type_score;
-MINISCORE mini_score;
-TIMEATTSCORE timeat_score;
+extern struct typing_score type_score;
+extern struct minigame_score mini_score;
+extern struct timeattack_score timeat_score;
 
 extern char word_list[9990][30];
 extern char short_word[MAX_WORD_SHORT][18];

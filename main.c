@@ -2,6 +2,10 @@
 
 int showMenu();
 
+struct typing_score type_score;
+struct minigame_score mini_score;
+struct timeattack_score timeat_score;
+
 int main(void) {
     int menu_ret_value;
 
@@ -30,6 +34,10 @@ int showMenu() {
     scanf("%d", &user_choice);
 
     switch (user_choice) {
+		// DEBUGGING MENU: DEV ONLY
+		case 0:
+			mini_score.fight_computer = 100;
+			break;
         case 1:
             // Typing practice MENU Function
             do {

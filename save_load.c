@@ -1,5 +1,9 @@
 #include "game.h"
 
+struct typing_score type_score;
+struct minigame_score mini_score;
+struct timeattack_score timeat_score;
+
 int slMenu() {
     int user_input_typing;
     static char save_file_dir[100] = {0}, info_file[] = "현재 파일 경로: %s\n";

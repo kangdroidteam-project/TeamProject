@@ -1,5 +1,9 @@
 #include "game.h"
 
+struct typing_score type_score;
+struct minigame_score mini_score;
+struct timeattack_score timeat_score;
+
 int showMainScoreMenu() {
     int user_input_typing, dummy;
 
