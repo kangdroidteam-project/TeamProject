@@ -7,8 +7,6 @@ struct difficulty_var {
 	int game_duration;
 	int time_attack;
 	int com_penalty;
-	int difficult_lock;
-	int game_score;
 };
 
 struct minigame_score mini_score;
@@ -16,7 +14,7 @@ struct minigame_score mini_score;
 void fight_computer() {
 	int input_user_menu, exit_sig = 0;
 	srand(time(NULL));
-	static struct difficulty_var diff_var = { 0, 0, 0, 0, 0, 0 };
+	static struct difficulty_var diff_var = { 0, 0, 0, 0 };
 
 	system("cls");
 
@@ -37,8 +35,7 @@ void fight_computer() {
 				system("cls");
 				printf("난이도를 선택해주세요.\n");
 				break;
-			}
-			else {
+			} else {
 				start_game(&diff_var);
 			}
 			break;
@@ -98,7 +95,7 @@ void set_difficulty(struct difficulty_var *diff_var) {
 			exit_sig_dif = 1;
 			break;
 		case 2: //Hard
-			if (diff_var->difficult_lock < 3) {
+			if (mini_score.fight_computer_lock_info < 3) {
 				printf("어려움 난이도는 보통 난이도에서 3점 이상 획득하셔야 선택할 수 있습니다.\n");
 				break;
 			}
@@ -217,42 +214,37 @@ void start_game(struct difficulty_var *diff_var) {
 	printf("당신의 공격력은 %d 이고 컴퓨터의 공격력은 %d 입니다.\n", user_power, computer_power);		// 입력에 따른 결과 출력
 	if (user_power > computer_power) {
 		printf("압도적인 힘의 차이로 당신이 승리하셨습니다.\n\n");
-		(diff_var->difficult_lock) += 2;
+		(mini_score.fight_computer_lock_info) += 2;
 		if (diff_var->sleep_time == 7000) // 난이도 따른 점수 획득 차별화
-			(diff_var->game_score) += 2;
+			(mini_score.fight_computer) += 2;
 		else
-			(diff_var->game_score) += 3;
+			(mini_score.fight_computer) += 3;
 	}
 	else if (user_power == computer_power) {
 		printf("컴퓨터를 무찔렀지만 당신도 이내 쓰러지고 맙니다.\n\n");
-		(diff_var->difficult_lock)++;
+		(mini_score.fight_computer_lock_info)++;
 		if (diff_var->sleep_time == 3000)
-			(diff_var->game_score) -= 1;
+			(mini_score.fight_computer) -= 1;
 	}
 	else if (user_power < computer_power) {
 		printf("쓰러진 당신을 보고 컴퓨터는 기뻐합니다.\n\n");
 		if (diff_var->sleep_time == 7000)
-			(diff_var->game_score) -= 3;
+			(mini_score.fight_computer) -= 3;
 		else
-			(diff_var->game_score) -= 5;
+			(mini_score.fight_computer) -= 5;
 	}
-
-	//Save RIGHT NOW
-	mini_score.fight_computer = diff_var->game_score;
-	mini_score.fight_computer_lock_info = diff_var->difficult_lock;
-	//printf("%d\n%d\n", mini_score.fight_computer, mini_score.fight_computer_lock_info);
 }
 
 void now_total_score(struct difficulty_var *diff_var) {
-	printf("현재 스코어 : %d\n", diff_var->game_score);
+	printf("현재 스코어 : %d\n", mini_score.fight_computer);
 	printf("현재 스코어에 따른 호칭\n");
-	if (diff_var->game_score < -20)					// ~ -20
+	if (mini_score.fight_computer < -20)					// ~ -20
 		printf("컴퓨터의 하수인\n");
-	else if (diff_var->game_score < 0)				// -20 ~ 0
+	else if (mini_score.fight_computer < 0)				// -20 ~ 0
 		printf("컴퓨터에 굴복한 자\n");
-	else if (diff_var->game_score < 5)				// 0~5
+	else if (mini_score.fight_computer < 5)				// 0~5
 		printf("생존자\n");
-	else if (diff_var->game_score < 10)				// 5~10
+	else if (mini_score.fight_computer < 10)				// 5~10
 		printf("컴퓨터를 굴복시킨 자\n");
 	else
 		printf("컴퓨터에 벌레를 풀어놓는 자\n");	// 10~

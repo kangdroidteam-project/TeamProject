@@ -68,6 +68,7 @@ void saveLogic(char *save_dir) {
     makeArray(mini_score.timecalc, test);
     makeArray(mini_score.find_road, test);
     makeArray(mini_score.fight_computer, test);
+	makeArray(mini_score.fight_computer_lock_info, test);
     makeArray(mini_score.mem_word, test);
 
     // timeat_score
@@ -136,8 +137,24 @@ void load(char *save_file_dir) {
 
     //last bit calculated
     score_saved[intcounter] = res;
-    for (int i = 0; i < intcounter + 1; i++) {
+
+	// Now, all information is loaded by array score_saved.
+	// So now what? save.
+	type_score.easy = score_saved[0];
+	type_score.moderate = score_saved[1];
+	type_score.hard = score_saved[2];
+	type_score.extreme = score_saved[3];
+	mini_score.timecalc = score_saved[4];
+	mini_score.find_road = score_saved[5];
+	mini_score.fight_computer = score_saved[6];
+	mini_score.fight_computer_lock_info = score_saved[7];
+	mini_score.mem_word = score_saved[8];
+	timeat_score.word_n1 = score_saved[9];
+	timeat_score.word_n1 = score_saved[10];
+	timeat_score.word_n1 = score_saved[11];
+
+    /*for (int i = 0; i < intcounter + 1; i++) {
         printf("array: %d\n", score_saved[i]);
-    }
+    }*/
     fclose(test_file);
 }
