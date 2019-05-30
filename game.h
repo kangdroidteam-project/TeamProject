@@ -73,7 +73,7 @@ extern struct typing_score type_score;
 extern struct minigame_score mini_score;
 extern struct timeattack_score timeat_score;
 
-extern char word_list[9990][30];
-extern char short_word[MAX_WORD_SHORT][18];
-extern char mid_word[MAX_WORD_MID][18];
-extern char long_word[MAX_WORD_HD][18];
+extern char *word_list[];
+extern char *short_word[];
+extern char *mid_word[];
+extern char *long_word[];
