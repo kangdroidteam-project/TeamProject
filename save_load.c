@@ -32,22 +32,22 @@ int slMenu() {
             // Save
             if (strlen(save_file_dir) == 0) {
                 printf("1번 메뉴를 통해 파일 경로를 입력해주세요!\n");
-                sleepfor(2);
+                Sleep(2000);
             } else {
                 saveLogic(save_file_dir);
                 printf("파일 저장이 완료되었습니다!\n");
-                sleepfor(2);
+                Sleep(2000);
             }
         return 1;
         case 3:
             // Load
             if (strlen(save_file_dir) == 0) {
                 printf("1번 메뉴를 통해 파일 경로를 입력해주세요!\n");
-                sleepfor(2);
+                Sleep(2000);
             } else {
                 load(save_file_dir);
                 printf("로딩이 완료되었습니다!\n");
-                sleepfor(2);
+                Sleep(2000);
             }
         return 0;
         case 0:

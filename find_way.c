@@ -11,7 +11,7 @@ void mini_maze() {
 
     srand((unsigned)time(NULL));
 
-    clearScreen();
+    system("cls");
 
     printf("미로판의 크기를 입력하세요.(n * n 형식, n - 정수만 입력)  ");
     scanf("%d", &how_many_col);
@@ -19,7 +19,7 @@ void mini_maze() {
 	dest_x = rand() % (how_many_col - 1) + 1;
 	dest_y = rand() % (how_many_col - 1) + 1;
 
-    clearScreen();
+    system("cls");
 
     // 2-dimension array by dynamic memory allocation
     array_pointer = (int**)malloc(sizeof(int*) * how_many_col);
@@ -66,9 +66,9 @@ void mini_maze() {
 				printf("목적지 까지는 y방향으로는 %d만큼 x방향으로는 글쎄?\n", (dest_y)-y);
 			}
 			hint_count++;
-			clearScreen();
+			system("cls");
         } else {
-            clearScreen();
+            system("cls");
         }
 
 		time_end = time(0);
@@ -78,7 +78,7 @@ void mini_maze() {
             printf("축하드립니다! 목적지에 도착하셨어요!!!\n");
 			printf("소요된 시간은 총 %d분, %d초\n", (time_end - time_start)/60, (time_end - time_start) % 60);
 			printf("총 점수는 %d 입니다.\n", mini_score.find_road);
-            sleepfor(3);
+            Sleep(3000);
         }
     }
 
@@ -94,50 +94,50 @@ void moveLogic(int** input_array, int what, int col_count, int* x, int* y) {
         case 1: //up
             if (*y == 0) {
                 printf("이미 맨 꼭대기에 있어서 더이상 올라가질 못합니다.\n");
-                sleepfor(SLEEP_SECOND);
+                Sleep(SLEEP_SECOND);
             } else {
                 printf("위로 갑니다~!\n");
                 input_array[*y][*x] = 0;
                 (*y)--;
                 input_array[*y][*x] = 5;
             }
-            clearScreen();
+            system("cls");
             break;
         case 2: //down
             if (*y == col_count- 1) {
                 printf("이미 맨 아래에 있어서 더이상 내려가질 못합니다.\n");
-                sleepfor(SLEEP_SECOND);
+                Sleep(SLEEP_SECOND);
             } else {
                 printf("아래로 갑니다~!\n");
                 input_array[*y][*x] = 0;
                 (*y)++;
                 input_array[*y][*x] = 5;
             }
-            clearScreen();
+            system("cls");
             break;
         case 3: //right
             if (*x == col_count- 1) {
                 printf("이미 맨 오른쪽에 있어서 더이상 오른쪽으로 가지 못합니다.\n");
-                sleepfor(SLEEP_SECOND);
+                Sleep(SLEEP_SECOND);
             } else {
                 printf("오른쪽으로 갑니다~!\n");
                 input_array[*y][*x] = 0;
                 (*x)++;
                 input_array[*y][*x] = 5;
             }
-            clearScreen();
+            system("cls");
             break;
         case 4: //left
             if (*x == 0) {
                 printf("이미 맨 왼쪽에 있어서 더이상 왼쪽으로 가지 못합니다.\n");
-                sleepfor(SLEEP_SECOND);
+                Sleep(SLEEP_SECOND);
             } else {
                 printf("왼쪽으로 갑니다~!\n");
                 input_array[*y][*x] = 0;
                 (*x)--;
                 input_array[*y][*x] = 5;
             }
-            clearScreen();
+            system("cls");
             break;
     }
 }

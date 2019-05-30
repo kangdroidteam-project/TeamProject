@@ -42,7 +42,7 @@ void showVocab(char list_word[][18], int max_word_end) {
         printf("%s\n", list_word[i]);
         if (i == max_word_end - 1) {
             printf("이게 다입니다! 메뉴로 돌아갑니다..\n");
-            sleepfor(2);
+            Sleep(2000);
         }
         if ((i != 0) && (i % 20 == 0)) {
             printf("윗 방향키로 이전 페이지로, 아래 방향키로 다음 페이지로 이동하거나, 왼쪽/오른쪽 키로 이 메뉴를 종료합니다.");

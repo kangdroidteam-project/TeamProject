@@ -53,7 +53,7 @@ void fight_computer() {
 			break;
 		default:
 			printf("잘못 입력하셨습니다.\n");
-			sleepfor(1);
+			Sleep(1000);
 			break;
 		}
 	} while (exit_sig != 1);

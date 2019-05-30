@@ -1,8 +1,8 @@
 #include "game.h"
+struct typing_score type_score;
 void word_game(int mode) {
 	int i = 0, ran, s_time, j = 0, is_practice = 0;
 	char input_word[20], input, showing[30];
-	struct typing_score type_score;
 	// First bits starts
 	srand(time(0));
 	showString(showing, mode, i);
@@ -62,7 +62,7 @@ void word_game(int mode) {
 			}
 		}
 	}
-	is_practice = tpye_score_easy = type_score.easy;
+	is_practice = type_score.easy;
 }
 void showString(char *input, int mode, int count) {
 	int ran = rand() % MAX_WORD_SHORT;
