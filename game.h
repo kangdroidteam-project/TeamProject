@@ -2,14 +2,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-
-#if defined(_WIN32) || defined(__CYGWIN__) || defined(_WIN64)
-    #include <windows.h>
-    #include <conio.h>
-#else
-    #include <unistd.h>
-    #include <termios.h>
-#endif
+#include <windows.h>
+#include <conio.h>
 
 #define SLEEP_SECOND 2
 #define MAX_WORD 9896
@@ -29,7 +23,6 @@ void printArray(int** input_array, int col_count);
 void resetArray(int** input_array, int col_count);
 void moveLogic(int** input_array, int what, int col_count, int* x, int* y);
 void sleepfor(int sec);
-void clearScreen();
 void showVocab(char list_word[][18], int max_word_end);
 void mini_maze();
 void saveLogic(char *save_dir);

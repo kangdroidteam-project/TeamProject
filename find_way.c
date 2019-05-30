@@ -158,11 +158,3 @@ void printArray(int** input_array, int col_count) {
         printf("\n");
     }
 }
-
-void sleepfor(int sec) {
-    #if defined(_WIN32) || defined(__CYGWIN__) || defined(_WIN64)
-    Sleep(sec * 1000);
-    #else
-    sleep(sec);
-    #endif
-}

@@ -16,7 +16,7 @@ int showMainScoreMenu() {
     scanf("%d", &user_input_typing);
 	while (getchar() != '\n');
 
-    clearScreen();
+    system("cls");
     switch (user_input_typing) {
         case 1:
             // Typing Score

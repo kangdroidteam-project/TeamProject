@@ -14,7 +14,7 @@ int main(void) {
     } while (menu_ret_value != 7);
 
     // Clear screen before exit!
-    clearScreen();
+    system("cls");
     return 0;
 }
 
@@ -22,7 +22,7 @@ int showMenu() {
     int user_choice, typ_menu_ret;
 
     // Clear screen before we start anything;
-    clearScreen();
+    system("cls");
     printf("1. 타자 연습\n");
     printf("2. 미니게임\n");
     printf("3. 타임 어텍\n");
@@ -41,7 +41,7 @@ int showMenu() {
         case 1:
             // Typing practice MENU Function
             do {
-                clearScreen();
+                system("cls");
                 typ_menu_ret = showTypingMenu();
             } while (typ_menu_ret != 0);
         return user_choice;
@@ -49,7 +49,7 @@ int showMenu() {
         case 2:
             // Mini game MENU Function
             do {
-                clearScreen();
+                system("cls");
                 typ_menu_ret = showMiniGameMenu();
             } while (typ_menu_ret != 0);
         return user_choice;
@@ -57,7 +57,7 @@ int showMenu() {
         case 3:
             // Time Attack MENU Function
             do {
-                clearScreen();
+                system("cls");
                 typ_menu_ret = showTimeAttackMenu();
             } while (typ_menu_ret != 0);
         return user_choice;
@@ -65,7 +65,7 @@ int showMenu() {
         case 4:
             // Score - per - Game MENU Function
             do {
-                clearScreen();
+                system("cls");
                 typ_menu_ret = showMainScoreMenu();
             } while (typ_menu_ret != 0);
         return user_choice;
@@ -73,7 +73,7 @@ int showMenu() {
         case 5:
             // Show Vocab list
             do {
-                clearScreen();
+                system("cls");
                 typ_menu_ret = showVocabMenu();
             } while (typ_menu_ret != 0);
         return user_choice;
@@ -81,7 +81,7 @@ int showMenu() {
         case 6:
             // Save-Load Menu
             do {
-                clearScreen();
+                system("cls");
                 typ_menu_ret = slMenu();
             } while (typ_menu_ret != 0);
         return user_choice;
@@ -93,13 +93,4 @@ int showMenu() {
         default:
         return 0;
     }
-}
-
-void clearScreen() {
-    #if defined(_WIN32) || defined(__CYGWIN__) || defined(_WIN64)
-    // Clear Console for Windows
-    system("cls");
-    #else
-    system("clear && printf '\e[3J'");
-    #endif
 }
