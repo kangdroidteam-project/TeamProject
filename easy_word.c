@@ -37,8 +37,8 @@ void word_game(int mode) {
 					input_word[j] = 0;
 					if (!strcmp(input_word, showing)) {
 						printf("\n정답입니다");
-						if(mode==0||mode==1)
-	                        correct_word++:
+						if (mode == 0 || mode == 1)
+							correct_word++;
 	                    if(mode==2)
 	                    	type_score_morderate=(int)(5*(1-(time(0)-s_time)/TIME_LIMIT));
 	                    if(mode==3)
