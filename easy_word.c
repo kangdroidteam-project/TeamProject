@@ -1,8 +1,8 @@
 #include "game.h"
 void word_game(int mode) {
 	int i = 0, ran, s_time, j = 0, is_practice = 0;
-	int tpye_score_easy, type_score_morderate, tpye_score_hard, tpye_score_extreme,correct_word;
 	char input_word[20], input, showing[30];
+	struct typing_score type_score;
 	// First bits starts
 	srand(time(0));
 	showString(showing, mode, i);
@@ -26,7 +26,6 @@ void word_game(int mode) {
 				break;
 			}
 			if (input == '\b') {
-
 				printf("\b \b");
 				j = j - 1;
 			} else if ((input >= 'a'&&input <= 'z') || (input >= 'A'&&input <= 'Z')) {
@@ -37,12 +36,17 @@ void word_game(int mode) {
 					input_word[j] = 0;
 					if (!strcmp(input_word, showing)) {
 						printf("\n정답입니다");
-						if (mode == 0 || mode == 1)
-							correct_word++;
-	                    if(mode==2)
-	                    	type_score_morderate=(int)(5*(1-(time(0)-s_time)/TIME_LIMIT));
-	                    if(mode==3)
-	                        tpye_score_hard=(int)(5*(1-(time(0)-s_time)/TIME_LIMIT));
+						switch (mode) {
+						case 0: case 1:
+							type_score.easy++;
+							break;
+						case 2:
+							type_score.moderate = (int)(5 * (1 - (time(0) - s_time) / TIME_LIMIT));
+							break;
+						case 3: case 4:
+							type_score.hard = (int)(5 * (1 - (time(0) - s_time) / TIME_LIMIT));
+							break;
+						}
 						Sleep(1000);
 						i++;
 						system("cls");
@@ -58,8 +62,7 @@ void word_game(int mode) {
 			}
 		}
 	}
-	is_practice=correct_word;
-	tpye_score_easy=correct_word;
+	is_practice = tpye_score_easy = type_score.easy;
 }
 void showString(char *input, int mode, int count) {
 	int ran = rand() % MAX_WORD_SHORT;
