@@ -1,7 +1,7 @@
 #include "game.h"
 void word_game(int mode) {
 	int i = 0, ran, s_time, j = 0, is_practice = 0;
-        int tpye_score_easy, type_score_morderate, tpye_score_hard, tpye_score_extreme,correct_word;
+	int tpye_score_easy, type_score_morderate, tpye_score_hard, tpye_score_extreme,correct_word;
 	char input_word[20], input, showing[30];
 	// First bits starts
 	srand(time(0));
@@ -36,13 +36,13 @@ void word_game(int mode) {
 				if (j == strlen(showing)) {
 					input_word[j] = 0;
 					if (!strcmp(input_word, showing)) {
-						printf("\nÁ¤´äÀÔ´Ï´Ù");
-                                                if(mode==0||mode==1)
-                                                   correct_word++:
-                                                if(mode==2)
-                                                   type_score_morderate=(int)(5*(1-(time(0)-s_time)/TIME_LIMIT));
-                                                if(mode==3)
-                                                   tpye_score_hard=(int)(5*(1-(time(0)-s_time)/TIME_LIMIT));
+						printf("\n�����Դϴ�");
+						if(mode==0||mode==1)
+	                        correct_word++:
+	                    if(mode==2)
+	                    	type_score_morderate=(int)(5*(1-(time(0)-s_time)/TIME_LIMIT));
+	                    if(mode==3)
+	                        tpye_score_hard=(int)(5*(1-(time(0)-s_time)/TIME_LIMIT));
 						Sleep(1000);
 						i++;
 						system("cls");
@@ -51,15 +51,15 @@ void word_game(int mode) {
 						j = 0;
 					} else {
 						j = 0;
-						printf("Æ²·È½À´Ï´Ù");
+						printf("Ʋ�Ƚ��ϴ�");
 						Sleep(1000);
 					}
 				}
 			}
 		}
 	}
-is_practice=correct_word;
-tpye_score_easy=correct_word;
+	is_practice=correct_word;
+	tpye_score_easy=correct_word;
 }
 void showString(char *input, int mode, int count) {
 	int ran = rand() % MAX_WORD_SHORT;
