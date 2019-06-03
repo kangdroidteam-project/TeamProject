@@ -2,7 +2,7 @@
 struct typing_score type_score;
 void word_game(int mode) {
 	int i = 0, ran, s_time, j = 0, is_practice = 0;
-	char input_word[20], input, showing[30];
+	char input_word[70], input, showing[65];
 	// First bits starts
 	srand(time(0));
 	showString(showing, mode, i);
@@ -16,7 +16,7 @@ void word_game(int mode) {
 			Sleep(1500);
 			break;
 		}
-		if (time(0) == s_time + TIME_LIMIT) {
+		if (time(0) == s_time + 10) {
 			printf("시간 초과되었습니다.\n");
 			j = 0;
 			i++;
@@ -36,7 +36,7 @@ void word_game(int mode) {
 			if (input == '\b') {
 				printf("\b \b");
 				j = j - 1;
-			} else if ((input >= 'a'&&input <= 'z') || (input >= 'A'&&input <= 'Z')) {
+			} else if ((input >= 'a'&&input <= 'z') || (input >= 'A'&&input <= 'Z') || (input >= ' ' && input <= '/')) {
 				printf("%c", input);
 				input_word[j] = input;
 				j++;
@@ -83,7 +83,7 @@ void word_game(int mode) {
 	is_practice = type_score.easy;
 }
 void showString(char *input, int mode, int count) {
-	int ran = rand() % MAX_WORD_SHORT;
+	int ran = rand() % 720;
 	/*
 	* Mode 1: Easy Mode
 	* Mode 2: Moderate Mode
@@ -102,7 +102,7 @@ void showString(char *input, int mode, int count) {
 		strcpy(input, long_word[ran]);
 		break;
 	case 4:
-		strcpy(input, long_word[ran]);
+		strcpy(input, extreme_sentence[ran]);
 		break;
 	case 0:
 		strcpy(input, short_word[ran]);

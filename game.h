@@ -69,3 +69,4 @@ extern char *word_list[];
 extern char *short_word[];
 extern char *mid_word[];
 extern char *long_word[];
+extern char *extreme_sentence[];
