@@ -2,6 +2,7 @@
 
 int showTypingMenu() {
     int user_input_typing;
+	char input[5];
 
     printf("1. 초급\n");
     printf("2. 중급\n");
@@ -13,6 +14,7 @@ int showTypingMenu() {
     printf("0. 전 메뉴로 돌아가기\n");
     printf("원하는 단계를 입력해주세요! ");
     scanf("%d", &user_input_typing);
+	while (getchar() != '\n');
 
     switch (user_input_typing) {
         case 1:
@@ -35,12 +37,18 @@ int showTypingMenu() {
 			// Explanation of Steps, Level
 			printf("연습단계는 영어문자가 하나씩 나타나고 총 5문제의 주어진 문자를 입력해야 한다,\n");
 			printf("easy mode는 영어문자가 하나씩 나타나고 총20문제의 주어진 문자를 입력해야 한다,\n");
-			Sleep(5000);
+			printf("엔터키를 누르면 전 메뉴로 돌아갑니다..");
+			fgets(input, sizeof(input), stdin);
+			FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
+			//Sleep(5000);
 			break;
 		case 6:
 			// Explanation of Rule with Score agenda.
 			printf("점수는 문자를 맞은 경우에 1점씩 얻는다.\n");
-			Sleep(5000);
+			printf("엔터키를 누르면 전 메뉴로 돌아갑니다..");
+			fgets(input, sizeof(input), stdin);
+			FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
+			//Sleep(5000);
 			break;
 		case 7:
 			// Practice mode(beginner)

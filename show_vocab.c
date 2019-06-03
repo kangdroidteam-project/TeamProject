@@ -36,7 +36,7 @@ int showVocabMenu() {
     }
 }
 
-void showVocab(char list_word[][18], int max_word_end) {
+void showVocab(char *list_word[], int max_word_end) {
     int success = 0, ch = 0;
     for (int i = 0; i < max_word_end; i++) {
         printf("%s\n", list_word[i]);

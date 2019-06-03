@@ -6,19 +6,27 @@ void word_game(int mode) {
 	// First bits starts
 	srand(time(0));
 	showString(showing, mode, i);
+	FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
 	s_time = time(0);
 
 	// After first round, we need to take while loop
 	while (1) {
 		if (i >= 5) {
+			printf("축하드립니다!\n 게임을 모두 끝내셨어요!\n");
+			Sleep(1500);
 			break;
 		}
 		if (time(0) == s_time + TIME_LIMIT) {
-			system("cls");
-			i++;
-			showString(showing, mode, i);
-			s_time = time(0);
+			printf("시간 초과되었습니다.\n");
 			j = 0;
+			i++;
+			Sleep(1000);
+			FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
+			if (i != 5) {
+				system("cls");
+				showString(showing, mode, i);
+			}
+			s_time = time(0);
 		}
 		if (_kbhit()) {
 			input = _getch();
@@ -35,7 +43,7 @@ void word_game(int mode) {
 				if (j == strlen(showing)) {
 					input_word[j] = 0;
 					if (!strcmp(input_word, showing)) {
-						printf("\n정답입니다");
+						printf("\n정답입니다\n");
 						switch (mode) {
 						case 0: case 1:
 							type_score.easy++;
@@ -47,16 +55,26 @@ void word_game(int mode) {
 							type_score.hard = (int)(5 * (1 - (time(0) - s_time) / TIME_LIMIT));
 							break;
 						}
-						Sleep(1000);
-						i++;
-						system("cls");
-						showString(showing, mode, i);
-						s_time = time(0);
 						j = 0;
+						i++;
+						Sleep(1000);
+						FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
+						if (i != 5) {
+							system("cls");
+							showString(showing, mode, i);
+						}
+						s_time = time(0);
 					} else {
 						j = 0;
-						printf("틀렸습니다");
+						i++;
+						printf("틀렸습니다\n");
 						Sleep(1000);
+						FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
+						if (i != 5) {
+							system("cls");
+							showString(showing, mode, i);
+						}
+						s_time = time(0);
 					}
 				}
 			}

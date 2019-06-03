@@ -77,17 +77,20 @@ void get_the_digit(int calculate, char *answer, char number_1[][30], char number
 			}
 			break;
 		}
-	} else if (ten_digit != 0) {
+	}
+	else if (ten_digit != 0) {
 		if (ten_digit == 1) {
 			strcat(answer, number_3[one_digit]); // one_digit == 6 --> number_3[6] == sixteen;
-		} else {
+		}
+		else {
 			strcat(answer, number_2[ten_digit]);
 			if (one_digit != 0) {
 				strcat(answer, " "); // Put space because eg: 68 is sixty eight;
 				strcat(answer, number_1[one_digit]); // sixty + eight
 			}
 		}
-	} else {
+	}
+	else {
 		strcat(answer, number_1[one_digit]); //if answer is something like 8 or one-digit value
 	}
 }
@@ -137,17 +140,21 @@ void start_game_time_table() {
 
 			if (ch == 27) {
 				printf("나가기 버튼을 누르셨습니다.\n");
+				FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
 				break;
 			}
 
 			if (ch == '\b' && count > 0) {
 				printf("\b \b");
 				count--;
-			} else if (ch == '\b' && count == 0) {
-				// Do nothing
-			} else {
+			}
+			else if (ch == '\b' && count == 0) {
+				// Do nothing ( 아무것도 안친 상태에서 백스페이스 누를 시 윗줄로 넘어가는 것 방지 )
+			}
+			else if ((ch >= 'a'&&ch <= 'z') || (ch >= 'A'&&ch <= 'Z') || ch == ' ') {
 				printf("%c", ch);
 			}
+			else;	// 한글이나 숫자 등의 문자 출력방지
 
 			if ((ch >= 'a'&&ch <= 'z') || (ch >= 'A'&&ch <= 'Z') || ch == ' ') { // 영어 소문자, 대문자, 스페이스바 처리
 				player_answer[count] = ch;
@@ -169,13 +176,15 @@ void start_game_time_table() {
 				system("cls");
 				printf("정답은 %s 입니다.\n", answer);
 				printf("정답입니다.\n");
+				FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
 			} else {
 				system("cls");
 				printf("정답은 %s 입니다.\n", answer);
 				printf("%s 를 입력하셨습니다.\n", player_answer);
 				printf("오답입니다.\n");
+				FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
 			}
-
+			FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
 			s_time = time(0);
 			value_clear(&count, answer, player_answer);
 			show_question(&calculate, number_1);

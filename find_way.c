@@ -56,8 +56,7 @@ void mini_maze() {
             moveLogic(array_pointer, 2, how_many_col, &x, &y);
         } else if (!strcmp(word_list[random_number[2]], user_input)) {
             moveLogic(array_pointer, 3, how_many_col, &x, &y);
-		}
-		else if (!strcmp(word_list[random_number[3]], user_input)) {
+		} else if (!strcmp(word_list[random_number[3]], user_input)) {
 			moveLogic(array_pointer, 4, how_many_col, &x, &y);
 		} else if (!strcmp("hint", user_input)) {
 			if (rand() % 2) {
@@ -65,6 +64,7 @@ void mini_maze() {
 			} else {
 				printf("목적지 까지는 y방향으로는 %d만큼 x방향으로는 글쎄?\n", (dest_y)-y);
 			}
+			Sleep(1500);
 			hint_count++;
 			system("cls");
         } else {
