@@ -2,8 +2,11 @@
 void start_game_time_table();
 void show_rule_time_table();
 void score_time_table();
+void clear_buffer_arr(char *input);
+void game_difficulty();
 
 struct minigame_score mini_score;
+int difficulty = 0, limit_time=10;
 
 void times_table() {
 	int input_start, exit_signal = 0;
@@ -13,7 +16,7 @@ void times_table() {
 	printf("구구단 게임을 시작합니다.\n");
 
 	do {
-		printf("시작 : 1, 규칙 : 2, 획득한 점수 보기 : 3, 나가기 : 4\n");
+		printf("시작 : 1, 규칙 : 2, 난이도 설정: 3, 획득한 점수 보기 : 4, 나가기 : 5\n");
 
 		scanf("%d", &input_start);
 		while (getchar() != '\n');
@@ -26,9 +29,12 @@ void times_table() {
 			show_rule_time_table();
 			break;
 		case 3:
-			score_time_table();
+			game_difficulty();
 			break;
 		case 4:
+			score_time_table();
+			break;
+		case 5:
 			exit_signal = 1;
 			break;
 		default:
@@ -38,15 +44,24 @@ void times_table() {
 	} while (exit_signal != 1);
 }
 
-void show_question(int*result, char number_list[][30]) { // 문제 출제
-	int question_1 = (rand() % 9) + 1;
-	int question_2 = (rand() % 9) + 1;
+void show_question(int*result, char *number_list[]) { // 문제 출제
+	if (difficulty == 0) {
+		int question_1 = (rand() % 9) + 1;
+		int question_2 = (rand() % 9) + 1;
 
-	printf("%s x %s?\n", number_list[question_1], number_list[question_2]);
-	*result = question_1 * question_2;
+		printf("%s x %s?\n", number_list[question_1], number_list[question_2]);
+		*result = question_1 * question_2;
+	}
+	else if (difficulty == 1) {
+		int question_1 = (rand() % 30) + 1;
+		int question_2 = (rand() % 30) + 1;
+
+		printf("%d x %d?\n", question_1, question_2);
+		*result = question_1 * question_2;
+	}
 }
 
-void get_the_digit(int calculate, char *answer, char number_1[][30], char number_2[][30], char number_3[][30], char number_4[][30]) { // 자릿수 구하고 자릿수에 해당하는 영어 입력, answer 구하기
+void get_the_digit(int calculate, char *answer, char *number_1[], char *number_2[], char *number_3[], char* number_4[]) { // 자릿수 구하고 자릿수에 해당하는 영어 입력, answer 구하기
 	int one_digit = 0, ten_digit = 0, hundred_digit = 0;
 	// if calculate = 16
 	one_digit = calculate % 10; // == 6
@@ -97,15 +112,21 @@ void get_the_digit(int calculate, char *answer, char number_1[][30], char number
 void value_clear(int*count, char answer[], char player_answer[]) { // 값 초기화
 	char clear[30] = { 0 };
 	*count = 0;
-	strcpy(answer, clear);
-	strcpy(player_answer, clear);
+	clear_buffer_arr(answer);
+	clear_buffer_arr(player_answer);
+}
+
+void clear_buffer_arr(char *input) {
+	for (int i = 0; i < 30; i++) {
+		input[i] = 0;
+	}
 }
 
 void start_game_time_table() {
-	char number_1[10][30] = { { "" },{ "one" },{ "two" },{ "three" },{ "four" },{ "five" },{ "six" },{ "seven" },{ "eight" },{ "nine" } };				// 1~9
-	char number_2[10][30] = { { "" },{ "ten" },{ "twenty" },{ "thirty" },{ "forty" },{ "fifty" },{ "sixty" },{ "seventy" },{ "eighty" },{ "ninety" } };	// 십의 단위
-	char number_3[10][30] = { { "ten" },{ "eleven" },{ "twelve" },{ "thirteen" },{ "fourteen" },{ "fifteen" },{ "sixteen" },{ "seventeen" },{ "eighteen" },{ "nineteen" } };	// 11~19
-	char number_4[10][30] = { { "" },{ "onehundred" },{ "twohundred" },{ "threehundred" },{ "fourhundred" },{ "fivehundred" },{ "sixhundred" },{ "sevenhundred" },{ "eighthundred" },{ "ninehundred" } };	// 백의 단위
+	char *number_1[] = { "","one" , "two" , "three" , "four" , "five" , "six" , "seven" , "eight" , "nine" };			// 1~9
+	char *number_2[] = {  "" , "ten" , "twenty" , "thirty" , "forty","fifty" , "sixty" , "seventy" , "eighty" , "ninety"  };	// 십의 단위
+	char *number_3[] = { "ten" , "eleven" , "twelve" , "thirteen" , "fourteen" , "fifteen" , "sixteen" , "seventeen" , "eighteen" , "nineteen"  };	// 11~19
+	char *number_4[] = {  "" , "onehundred" , "twohundred" ,"threehundred" , "fourhundred" , "fivehundred" , "sixhundred" , "sevenhundred" , "eighthundred" , "ninehundred"  };	// 백의 단위
 	char ch, user_start[20];
 
 	int s_time, flag = 2, one_digit = 0, ten_digit = 0, hundred_digit = 0, count = 0, calculate = 0;
@@ -127,7 +148,7 @@ void start_game_time_table() {
 	s_time = time(0);
 
 	while (1) {
-		if (time(0) == s_time + TIME_LIMIT_TIMES) {
+		if (time(0) == s_time + limit_time) {
 			system("cls");
 			printf("시간 초과되었습니다.\n");
 			value_clear(&count, answer, player_answer);
@@ -206,9 +227,42 @@ void show_rule_time_table() {
 	printf("--------------------------------------------------------------------------\n");
 	printf("영어로 구구단 외우기\n");
 	printf("esc키를 눌러 게임에서 나갈때까지 계속됩니다.\n");
-	printf("정답 입력이 10초 이상 걸리면 시간 초과로 다음 문제로 넘어가게 됩니다.\n");
+	printf("정답 입력이 10초 (extreme의 경우 30초) 이상 걸리면 시간 초과로 다음 문제로 넘어가게 됩니다.\n");
 	printf("다른 자릿수 사이에는 띄어쓰기를 쓰셔야 합니다.\n");
 	printf("예) 146 => \'onehundred forty six\'\n");
 	printf("오답 입력 시 답을 보여주고 다음 문제로 넘어갑니다.\n");
 	printf("--------------------------------------------------------------------------\n");
+}
+
+void game_difficulty() {
+	int user_difficult, exit_sig_dif = 0;
+	do {
+		printf("난이도 설정\n");
+		printf("normal 은 0을, extreme 은 1을 선택하세요!\n");
+		printf("normal은 1부터 9까지의 숫자가 출제되고 extreme은 1부터 30까지의 숫자가 출제됩니다.\n");
+		printf("단, extreme은 문제가 영어가 아닌 숫자로 표시됩니다.\n");
+		printf("해당하는 난이도 번호를 입력하세요: ");
+		scanf("%d", &user_difficult);
+		while (getchar() != '\n');
+		switch (user_difficult) {
+		case 0:
+			printf("normal로 설정되었습니다.\n");
+			difficulty = 0;
+			limit_time = 10;
+			exit_sig_dif = 1;
+			Sleep(1500);
+			break;
+		case 1:
+			printf("extreme 으로 설정되었습니다.\n");
+			difficulty = 1;
+			limit_time = 30;
+			exit_sig_dif = 1;
+			Sleep(1500);
+			break;
+		default:
+			printf("잘못 입력하셨습니다.\n");
+			Sleep(1000);
+			continue;
+		}
+	} while (exit_sig_dif != 1);
 }

@@ -1,7 +1,7 @@
 #include "game.h"	
 
 void now_total_score(struct difficulty_var *diff_var);
-void game_title();
+void game_title(int);
 
 struct difficulty_var {
 	int sleep_time;
@@ -20,7 +20,7 @@ void fight_computer() {
 	static struct difficulty_var diff_var = { 0, 0, 0, 0 };
 
 	do {
-		game_title();
+		game_title(0);
 		
 		gotoxy(30, 12);
 		printf("1. 시작\n");	
@@ -45,7 +45,7 @@ void fight_computer() {
 		switch (input_user_menu) {
 		case 1:
 			if (diff_var.sleep_time == 0) {
-				game_title();
+				game_title(0);
 				gotoxy(30, 16);
 				printf("난이도를 선택해주세요!");
 				Sleep(1000);
@@ -55,10 +55,10 @@ void fight_computer() {
 			}
 			break;
 		case 2:
-			game_title();
+			game_title(0);
 			gotoxy(0, 11);
 			show_rule();
-			gotoxy(6, 22);
+			gotoxy(6, 23);
 			printf("메뉴로 돌아가려면 아무키나 입력하세요.");
 			scanf("%c", &ch);
 			break;
@@ -70,7 +70,7 @@ void fight_computer() {
 			break;
 		case 5: // exit
 			exit_sig = 1;
-			game_title();
+			game_title(0);
 			gotoxy(30, 15);
 			printf("다음에 또 오십쇼!!");
 			Sleep(1500);
@@ -99,7 +99,9 @@ void show_rule() {
 	printf("제시된 5개의 단어 중 하나를 입력해야 합니다.");
 	gotoxy(6, 18);
 	printf("최종 공격력에 따라 승패가 결정됩니다.");
-	gotoxy(6, 20);
+	gotoxy(6, 19);
+	printf("단어는 겹쳐보일 수 있습니다.");
+	gotoxy(6, 21);
 	printf("주의 : 단어 제시 시간도 플레이시간에 포함됩니다.");
 }
 
@@ -107,7 +109,7 @@ void set_difficulty(struct difficulty_var *diff_var) {
 	int exit_sig_dif = 0, user_difficult;
 
 	do { // 3점 획득해야 어려움 설정 가능
-		game_title();
+		game_title(0);
 
 		gotoxy(34, 13);
 		printf("난이도 설정");
@@ -128,9 +130,9 @@ void set_difficulty(struct difficulty_var *diff_var) {
 			exit_sig_dif = 1;
 			break;
 		case 2: //Hard
-			if (mini_score.fight_computer_lock_info < 3) {
+			if (mini_score.fight_computer_lock_info < 2) {
 				gotoxy(3, 19);
-				printf("어려움 난이도는 보통 난이도에서 3점 이상 획득하셔야 선택할 수 있습니다.");
+				printf("어려움 난이도는 보통 난이도에서 2번 이상 플레이하셔야 선택할 수 있습니다.");
 				Sleep(3000);
 				break;
 			}
@@ -152,14 +154,18 @@ void start_game(struct difficulty_var *diff_var) {
 	char user_input[30], computer_input[30];
 	int user_power = 0, computer_power = 0, i, n = 0, t1 = 0, t2 = 0, t3 = 0, t4 = 0, rand_number = 0, array[5], judgement, user_burf, computer_burf, burf;
 
+	game_title(1);
+
 	for (i = 0; i < 3; i++) {
-		system("cls");
-		printf("%d...\n", 3 - i);
+		gotoxy(36, 5);
+		printf("%d...", 3 - i);
 		Sleep(1000);
 	}
-	system("cls");
-	printf("시작!\n");
+	gotoxy(36, 5);
+	printf("시작!");
 	Sleep(1000);
+
+	game_title(1);
 
 	t3 = time(0);
 	do {
@@ -167,45 +173,53 @@ void start_game(struct difficulty_var *diff_var) {
 		computer_burf = 0;
 		for (i = 0; i < 5; i++) {
 			array[i] = rand() % MAX_WORD;
+			gotoxy((rand() % 60) + 5, (rand() % 8) + 2);
+			printf("%s", word_list[array[i]]);
 		}
-		printf("%s %s %s %s %s\n", word_list[array[0]], word_list[array[1]], word_list[array[2]], word_list[array[3]], word_list[array[4]]);
 		Sleep(diff_var->sleep_time);		// 난이도에 따른 시간 동안 5개 단어 출력
-		system("cls");
+		game_title(1);
 		burf = rand() % 6;		// 버프 결정
 		switch (burf) {
 		case(0):
+			gotoxy(28, 5);
+			printf("흠... 이번엔 이 단어를");
+			break;
 		case(1):
+			gotoxy(24, 5);
+			printf("너무 오래 걸리는거 아니야?");
 			break;		// 33% 확률로 버프 X
 		case(2):
-			printf("************************************************\n");
-			printf("지나가던 나그네가 당신에게 무언가를 던졌습니다.\n");
-			printf("중독! 당신의 공격력이 1 감소합니다.\n");
-			printf("************************************************\n\n");
+			gotoxy(12, 4);
+			printf("지나가던 나그네가 당신에게 무언가를 던졌습니다.");
+			gotoxy(12, 6);
+			printf("중독! 당신의 공격력이 1 감소합니다.");
 			user_burf--;
 			break;
 		case(3):
-			printf("************************************************\n");
-			printf("지나가던 나그네가 당신에게 무언가를 던졌습니다.\n");
-			printf("강해진 기분이 듭니다. 당신의 공격력이 1 증가합니다.\n");
-			printf("************************************************\n\n");
+			gotoxy(12, 4);
+			printf("지나가던 나그네가 당신에게 무언가를 던졌습니다.");
+			gotoxy(12, 6);
+			printf("강해진 기분이 듭니다. 당신의 공격력이 1 증가합니다.");
 			user_burf++;
 			break;
 		case(4):
-			printf("************************************************\n");
-			printf("지나가던 나그네가 컴퓨터에게 무언가를 던졌습니다.\n");
-			printf("emp발동! 컴퓨터의 공격력이 2 감소합니다.\n");
-			printf("************************************************\n\n");
+			gotoxy(12, 4);
+			printf("지나가던 나그네가 컴퓨터에게 무언가를 던졌습니다.");
+			gotoxy(12, 6);
+			printf("emp발동! 컴퓨터의 공격력이 2 감소합니다.");
 			computer_burf -= 2;
 			break;
 		case(5):
-			printf("************************************************\n");
-			printf("지나가던 나그네가 컴퓨터에게 무언가를 던졌습니다.\n");
-			printf("컴퓨터가 배터리를 얻었습니다. 컴퓨터의 공격력이 1 증가합니다.\n");
-			printf("************************************************\n\n");
+			gotoxy(12, 4);
+			printf("지나가던 나그네가 컴퓨터에게 무언가를 던졌습니다.");
+			gotoxy(12, 6);
+			printf("컴퓨터가 배터리를 얻었습니다. 컴퓨터의 공격력이 1 증가합니다.");
 			computer_burf++;
 		}
 
-		printf("단어를 입력하세요(exit을 입력하면 저장하지 않고 끝내기!) : ");
+		gotoxy(18, 14);
+		printf("단어를 입력하세요(exit : 저장하지 않고 나가기)");
+		gotoxy(35, 15);
 		t1 = time(0);
 		fgets(user_input, 30, stdin);
 		t2 = time(0);
@@ -218,18 +232,23 @@ void start_game(struct difficulty_var *diff_var) {
 			}
 		}
 		judgement = 0;
-		if (t2 - t1 >= diff_var->time_attack) {
-			printf("시간 초과되었습니다.\n");
-			judgement++;
-		}
-		if (!(!strcmp(user_input, word_list[array[0]]) || !strcmp(user_input, word_list[array[1]]) || !strcmp(user_input, word_list[array[2]]) || !strcmp(user_input, word_list[array[3]]) || !strcmp(user_input, word_list[array[4]]))) {
-			printf("제시된 단어와 같지 않습니다.\n");
-			judgement++;
-		}
 		if (!(strcmp(user_input, "exit"))) {
 			break;
 		}
-		if (judgement == 0) {	// judgement 가 0이상일 경우 공격력 증가하지 않음
+		if (t2 - t1 >= diff_var->time_attack) {
+			game_title(1);
+			gotoxy(30, 12);
+			printf("시간 초과되었습니다.");
+			judgement++;
+		}
+		else if (!(!strcmp(user_input, word_list[array[0]]) || !strcmp(user_input, word_list[array[1]]) || !strcmp(user_input, word_list[array[2]]) || !strcmp(user_input, word_list[array[3]]) || !strcmp(user_input, word_list[array[4]]))) {
+			game_title(1);
+			gotoxy(26, 12);
+			printf("제시된 단어와 같지 않습니다.");
+			judgement++;
+		}
+		if (judgement == 0) {	// judgement 가 0 초과일 경우 공격력 증가하지 않음
+			game_title(1);
 			user_power += n;
 		}
 
@@ -245,38 +264,44 @@ void start_game(struct difficulty_var *diff_var) {
 		}
 		computer_power += n;
 
-		printf("사용자가 %s 를 입력하여 공격력이 %d 가 되었습니다.\n", user_input, user_power);
-		printf("컴퓨터가 %s 를 입력하여 공격력이 %d 가 되었습니다.\n\n", word_list[rand_number], computer_power);
+		gotoxy(10, 14);
+		printf("사용자가 %s 를 입력하여 공격력이 %d 가 되었습니다.", user_input, user_power);
+		gotoxy(10, 16);
+		printf("컴퓨터가 %s 를 입력하여 공격력이 %d 가 되었습니다.", word_list[rand_number], computer_power);
 		t4 = time(0);
 	} while (t4 - t3 < (diff_var->game_duration));
-	printf("당신의 공격력은 %d 이고 컴퓨터의 공격력은 %d 입니다.\n", user_power, computer_power);		// 입력에 따른 결과 출력
+	Sleep(2000);
+	game_title(1);
+	gotoxy(15, 14);
+	printf("당신의 공격력은 %d 이고 컴퓨터의 공격력은 %d 입니다.", user_power, computer_power);		// 입력에 따른 결과 출력
+	(mini_score.fight_computer_lock_info)++;
+	gotoxy(19, 17);
 	if (user_power > computer_power) {
-		printf("압도적인 힘의 차이로 당신이 승리하셨습니다.\n\n");
-		(mini_score.fight_computer_lock_info) += 2;
+		printf("압도적인 힘의 차이로 당신이 승리하셨습니다.");
 		if (diff_var->sleep_time == 7000) // 난이도 따른 점수 획득 차별화
 			(mini_score.fight_computer) += 2;
 		else
 			(mini_score.fight_computer) += 3;
 	}
 	else if (user_power == computer_power) {
-		printf("컴퓨터를 무찔렀지만 당신도 이내 쓰러지고 맙니다.\n\n");
-		(mini_score.fight_computer_lock_info)++;
+		printf("컴퓨터를 무찔렀지만 당신도 이내 쓰러지고 맙니다.");
 		if (diff_var->sleep_time == 3000)
 			(mini_score.fight_computer) -= 1;
 	}
 	else if (user_power < computer_power) {
-		printf("쓰러진 당신을 보고 컴퓨터는 기뻐합니다.\n\n");
+		printf("쓰러진 당신을 보고 컴퓨터는 기뻐합니다.");
 		if (diff_var->sleep_time == 7000)
 			(mini_score.fight_computer) -= 3;
 		else
 			(mini_score.fight_computer) -= 5;
 	}
+	Sleep(3000);
 }
 
 void now_total_score(struct difficulty_var *diff_var) {
 	char ch;
 
-	game_title();
+	game_title(0);
 	gotoxy(31, 12);
 	printf("현재 스코어 : %d", mini_score.fight_computer);
 
@@ -308,7 +333,7 @@ void now_total_score(struct difficulty_var *diff_var) {
 	scanf("%c", &ch);
 }
 
-void game_title()
+void game_title(int select)
 {
 	int i, x, y;
 
@@ -328,7 +353,7 @@ void game_title()
 		gotoxy(x, y);
 		printf("│");
 
-		if (i == 5)
+		if (i == 5 && select==0)
 		{
 			gotoxy(31, i);
 			printf("컴퓨터와 대결하기\n");
