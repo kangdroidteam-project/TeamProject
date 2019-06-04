@@ -38,9 +38,13 @@ int showMainScoreMenu() {
 			break;
         case 3:
             // Word Time-Attack Score
-            printf("1. 단어 n개: %d점\n", timeat_score.word_n1);
-            printf("2. 단어 n개: %d점\n", timeat_score.word_n2);
-            printf("3. 단어 n개: %d점\n", timeat_score.word_n3);
+			printf("1. 알파벳 n개: %d점\n", timeat_score.alp_n1);
+			printf("2. 알파벳 n개: %d점\n", timeat_score.alp_n2);
+			printf("3. 알파벳 n개: %d점\n", timeat_score.alp_n3);
+
+            printf("4. 단어 n개: %d점\n", timeat_score.word_n1);
+            printf("5. 단어 n개: %d점\n", timeat_score.word_n2);
+            printf("6. 단어 n개: %d점\n", timeat_score.word_n3);
 			printf("이전 메뉴로 돌아가려면 엔터키를 입력하세요.. ");
 			fgets(dummy, sizeof(dummy), stdin);
 			break;

@@ -77,6 +77,10 @@ void saveLogic(char *save_dir) {
     makeArray(mini_score.mem_word, test);
 
     // timeat_score
+	makeArray(timeat_score.alp_n1, test);
+	makeArray(timeat_score.alp_n2, test);
+	makeArray(timeat_score.alp_n3, test);
+
     makeArray(timeat_score.word_n1, test);
     makeArray(timeat_score.word_n2, test);
     makeArray(timeat_score.word_n3, test);
@@ -175,9 +179,12 @@ void load(char *save_file_dir) {
 	mini_score.fight_computer_lock_info = score_saved[8];
 	mini_score.mem_word = score_saved[9];
 
-	timeat_score.word_n1 = score_saved[10];
-	timeat_score.word_n1 = score_saved[11];
-	timeat_score.word_n1 = score_saved[12];
+	timeat_score.alp_n1 = score_saved[10];
+	timeat_score.alp_n2 = score_saved[11];
+	timeat_score.alp_n3 = score_saved[12];
+	timeat_score.word_n1 = score_saved[13];
+	timeat_score.word_n1 = score_saved[14];
+	timeat_score.word_n1 = score_saved[15];
 
     fclose(test_file);
 }

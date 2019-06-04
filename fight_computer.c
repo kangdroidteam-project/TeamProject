@@ -1,6 +1,7 @@
 #include "game.h"	
 
 void now_total_score(struct difficulty_var *diff_var);
+void game_title();
 
 struct difficulty_var {
 	int sleep_time;
@@ -13,34 +14,53 @@ struct minigame_score mini_score;
 
 void fight_computer() {
 	int input_user_menu, exit_sig = 0;
+	int i, x, y;
+	char ch;
 	srand(time(NULL));
 	static struct difficulty_var diff_var = { 0, 0, 0, 0 };
 
-	system("cls");
-
-	printf("컴퓨터와 대결하기 게임을 시작합니다.\n");
-
 	do {
-		printf("1. 시작\n");				// 메뉴
+		game_title();
+		
+		gotoxy(30, 12);
+		printf("1. 시작\n");	
+
+		gotoxy(30, 14);
 		printf("2. 규칙\n");
+
+		gotoxy(30, 16);
 		printf("3. 난이도 설정\n");
+
+		gotoxy(30, 18);
 		printf("4. 획득한 점수 보기\n");
+
+		gotoxy(30, 20);
 		printf("5. 나가기\n");
+
+		gotoxy(30, 22);
+		printf("당신의 선택은? ");
 		scanf("%d", &input_user_menu);
 		while (getchar() != '\n');
 
 		switch (input_user_menu) {
 		case 1:
 			if (diff_var.sleep_time == 0) {
-				system("cls");
-				printf("난이도를 선택해주세요.\n");
+				game_title();
+				gotoxy(30, 16);
+				printf("난이도를 선택해주세요!");
+				Sleep(1000);
 				break;
 			} else {
 				start_game(&diff_var);
 			}
 			break;
 		case 2:
+			game_title();
+			gotoxy(0, 11);
 			show_rule();
+			gotoxy(6, 22);
+			printf("메뉴로 돌아가려면 아무키나 입력하세요.");
+			scanf("%c", &ch);
 			break;
 		case 3:
 			set_difficulty(&diff_var);
@@ -50,6 +70,10 @@ void fight_computer() {
 			break;
 		case 5: // exit
 			exit_sig = 1;
+			game_title();
+			gotoxy(30, 15);
+			printf("다음에 또 오십쇼!!");
+			Sleep(1500);
 			break;
 		default:
 			printf("잘못 입력하셨습니다.\n");
@@ -61,28 +85,37 @@ void fight_computer() {
 }
 
 void show_rule() {
-	printf("--------------------------------------------------------------------------\n");
-	printf("컴퓨터와 대결하기\n");
-	printf("40초동안 빠르게 단어를 입력하세요.\n");
-	printf("단어입력이 4초이상 걸리면 공격력이 증가하지 않습니다.\n");
-	printf("컴퓨터는 당신과 같이 입력하지만 난이도에 따라 패널티가 주어집니다.\n");
-	printf("단어 입력 전 랜덤으로 버프가 주어집니다.\n");
-	printf("단어 입력 전 3초 동안 5개의 단어가 제시됩니다.\n");
-	printf("제시된 5개의 단어 중 하나를 입력해야 합니다.\n");
-	printf("최종 공격력에 따라 승패가 결정됩니다.\n\n");
-	printf("주의 : 단어 제시 시간도 플레이시간에 포함됩니다.\n");
-	printf("--------------------------------------------------------------------------\n");
+	gotoxy(6, 12);
+	printf("40초동안 빠르게 단어를 입력하세요.");
+	gotoxy(6, 13);
+	printf("단어입력이 4초이상 걸리면 공격력이 증가하지 않습니다.");
+	gotoxy(6, 14);
+	printf("컴퓨터는 당신과 같이 입력하지만 난이도에 따라 패널티가 주어집니다.");
+	gotoxy(6, 15);
+	printf("단어 입력 전 랜덤으로 버프가 주어집니다.");
+	gotoxy(6, 16);
+	printf("단어 입력 전 3초 동안 5개의 단어가 제시됩니다.");
+	gotoxy(6, 17);
+	printf("제시된 5개의 단어 중 하나를 입력해야 합니다.");
+	gotoxy(6, 18);
+	printf("최종 공격력에 따라 승패가 결정됩니다.");
+	gotoxy(6, 20);
+	printf("주의 : 단어 제시 시간도 플레이시간에 포함됩니다.");
 }
 
 void set_difficulty(struct difficulty_var *diff_var) {
 	int exit_sig_dif = 0, user_difficult;
 
-	printf("---------------------------------------------\n");
-	printf("난이도 설정\n");
-	printf("---------------------------------------------\n");
-	printf("normal 은 1을, hard는 2를 선택하세요!\n");
-	printf("---------------------------------------------\n");
 	do { // 3점 획득해야 어려움 설정 가능
+		game_title();
+
+		gotoxy(34, 13);
+		printf("난이도 설정");
+
+		gotoxy(21, 15);
+		printf("normal 은 1을, hard는 2를 선택하세요!");
+
+		gotoxy(22, 17);
 		printf("해당하는 난이도 번호를 입력하세요: ");
 		scanf("%d", &user_difficult);
 		while (getchar() != '\n');
@@ -96,7 +129,9 @@ void set_difficulty(struct difficulty_var *diff_var) {
 			break;
 		case 2: //Hard
 			if (mini_score.fight_computer_lock_info < 3) {
-				printf("어려움 난이도는 보통 난이도에서 3점 이상 획득하셔야 선택할 수 있습니다.\n");
+				gotoxy(3, 19);
+				printf("어려움 난이도는 보통 난이도에서 3점 이상 획득하셔야 선택할 수 있습니다.");
+				Sleep(3000);
 				break;
 			}
 			else {
@@ -236,16 +271,77 @@ void start_game(struct difficulty_var *diff_var) {
 }
 
 void now_total_score(struct difficulty_var *diff_var) {
-	printf("현재 스코어 : %d\n", mini_score.fight_computer);
-	printf("현재 스코어에 따른 호칭\n");
-	if (mini_score.fight_computer < -20)					// ~ -20
-		printf("컴퓨터의 하수인\n");
-	else if (mini_score.fight_computer < 0)				// -20 ~ 0
-		printf("컴퓨터에 굴복한 자\n");
-	else if (mini_score.fight_computer < 5)				// 0~5
-		printf("생존자\n");
-	else if (mini_score.fight_computer < 10)				// 5~10
-		printf("컴퓨터를 굴복시킨 자\n");
-	else
-		printf("컴퓨터에 벌레를 풀어놓는 자\n");	// 10~
+	char ch;
+
+	game_title();
+	gotoxy(31, 12);
+	printf("현재 스코어 : %d", mini_score.fight_computer);
+
+	gotoxy(27, 14);
+	printf("현재 스코어에 따른 호칭");
+
+	if (mini_score.fight_computer < -20) {					// ~ -20
+		gotoxy(31, 16);
+		printf("컴퓨터의 하수인");
+	}
+	else if (mini_score.fight_computer < 0) {				// -20 ~ 0
+		gotoxy(30, 16);
+		printf("컴퓨터에 굴복한 자");
+	}
+	else if (mini_score.fight_computer < 5) {				// 0~5
+		gotoxy(34, 16);								
+		printf("생존자");
+	}
+	else if (mini_score.fight_computer < 10) {				// 5~10
+		gotoxy(28, 16);
+		printf("컴퓨터를 굴복시킨 자");
+	}
+	else {													// 10~
+		gotoxy(25, 16);
+		printf("컴퓨터에 벌레를 풀어놓는 자");
+	}
+	gotoxy(19, 18);
+	printf("메뉴로 돌아가려면 아무키나 입력하세요.");
+	scanf("%c", &ch);
+}
+
+void game_title()
+{
+	int i, x, y;
+
+	system("cls");
+
+	x = 0;
+	y = 0;
+	gotoxy(x, y);
+	printf("┌");
+	for (i = 0; i < 38; i++)
+		printf("─");
+	printf("┐");
+
+	for (i = 1; i < 11; i++)
+	{
+		y++;
+		gotoxy(x, y);
+		printf("│");
+
+		if (i == 5)
+		{
+			gotoxy(31, i);
+			printf("컴퓨터와 대결하기\n");
+		}
+
+		x += 78;
+		gotoxy(x, y);
+		printf("│");
+		x = 0;
+	}
+
+	gotoxy(x, y);
+	printf("└");
+	for (i = 0; i < 38; i++)
+		printf("─");
+	printf("┘");
+
+	gotoxy(0, 0);
 }

@@ -38,6 +38,8 @@ void show_question(int*, char number_list[][30]);
 void value_clear(int*count, char answer[], char player_answer[]);
 void word_game(int);
 void showString(char *input, int mode, int count);
+void gotoxy(int x, int y);
+void showDefMenu();
 
 struct typing_score {
     int easy;
@@ -56,6 +58,9 @@ struct minigame_score {
 } MINISCORE;
 
 struct timeattack_score {
+	int alp_n1;
+	int alp_n2;
+	int alp_n3;
     int word_n1;
     int word_n2;
     int word_n3;

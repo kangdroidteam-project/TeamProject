@@ -56,10 +56,12 @@ int showMenu() {
 
         case 3:
             // Time Attack MENU Function
-            do {
+			system("cls");
+			showDefMenu();
+            /*do {
                 system("cls");
                 typ_menu_ret = showTimeAttackMenu();
-            } while (typ_menu_ret != 0);
+            } while (typ_menu_ret != 0);*/
         return user_choice;
 
         case 4:
