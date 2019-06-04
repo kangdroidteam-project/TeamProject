@@ -11,10 +11,21 @@ void word_game(int mode) {
 
 	// After first round, we need to take while loop
 	while (1) {
-		if (i >= 5) {
-			printf("축하드립니다!\n 게임을 모두 끝내셨어요!\n");
-			Sleep(1500);
-			break;
+		if (mode == 0) {
+			if (i >= 5) {
+				printf("축하드립니다!\n 게임을 모두 끝내셨어요!\n");
+				type_score.extreme_unlock = mode;
+				Sleep(1500);
+				break;
+			}
+		}
+		else if (mode == 1 || mode == 2 || mode == 3 || mode == 4) {
+			if (i >= 15) {
+				printf("축하드립니다!\n 게임을 모두 끝내셨어요!\n");
+				type_score.extreme_unlock = mode + 1;
+				Sleep(1500);
+				break;
+			}
 		}
 		if (time(0) == s_time + 10) {
 			printf("시간 초과되었습니다.\n");
@@ -22,9 +33,17 @@ void word_game(int mode) {
 			i++;
 			Sleep(1000);
 			FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
-			if (i != 5) {
-				system("cls");
-				showString(showing, mode, i);
+			if (mode == 0) {
+				if (i != 5) {
+					system("cls");
+					showString(showing, mode, i);
+				}
+			}
+			if (mode == 1 || mode == 2 || mode == 3 || mode == 4) {
+				if (i != 15) {
+					system("cls");
+					showString(showing, mode, i);
+				}
 			}
 			s_time = time(0);
 		}
@@ -36,7 +55,8 @@ void word_game(int mode) {
 			if (input == '\b') {
 				printf("\b \b");
 				j = j - 1;
-			} else if ((input >= 'a'&&input <= 'z') || (input >= 'A'&&input <= 'Z') || (input >= ' ' && input <= '/')) {
+			}
+			else if ((input >= 'a'&&input <= 'z') || (input >= 'A'&&input <= 'Z') || (input >= ' ' && input <= '/')) {
 				printf("%c", input);
 				input_word[j] = input;
 				j++;
@@ -45,32 +65,43 @@ void word_game(int mode) {
 					if (!strcmp(input_word, showing)) {
 						printf("\n정답입니다\n");
 						switch (mode) {
-						case 0: case 1:
+						case 0:
+							break;
+						case 1:
 							type_score.easy++;
 							break;
 						case 2:
-							type_score.moderate = (int)(5 * (1 - (time(0) - s_time) / TIME_LIMIT));
+							type_score.moderate += (int)(5 * (1 - (time(0) - s_time) / TIME_LIMIT));
 							break;
 						case 3: case 4:
-							type_score.hard = (int)(5 * (1 - (time(0) - s_time) / TIME_LIMIT));
+							type_score.hard += (int)(5 * (1 - (time(0) - s_time) / TIME_LIMIT));
 							break;
 						}
 						j = 0;
 						i++;
 						Sleep(1000);
 						FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
-						if (i != 5) {
-							system("cls");
-							showString(showing, mode, i);
+						if (mode == 0) {
+							if (i != 5) {
+								system("cls");
+								showString(showing, mode, i);
+							}
+						}
+						if (mode == 1 || mode == 2 || mode == 3 || mode == 4) {
+							if (i != 15) {
+								system("cls");
+								showString(showing, mode, i);
+							}
 						}
 						s_time = time(0);
-					} else {
+					}
+					else {
 						j = 0;
 						i++;
 						printf("틀렸습니다\n");
 						Sleep(1000);
 						FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
-						if (i != 5) {
+						if (i != 15) {
 							system("cls");
 							showString(showing, mode, i);
 						}

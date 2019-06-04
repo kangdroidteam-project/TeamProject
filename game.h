@@ -16,7 +16,6 @@
 int showMenu();
 int showTypingMenu();
 int showMiniGameMenu();
-int showTimeAttackMenu();
 int showMainScoreMenu();
 int showVocabMenu();
 void printArray(int** input_array, int col_count);
@@ -46,6 +45,7 @@ struct typing_score {
     int moderate;
     int hard;
     int extreme;
+	int extreme_unlock;
 } TYPSCORE;
 
 struct minigame_score {

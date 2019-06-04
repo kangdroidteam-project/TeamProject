@@ -1,5 +1,7 @@
 #include "game.h"
 
+struct typing_score type_score;
+
 int showTypingMenu() {
     int user_input_typing;
 	char input[5];
@@ -31,7 +33,13 @@ int showTypingMenu() {
 			break;
         case 4:
             // Extremely-hard
-			word_game(4);
+			if (type_score.extreme_unlock == 4) {
+				word_game(4);
+			}
+			else {
+				printf("고급 단계를 클리어 하신 분들만 최상급 단계를 플레이 할 수 있습니다!\n");
+				Sleep(3000);
+			}
 			break;
 		case 5:
 			// Explanation of Steps, Level
