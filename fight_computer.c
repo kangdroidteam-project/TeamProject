@@ -205,7 +205,7 @@ void start_game(struct difficulty_var *diff_var) {
 			computer_burf++;
 		}
 
-		printf("단어를 입력하세요 : ");
+		printf("단어를 입력하세요(exit을 입력하면 저장하지 않고 끝내기!) : ");
 		t1 = time(0);
 		fgets(user_input, 30, stdin);
 		t2 = time(0);
@@ -225,6 +225,9 @@ void start_game(struct difficulty_var *diff_var) {
 		if (!(!strcmp(user_input, word_list[array[0]]) || !strcmp(user_input, word_list[array[1]]) || !strcmp(user_input, word_list[array[2]]) || !strcmp(user_input, word_list[array[3]]) || !strcmp(user_input, word_list[array[4]]))) {
 			printf("제시된 단어와 같지 않습니다.\n");
 			judgement++;
+		}
+		if (!(strcmp(user_input, "exit"))) {
+			break;
 		}
 		if (judgement == 0) {	// judgement 가 0이상일 경우 공격력 증가하지 않음
 			user_power += n;
