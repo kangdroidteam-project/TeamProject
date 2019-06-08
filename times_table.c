@@ -4,7 +4,6 @@ void show_rule_time_table();
 void score_time_table();
 void clear_buffer_arr(char *input);
 void game_difficulty();
-void game_title_timestable(int);
 
 struct minigame_score mini_score;
 int difficulty = 0, limit_time=10;
@@ -16,7 +15,7 @@ void times_table() {
 	srand(time(NULL));
 
 	do {
-		game_title_timestable(0);
+		game_title_headline(0, "영어로 구구단 외우기\n");
 
 		gotoxy(30, 12);
 		printf("1. 시작");
@@ -43,7 +42,7 @@ void times_table() {
 			start_game_time_table();
 			break;
 		case 2:
-			game_title_timestable(0);
+			game_title_headline(0, "영어로 구구단 외우기\n");
 			gotoxy(0, 11);
 			show_rule_time_table();
 			gotoxy(10, 21);
@@ -58,13 +57,13 @@ void times_table() {
 			break;
 		case 5:
 			exit_signal = 1;
-			game_title_timestable(0);
+			game_title_headline(0, "영어로 구구단 외우기\n");
 			gotoxy(30, 15);
 			printf("게임을 종료합니다.");
 			Sleep(1500);
 			break;
 		default:
-			game_title_timestable(0);
+			game_title_headline(0, "영어로 구구단 외우기\n");
 			gotoxy(30, 16);
 			printf("잘못 입력하셨습니다.");
 			Sleep(1000);
@@ -165,7 +164,7 @@ void start_game_time_table() {
 	int s_time, flag = 2, one_digit = 0, ten_digit = 0, hundred_digit = 0, count = 0, calculate = 0;
 	char player_answer[30] = { 0 }, answer[30] = { 0 };
 
-	game_title_timestable(1);
+	game_title_headline(1, "영어로 구구단 외우기\n");
 
 	for (int i = 0; i < 3; i++) { // 3초뒤 시작
 		gotoxy(38, 5);
@@ -176,7 +175,7 @@ void start_game_time_table() {
 	printf("시작!");
 	Sleep(1000);
 	
-	game_title_timestable(1);
+	game_title_headline(1, "영어로 구구단 외우기\n");
 	value_clear(&count, answer, player_answer);
 	show_question(&calculate, number_1);
 	get_the_digit(calculate, answer, number_1, number_2, number_3, number_4); //generate answer(computer)
@@ -185,7 +184,7 @@ void start_game_time_table() {
 
 	while (1) {
 		if (time(0) == s_time + limit_time) {
-			game_title_timestable(1);
+			game_title_headline(1, "영어로 구구단 외우기\n");
 			gotoxy(30, 12);
 			printf("시간 초과되었습니다.\n");
 			value_clear(&count, answer, player_answer);
@@ -197,7 +196,7 @@ void start_game_time_table() {
 			ch = _getch();
 
 			if (ch == 27) {
-				game_title_timestable(1);
+				game_title_headline(1, "영어로 구구단 외우기\n");
 				gotoxy(28, 5);
 				printf("나가기 버튼을 누르셨습니다.");
 				FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
@@ -234,14 +233,14 @@ void start_game_time_table() {
 			}
 			if (flag == 1) {
 				(mini_score.timecalc_ans)++;
-				game_title_timestable(1);
+				game_title_headline(1, "영어로 구구단 외우기\n");
 				gotoxy(30, 12);
 				printf("정답은 %s 입니다.", answer);
 				gotoxy(32, 13);
 				printf("정답입니다.");
 				FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
 			} else {
-				game_title_timestable(1);
+				game_title_headline(1, "영어로 구구단 외우기\n");
 				gotoxy(30, 12);
 				printf("정답은 %s 입니다.", answer);
 				gotoxy(25, 13);
@@ -263,7 +262,7 @@ void start_game_time_table() {
 void score_time_table() {
 	char tt_ch;
 
-	game_title_timestable(0);
+	game_title_headline(0, "영어로 구구단 외우기\n");
 	gotoxy(31, 12);
 	printf("시도 횟수 : %d", (mini_score.timecalc_try));
 	gotoxy(31, 13);
@@ -296,7 +295,7 @@ void show_rule_time_table() {
 void game_difficulty() {
 	int user_difficult, exit_sig_dif = 0;
 	do {
-		game_title_timestable(0);
+		game_title_headline(0, "영어로 구구단 외우기\n");
 
 		gotoxy(34, 13);
 		printf("난이도 설정");
@@ -316,7 +315,7 @@ void game_difficulty() {
 		while (getchar() != '\n');
 		switch (user_difficult) {
 		case 0:
-			game_title_timestable(0);
+			game_title_headline(0, "영어로 구구단 외우기\n");
 			gotoxy(28, 15);
 			printf("normal로 설정되었습니다.");
 			difficulty = 0;
@@ -325,7 +324,7 @@ void game_difficulty() {
 			Sleep(1500);
 			break;
 		case 1:
-			game_title_timestable(0);
+			game_title_headline(0, "영어로 구구단 외우기\n");
 			gotoxy(26, 15);
 			printf("extreme 으로 설정되었습니다.");
 			difficulty = 1;
@@ -334,52 +333,11 @@ void game_difficulty() {
 			Sleep(1500);
 			break;
 		default:
-			game_title_timestable(0);
+			game_title_headline(0, "영어로 구구단 외우기\n");
 			gotoxy(30, 15);
 			printf("잘못 입력하셨습니다.");
 			Sleep(1000);
 			continue;
 		}
 	} while (exit_sig_dif != 1);
-}
-
-void game_title_timestable(int select)
-{
-	int i, x, y;
-
-	system("cls");
-
-	x = 0;
-	y = 0;
-	gotoxy(x, y);
-	printf("┌");
-	for (i = 0; i < 38; i++)
-		printf("─");
-	printf("┐");
-
-	for (i = 1; i < 11; i++)
-	{
-		y++;
-		gotoxy(x, y);
-		printf("│");
-
-		if (i == 5 && select == 0)
-		{
-			gotoxy(30, i);
-			printf("영어로 구구단 외우기\n");
-		}
-
-		x += 78;
-		gotoxy(x, y);
-		printf("│");
-		x = 0;
-	}
-
-	gotoxy(x, y);
-	printf("└");
-	for (i = 0; i < 38; i++)
-		printf("─");
-	printf("┘");
-
-	gotoxy(0, 0);
 }
