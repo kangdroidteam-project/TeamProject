@@ -8,6 +8,7 @@ struct timeattack_score timeat_score;
 
 int main(void) {
     int menu_ret_value;
+	system("mode con cols=80 lines=25");
 
     do {
         menu_ret_value = showMenu();
