@@ -8,7 +8,7 @@ struct timeattack_score timeat_score;
 
 int main(void) {
     int menu_ret_value;
-	system("mode con cols=80 lines=25");
+	system("mode con cols=80 lines=30");
 
     do {
         menu_ret_value = showMenu();
@@ -24,13 +24,30 @@ int showMenu() {
 
     // Clear screen before we start anything;
     system("cls");
+	game_title_headline(0, "정말 즐거운 타자게임!\n");
+
+	gotoxy(30, 12);
     printf("1. 타자 연습\n");
+
+	gotoxy(30, 14);
     printf("2. 미니게임\n");
+
+	gotoxy(30, 16);
     printf("3. 타임 어텍\n");
+
+	gotoxy(30, 18);
     printf("4. 게임별 점수 확인\n");
+
+	gotoxy(30, 20);
     printf("5. 게임에 사용된 단어 훑어보기!\n");
+
+	gotoxy(30, 22);
     printf("6. 저장/불러오기!\n");
+
+	gotoxy(30, 24);
     printf("7. 끝내기\n");
+
+	gotoxy(30, 26);
     printf("하고 싶은 메뉴를 선택하세요: ");
     scanf("%d", &user_choice);
 

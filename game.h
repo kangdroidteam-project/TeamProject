@@ -5,7 +5,7 @@
 #include <windows.h>
 #include <conio.h>
 
-#define SLEEP_SECOND 2
+#define SLEEP_SECOND 2000
 #define MAX_WORD 9896
 #define MAX_WORD_SHORT 2184
 #define MAX_WORD_MID 5460
@@ -39,6 +39,48 @@ void word_game(int);
 void showString(char *input, int mode, int count);
 void gotoxy(int x, int y);
 void showDefMenu();
+
+
+static void game_title_headline(int select, char *input)
+{
+	int i, x, y;
+
+	system("cls");
+
+	x = 0;
+	y = 0;
+	gotoxy(x, y);
+	printf("¦£");
+	for (i = 0; i < 38; i++)
+		printf("¦¡");
+	printf("¦¤");
+
+	for (i = 1; i < 11; i++)
+	{
+		y++;
+		gotoxy(x, y);
+		printf("¦¢");
+
+		if (i == 5 && select == 0)
+		{
+			gotoxy(30, i);
+			printf(input);
+		}
+
+		x += 78;
+		gotoxy(x, y);
+		printf("¦¢");
+		x = 0;
+	}
+
+	gotoxy(x, y);
+	printf("¦¦");
+	for (i = 0; i < 38; i++)
+		printf("¦¡");
+	printf("¦¥");
+
+	gotoxy(0, 0);
+}
 
 struct typing_score {
     int easy;

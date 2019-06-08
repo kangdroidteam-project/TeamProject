@@ -3,11 +3,24 @@
 int showVocabMenu() {
     int user_input_typing;
 
+	game_title_headline(0, "단어 리스트!\n");
+
+	gotoxy(30, 12);
     printf("1. 쉬운(초급) 단어\n");
+
+	gotoxy(30, 14);
     printf("2. 중급 단어\n");
+
+	gotoxy(30, 16);
     printf("3. 고급 단어\n");
+
+	gotoxy(30, 18);
     printf("4. 최상급 숙어 및 문장\n");
+
+	gotoxy(30, 20);
     printf("0. 전 메뉴로 돌아가기\n");
+
+	gotoxy(30, 22);
     printf("원하는 단계를 입력해주세요! ");
     scanf("%d", &user_input_typing);
 
@@ -38,6 +51,7 @@ int showVocabMenu() {
 
 void showVocab(char *list_word[], int max_word_end) {
     int success = 0, ch = 0;
+	system("cls");
     for (int i = 0; i < max_word_end; i++) {
         printf("%s\n", list_word[i]);
         if (i == max_word_end - 1) {

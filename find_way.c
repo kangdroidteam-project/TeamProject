@@ -13,6 +13,9 @@ void mini_maze() {
 
     system("cls");
 
+	game_title_headline(0, "Finding the way out!\n");
+
+	gotoxy(0, 12);
     printf("미로판의 크기를 입력하세요.(n * n 형식, n - 정수만 입력)  ");
     scanf("%d", &how_many_col);
     while (getchar() != '\n');
@@ -33,8 +36,6 @@ void mini_maze() {
     // First location = 0, 0, 5 is the where game character located in.
     array_pointer[0][0] = 5;
 
-	// And Destination needs to be highlighted as 7
-
 	time_start = time(0);
 
     while (strcmp("exit", user_input) && array_pointer[dest_y][dest_x] != 5) {
@@ -44,8 +45,13 @@ void mini_maze() {
             random_number[i] = rand() % MAX_WORD;
         }
 
-        printf("어떤 방향으로 갈래?\n");
-        printf("\"%s\" 을 입력하면 위로 한칸, \"%s\" 을 입력하면 아래로 한칸, \"%s\" 을 입력하면 오른쪽으로 한칸, \"%s\" 을 입력하면 왼쪽으로 한칸, exit을 입력하면 저장하지 않고 게임 나가기.\nhint를 입력해 점수 차감 후 힌트 얻기\n", word_list[random_number[0]], word_list[random_number[1]], word_list[random_number[2]], word_list[random_number[3]]);
+        printf("어떤 방향으로 갈래?\n\n");
+		printf("위로 한칸: \"%s\" \n", word_list[random_number[0]]);
+		printf("아래로 한칸: \"%s\" \n", word_list[random_number[1]]);
+		printf("오른쪽 한칸: \"%s\" \n", word_list[random_number[2]]);
+		printf("왼쪽 한칸: \"%s\" \n", word_list[random_number[3]]);
+		printf("\n힌트를 원하면 hint(단, 점수 차감!)\n");
+		printf("단어를 입력하세요(끝내려면 exit): ");
         
         fgets(user_input, sizeof(user_input), stdin);
         user_input[strlen(user_input) - 1] = 0;

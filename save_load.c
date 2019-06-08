@@ -12,11 +12,24 @@ int slMenu() {
     int user_input_typing;
     static char save_file_dir[100] = {0}, info_file[] = "현재 파일 경로: %s\n";
 
+	game_title_headline(0, "저장 메뉴\n");
+
+	gotoxy(30, 12);
     printf("1. 저장파일 경로 입력.\n");
+
+	gotoxy(30, 14);
     printf("2. 경로에 저장하기!\n");
+
+	gotoxy(30, 16);
     printf("3. 경로에서 불러오기!\n");
+
+	gotoxy(30, 18);
     printf("0. 전 메뉴로 돌아가기\n");
+
+	gotoxy(30, 20);
     printf(info_file, save_file_dir);
+
+	gotoxy(30, 22);
     printf("원하는 단계를 입력해주세요! ");
     scanf("%d", &user_input_typing);
 
@@ -31,10 +44,12 @@ int slMenu() {
         case 2:
             // Save
             if (strlen(save_file_dir) == 0) {
+				gotoxy(30, 24);
                 printf("1번 메뉴를 통해 파일 경로를 입력해주세요!\n");
                 Sleep(2000);
             } else {
                 saveLogic(save_file_dir);
+				gotoxy(30, 24);
                 printf("파일 저장이 완료되었습니다!\n");
                 Sleep(2000);
             }
@@ -42,10 +57,12 @@ int slMenu() {
         case 3:
             // Load
             if (strlen(save_file_dir) == 0) {
+				gotoxy(30, 24);
                 printf("1번 메뉴를 통해 파일 경로를 입력해주세요!\n");
                 Sleep(2000);
             } else {
                 load(save_file_dir);
+				gotoxy(30, 24);
                 printf("로딩이 완료되었습니다!\n");
                 Sleep(2000);
             }
