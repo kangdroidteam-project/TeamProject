@@ -79,6 +79,12 @@ int slMenu() {
 void saveLogic(char *save_dir) {
     char test[50] = {0};
 
+	/*
+	  If we modify at least one of those elements below, we need to update whole thing again
+	  in 'load' function. So if you know what you are doing, then, do it. 
+	  Make array containing every information in structure value in game.h(eg: score, unlock info)
+	*/
+
     // type_score
     makeArray(type_score.easy, test);
     makeArray(type_score.moderate, test);
@@ -102,19 +108,33 @@ void saveLogic(char *save_dir) {
     makeArray(timeat_score.word_n2, test);
     makeArray(timeat_score.word_n3, test);
 
-	//Scramble it before save it.
+	/*
+	  Why we are scrambling?
+	  If we save value in plain text, that means everyone can access data file and modify it.
+	  That is not gonna happen in this program.
+	  Scramble it before save it.
+	*/
 	scrambleArray(test);
 
+	// Save it to save_dir
     save(test, save_dir);
 }
 
+/*
+  How it works?
+  Get char array from arr, modify each element using below's equation.
+*/
 void scrambleArray(char *arr) {
 	int a = strlen(arr);
 	for (int i = 0; i < a; i++) {
-		arr[i] = (arr[i] - pow(i + 1, 2) + i + 1) + 5;
+		arr[i] = (arr[i] - pow(i + 1, 2) + i + 1) + 5; // equation
 	}
 }
 
+/*
+  How it works?
+  Get char array from arr, modify each element using below's equation.(Restoration)
+*/
 void restoreArray(char *arr) {
 	int a = strlen(arr);
 	for (int i = 0; i < a; i++) {
@@ -122,6 +142,11 @@ void restoreArray(char *arr) {
 	}
 }
 
+/*
+  Basically make array with value.
+  value goes in to char wtf array. So it means basically saving "value" to array.
+  We are appending each value by space because otherwise, there is no way to determine each score-value when loading.
+*/
 void makeArray(int value, char* wtf) {
     char temp[20] = {0};
     int temp_counter = 0, wtf_counter = strlen(wtf);
@@ -130,13 +155,13 @@ void makeArray(int value, char* wtf) {
         temp[temp_counter] = '0';
     } else {
         while (value != 0) {
-            temp[temp_counter] = (value % 10) + '0';
+            temp[temp_counter] = (value % 10) + '0'; // just in case when score is above 10
             value = value / 10;
             temp_counter++;
         }
     }
 
-    // Roll back to positive way.
+    // Roll back to positive way.(Because temp array above saved in opposite - way)
     for (int i = strlen(temp); i >= 0; i--) {
         if (i != 0) {
             wtf[wtf_counter] = temp[i-1];
@@ -144,20 +169,23 @@ void makeArray(int value, char* wtf) {
         wtf_counter++;
     }
 
-    // Put blank on last bits
+    // Put blank on last bits(So we can determine when loading)
     wtf[strlen(wtf)] = ' ';
 }
 
+/*
+  Write encrypted char array to a file
+*/
 void save(char* wtf, char *save_file_dir) {
     //int temp_counter = 0, wtf_counter = 0;
     FILE *test_file = fopen(save_file_dir, "w");
-    
-    // Trail last bits
-    //wtf[strlen(wtf) - 1] = 0;
     fputs(wtf, test_file);
     fclose(test_file);
 }
 
+/*
+  Get value from fgets<file>, restore Array, and PARSE each value & save to each structure variable.
+*/
 void load(char *save_file_dir) {
     FILE *test_file = fopen(save_file_dir, "r");
     char test[40];
@@ -165,8 +193,9 @@ void load(char *save_file_dir) {
 
     fgets(test, sizeof(test), test_file);
 	restoreArray(test);
-	test[strlen(test) - 1] = 0;
+	test[strlen(test) - 1] = 0; // Last bit is 32(space), so we trail it in here.
 
+	// Core functions of parsing value on test
     while (counter != strlen(test)) {
         if (test[counter] == ' ') {
             score_saved[intcounter] = res;
@@ -183,7 +212,8 @@ void load(char *save_file_dir) {
     score_saved[intcounter] = res;
 
 	// Now, all information is loaded by array score_saved.
-	// So now what? save.
+	// So now what? Save to each structure variable.
+	// WARNING. IF SOME STRUCTURE OR OTHER VALUE MODIFIED, WE MUST UPDATE score_saved array's index.
 	type_score.easy = score_saved[0];
 	type_score.moderate = score_saved[1];
 	type_score.hard = score_saved[2];

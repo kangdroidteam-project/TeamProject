@@ -13,18 +13,19 @@ void mini_maze() {
 
     system("cls");
 
+	// Generate Heading(Title)
 	game_title_headline(0, "Finding the way out!\n");
 
 	gotoxy(0, 12);
     printf("미로판의 크기를 입력하세요.(n * n 형식, n - 정수만 입력)  ");
     scanf("%d", &how_many_col);
-    while (getchar() != '\n');
+    while (getchar() != '\n'); // Flush away remaining buffer
 	dest_x = rand() % (how_many_col - 1) + 1;
 	dest_y = rand() % (how_many_col - 1) + 1;
 
     system("cls");
 
-    // 2-dimension array by dynamic memory allocation
+    // 2-dimension array by dynamic memory allocation(VS doesn't support C99)
     array_pointer = (int**)malloc(sizeof(int*) * how_many_col);
     for (int i = 0; i < how_many_col; i++) {
         array_pointer[i] = (int*)malloc(sizeof(int) * how_many_col);
@@ -38,6 +39,7 @@ void mini_maze() {
 
 	time_start = time(0);
 
+	// if user inputs exit, and we arrived at destination, we end this game.
     while (strcmp("exit", user_input) && array_pointer[dest_y][dest_x] != 5) {
         printArray(array_pointer, how_many_col);
         // Put random numbers to int array
@@ -56,6 +58,7 @@ void mini_maze() {
         fgets(user_input, sizeof(user_input), stdin);
         user_input[strlen(user_input) - 1] = 0;
 
+		// Check whether user input right or wrong.
         if (!strcmp(word_list[random_number[0]], user_input)) {
             moveLogic(array_pointer, 1, how_many_col, &x, &y);
         } else if (!strcmp(word_list[random_number[1]], user_input)) {
@@ -95,6 +98,7 @@ void mini_maze() {
     free(array_pointer);
 }
 
+// Logic when move '5' to 4 - way direction.
 void moveLogic(int** input_array, int what, int col_count, int* x, int* y) {
     switch (what) {
         case 1: //up
@@ -103,9 +107,9 @@ void moveLogic(int** input_array, int what, int col_count, int* x, int* y) {
                 Sleep(SLEEP_SECOND);
             } else {
                 printf("위로 갑니다~!\n");
-                input_array[*y][*x] = 0;
+                input_array[*y][*x] = 0; // Clear current location status to 0.
                 (*y)--;
-                input_array[*y][*x] = 5;
+                input_array[*y][*x] = 5; // New Location status will be 5
             }
             system("cls");
             break;
@@ -115,9 +119,9 @@ void moveLogic(int** input_array, int what, int col_count, int* x, int* y) {
                 Sleep(SLEEP_SECOND);
             } else {
                 printf("아래로 갑니다~!\n");
-                input_array[*y][*x] = 0;
+                input_array[*y][*x] = 0; // Clear current location status to 0.
                 (*y)++;
-                input_array[*y][*x] = 5;
+                input_array[*y][*x] = 5; // New Location status will be 5
             }
             system("cls");
             break;
@@ -127,9 +131,9 @@ void moveLogic(int** input_array, int what, int col_count, int* x, int* y) {
                 Sleep(SLEEP_SECOND);
             } else {
                 printf("오른쪽으로 갑니다~!\n");
-                input_array[*y][*x] = 0;
+                input_array[*y][*x] = 0; // Clear current location status to 0.
                 (*x)++;
-                input_array[*y][*x] = 5;
+                input_array[*y][*x] = 5; // New Location status will be 5
             }
             system("cls");
             break;
@@ -139,9 +143,9 @@ void moveLogic(int** input_array, int what, int col_count, int* x, int* y) {
                 Sleep(SLEEP_SECOND);
             } else {
                 printf("왼쪽으로 갑니다~!\n");
-                input_array[*y][*x] = 0;
+                input_array[*y][*x] = 0; // Clear current location status to 0.
                 (*x)--;
-                input_array[*y][*x] = 5;
+                input_array[*y][*x] = 5; // New Location status will be 5
             }
             system("cls");
             break;

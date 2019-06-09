@@ -1,5 +1,10 @@
 #include "game.h"
 
+/*
+  Each menu shows value of structure variable.
+  Use enter key to escape current functions.
+  (Menu functions are same as main functions)
+*/
 int showVocabMenu() {
     int user_input_typing;
 
@@ -49,6 +54,12 @@ int showVocabMenu() {
     }
 }
 
+/*
+  Get list_word, max_word_end from call, show it to user.
+  We are basically using arrow key to control i value(in user's view, vocab list page)
+  Basically if i(iteration counter variable) exceeds max_word_end, then we show warning sign and automatically return to menu.
+  if i is 0, we show list_word[0] value. again and again.
+*/
 void showVocab(char *list_word[], int max_word_end) {
     int success = 0, ch = 0;
 	system("cls");
@@ -61,6 +72,7 @@ void showVocab(char *list_word[], int max_word_end) {
         if ((i != 0) && (i % 20 == 0)) {
             printf("윗 방향키로 이전 페이지로, 아래 방향키로 다음 페이지로 이동하거나, 왼쪽/오른쪽 키로 이 메뉴를 종료합니다.");
             success = 0;
+			// Those are key - core functions fore controling i(iteration variable) value.
             while (success == 0) {
                 ch = _getch();
 				if (ch == 224) {

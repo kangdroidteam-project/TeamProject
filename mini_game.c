@@ -23,6 +23,7 @@ int showMiniGameMenu() {
     printf("원하는 단계를 입력해주세요! ");
     scanf("%d", &user_input_typing);
 
+	// returns some value if we are putting any other value than menu.
     switch (user_input_typing) {
         case 1:
             // GAME STARTS

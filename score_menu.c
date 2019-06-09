@@ -1,9 +1,17 @@
 #include "game.h"
 
+/*
+  Declare structure so we can access extern value.
+*/
 struct typing_score type_score;
 struct minigame_score mini_score;
 struct timeattack_score timeat_score;
 
+/*
+  Each menu shows value of structure variable.
+  Use enter key to escape current functions.
+  (Menu functions are same as main functions)
+*/
 int showMainScoreMenu() {
     int user_input_typing;
 	char dummy[10];

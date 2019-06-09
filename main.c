@@ -2,14 +2,11 @@
 
 int showMenu();
 
-struct typing_score type_score;
-struct minigame_score mini_score;
-struct timeattack_score timeat_score;
-
 int main(void) {
     int menu_ret_value;
-	system("mode con cols=80 lines=30");
+	system("mode con cols=80 lines=30"); // Resize Console to 80(x) * 30(y)
 
+	// if showMenu returns any other value than 7,  we show the menu again and again.
     do {
         menu_ret_value = showMenu();
     } while (menu_ret_value != 7);
@@ -51,11 +48,8 @@ int showMenu() {
     printf("하고 싶은 메뉴를 선택하세요: ");
     scanf("%d", &user_choice);
 
+	// Same Algorithm applied in main funciton. Each function returns some value.
     switch (user_choice) {
-		// DEBUGGING MENU: DEV ONLY
-		case 0:
-			mini_score.fight_computer = 100;
-			break;
         case 1:
             // Typing practice MENU Function
             do {
