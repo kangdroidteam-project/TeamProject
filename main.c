@@ -47,6 +47,7 @@ int showMenu() {
 	gotoxy(30, 26);
     printf("하고 싶은 메뉴를 선택하세요: ");
     scanf("%d", &user_choice);
+	while (getchar() != '\n');
 
 	// Same Algorithm applied in main funciton. Each function returns some value.
     switch (user_choice) {

@@ -22,6 +22,7 @@ int showMiniGameMenu() {
 	gotoxy(30, 22);
     printf("원하는 단계를 입력해주세요! ");
     scanf("%d", &user_input_typing);
+	while (getchar() != '\n');
 
 	// returns some value if we are putting any other value than menu.
     switch (user_input_typing) {

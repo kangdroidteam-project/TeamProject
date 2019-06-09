@@ -32,6 +32,7 @@ int slMenu() {
 	gotoxy(30, 22);
     printf("원하는 단계를 입력해주세요! ");
     scanf("%d", &user_input_typing);
+	while (getchar() != '\n');
 
     switch (user_input_typing) {
         case 1:
