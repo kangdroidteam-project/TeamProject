@@ -13,7 +13,7 @@ void word_game(int mode) {
 	while (1) {
 		if (mode == 0) {
 			if (i >= 5) {
-				printf("ÃàÇÏµå¸³´Ï´Ù!\n °ÔÀÓÀ» ¸ğµÎ ³¡³»¼Ì¾î¿ä!\n");
+				printf("ì¶•í•˜ë“œë¦½ë‹ˆë‹¤!\n ê²Œì„ì„ ëª¨ë‘ ëë‚´ì…¨ì–´ìš”!\n");
 				type_score.extreme_unlock = mode;
 				Sleep(1500);
 				break;
@@ -21,14 +21,23 @@ void word_game(int mode) {
 		}
 		else if (mode == 1 || mode == 2 || mode == 3 || mode == 4) {
 			if (i >= 15) {
-				printf("ÃàÇÏµå¸³´Ï´Ù!\n °ÔÀÓÀ» ¸ğµÎ ³¡³»¼Ì¾î¿ä!\n");
+				printf("ì¶•í•˜ë“œë¦½ë‹ˆë‹¤!\n ê²Œì„ì„ ëª¨ë‘ ëë‚´ì…¨ì–´ìš”!\n");
 				type_score.extreme_unlock = mode + 1;
 				Sleep(1500);
-				break;
+				if (mode == 4)
+					break;
+				if (correct > 0)
+				{
+					mode++;
+					i = 0;
+					j = 0;
+					showString(showing, mode, i);
+					continue;
+				}
 			}
 		}
 		if (time(0) == s_time + 10) {
-			printf("½Ã°£ ÃÊ°úµÇ¾ú½À´Ï´Ù.\n");
+			printf("ì‹œê°„ ì´ˆê³¼ë˜ì—ˆìŠµë‹ˆë‹¤.\n");
 			j = 0;
 			i++;
 			Sleep(1000);
@@ -63,7 +72,7 @@ void word_game(int mode) {
 				if (j == strlen(showing)) {
 					input_word[j] = 0;
 					if (!strcmp(input_word, showing)) {
-						printf("\nÁ¤´äÀÔ´Ï´Ù\n");
+						printf("\nì •ë‹µì…ë‹ˆë‹¤\n");
 						switch (mode) {
 						case 0:
 							break;
@@ -71,14 +80,18 @@ void word_game(int mode) {
 							type_score.easy++;
 							break;
 						case 2:
-							type_score.moderate += (int)(5 * (1 - (time(0) - s_time) / TIME_LIMIT));
+							type_score.moderate += (int)(5 * (1 - (time(0) - s_time-2) / TIME_LIMIT));
 							break;
-						case 3: case 4:
-							type_score.hard += (int)(5 * (1 - (time(0) - s_time) / TIME_LIMIT));
-							break;
+						case 3:
+							type_score.hard += (int)(5 * (1 - (time(0) - s_time-1) / TIME_LIMIT));
+								break;
+						case4:
+							type_score.extreme+= (int)(5 * (1 - (time(0) - s_time) / TIME_LIMIT));
+								break;
 						}
 						j = 0;
 						i++;
+						correct++;
 						Sleep(1000);
 						FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
 						if (mode == 0) {
@@ -98,7 +111,10 @@ void word_game(int mode) {
 					else {
 						j = 0;
 						i++;
-						printf("Æ²·È½À´Ï´Ù\n");
+						printf("í‹€ë ¸ìŠµë‹ˆë‹¤\n");
+						if (mode == 4)
+							if(type_score.extreme!=0)
+							     type_score.extreme--;
 						Sleep(1000);
 						FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
 						if (i != 15) {
@@ -111,7 +127,6 @@ void word_game(int mode) {
 			}
 		}
 	}
-	is_practice = type_score.easy;
 }
 void showString(char *input, int mode, int count) {
 	int ran = rand() % 720;
