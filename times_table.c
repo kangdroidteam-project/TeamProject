@@ -97,20 +97,20 @@ void get_the_digit(int calculate, char *answer, char *number_1[], char *number_2
 	calculate /= 10;
 	hundred_digit = calculate % 10; // == 0
 
-	if (hundred_digit != 0) { 
-		strcpy(answer, number_4[hundred_digit]);
+	if (hundred_digit != 0) {						// 정답이 100 이상일 때
+		strcpy(answer, number_4[hundred_digit]);	// 백의 자리숫자 먼저 복사
 		switch (ten_digit) {
-		case 1:
-			strcat(answer, " ");
-			strcat(answer, number_3[one_digit]);
+		case 1:										// 십의 자리 숫자가 1일 경우 ten, eleven 등의 영어로 나옴
+			strcat(answer, " ");					// 한칸 띄워줌
+			strcat(answer, number_3[one_digit]);	// 일의 자리 숫자에 따라 이어넣기
 			break;
-		case 0:
-			if (one_digit != 0) {
-				strcat(answer, " ");
-				strcat(answer, number_1[one_digit]);
+		case 0:										// 십의 자리 숫자가 0일 경우
+			if (one_digit != 0) {					// 일의 자리 숫자가 0이 아니면
+				strcat(answer, " ");				
+				strcat(answer, number_1[one_digit]);// one, two, three 등의 일의 자리 숫자만 이어넣기
 			}
 			break;
-		default:
+		default:									// 십의 자리 숫자가 2~9일 경우
 			strcat(answer, " ");
 			strcat(answer, number_2[ten_digit]);
 			if (one_digit != 0) {
