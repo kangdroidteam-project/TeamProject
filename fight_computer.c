@@ -179,9 +179,9 @@ void set_difficulty(struct difficulty_var *diff_var) {
 void start_game(struct difficulty_var *diff_var) {
 	char user_input[30];		// user_input : 사용자 입력 단어
 	char fc_ch;
-	int user_power = 0, computer_power = 0, rand_number = 0, array[5], judgement, user_burf, computer_burf, burf;
+	int user_power = 0, computer_power = 0, rand_number = 0, array[5], judgement, user_burf, computer_burf, burf, exit_sig = 0;
 	// user_power : 사용자 공격력, computer_power : 컴퓨터 공격력, rand_number : 컴퓨터가 입력할 단어를 word_list에서 랜덤으로 고름
-	// array[5] : 사용자에게 제시할 5개 단어를 랜덤으로 고름, judgement : 0일 때 정답
+	// array[5] : 사용자에게 제시할 5개 단어를 랜덤으로 고름, judgement : 0일 때 정답, exit_sig : exit 를 눌렀을때 1이 되어 게임을 종료할수 있도록 함.
 	int t1 = 0, t2 = 0, t3 = 0, t4 = 0;	// t1, t2 : 사용자의 단어 입력 시간 측정, t3, t4 : 게임 진행 시간 측정
 	int i, n = 0;
 
@@ -264,6 +264,12 @@ void start_game(struct difficulty_var *diff_var) {
 		}
 		judgement = 0;
 		if (!(strcmp(user_input, "exit"))) {	// exit를 입력하면 종료
+			exit_sig = 1;
+			game_title_headline(1, "컴퓨터와 대결하기");
+			gotoxy(28, 5);
+			printf("나가기 버튼을 누르셨습니다.");
+			FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));	// 버퍼 초기화
+			Sleep(1000);
 			break;
 		}
 		if (t2 - t1 >= diff_var->time_attack) {	// 단어 입력 시간 측정
@@ -299,36 +305,38 @@ void start_game(struct difficulty_var *diff_var) {
 		printf("컴퓨터가 %s 를 입력하여 공격력이 %d 가 되었습니다.", word_list[rand_number], computer_power);
 		t4 = time(0);
 	} while (t4 - t3 < (diff_var->game_duration));	// 게임시간이 지났으면 종료
-	Sleep(2000);
-	game_title_headline(1, "컴퓨터와 대결하기");
-	gotoxy(15, 17);
-	printf("당신의 공격력은 %d 이고 컴퓨터의 공격력은 %d 입니다.", user_power, computer_power);		// 결과 출력
-	(mini_score.fight_computer_lock_info)++;	// hard난이도를 플레이하기 위한 값 증가
-	gotoxy(19, 19);
-	if (user_power > computer_power) {
-		printf("압도적인 힘의 차이로 당신이 승리하셨습니다.");
-		player_win();		// 사용자 승리했을때 이펙트
-		if (diff_var->sleep_time == 7000) // 난이도 따른 점수 획득 차별화
-			(mini_score.fight_computer) += 2;
-		else
-			(mini_score.fight_computer) += 3;
+	if (exit_sig == 0) {
+		Sleep(2000);
+		game_title_headline(1, "컴퓨터와 대결하기");
+		gotoxy(15, 17);
+		printf("당신의 공격력은 %d 이고 컴퓨터의 공격력은 %d 입니다.", user_power, computer_power);		// 결과 출력
+		(mini_score.fight_computer_lock_info)++;	// hard난이도를 플레이하기 위한 값 증가
+		gotoxy(19, 19);
+		if (user_power > computer_power) {
+			printf("압도적인 힘의 차이로 당신이 승리하셨습니다.");
+			player_win();		// 사용자 승리했을때 이펙트
+			if (diff_var->sleep_time == 7000) // 난이도 따른 점수 획득 차별화
+				(mini_score.fight_computer) += 2;
+			else
+				(mini_score.fight_computer) += 3;
+		}
+		else if (user_power == computer_power) {
+			printf("컴퓨터를 무찔렀지만 당신도 이내 쓰러지고 맙니다.");
+			if (diff_var->sleep_time == 3000)
+				(mini_score.fight_computer) -= 1;
+		}
+		else if (user_power < computer_power) {
+			player_lose();		// 사용자 패배했을때 이펙트
+			printf("쓰러진 당신을 보고 컴퓨터는 기뻐합니다.");
+			if (diff_var->sleep_time == 7000)
+				(mini_score.fight_computer) -= 3;
+			else
+				(mini_score.fight_computer) -= 5;
+		}
+		gotoxy(19, 23);
+		printf("메뉴로 돌아가려면 아무키나 입력하세요.");
+		scanf("%c", &fc_ch);
 	}
-	else if (user_power == computer_power) {
-		printf("컴퓨터를 무찔렀지만 당신도 이내 쓰러지고 맙니다.");
-		if (diff_var->sleep_time == 3000)
-			(mini_score.fight_computer) -= 1;
-	}
-	else if (user_power < computer_power) {
-		player_lose();		// 사용자 패배했을때 이펙트
-		printf("쓰러진 당신을 보고 컴퓨터는 기뻐합니다.");
-		if (diff_var->sleep_time == 7000)
-			(mini_score.fight_computer) -= 3;
-		else
-			(mini_score.fight_computer) -= 5;
-	}
-	gotoxy(19, 23);
-	printf("메뉴로 돌아가려면 아무키나 입력하세요.");
-	scanf("%c", &fc_ch);
 }
 
 void now_total_score(struct difficulty_var *diff_var) {
