@@ -14,12 +14,9 @@ int showMiniGameMenu() {
     printf("3. 컴퓨터와의 대결!\n");
 
 	gotoxy(30, 18);
-    printf("4. 단어 기억력!\n");
-
-	gotoxy(30, 20);
     printf("0. 전 메뉴로 돌아가기\n");
 
-	gotoxy(30, 22);
+	gotoxy(30, 20);
     printf("원하는 단계를 입력해주세요! ");
     scanf("%d", &user_input_typing);
 	while (getchar() != '\n');
@@ -37,10 +34,6 @@ int showMiniGameMenu() {
         case 3:
             // GAME STARTS
 			fight_computer();
-        return 0;
-        case 4:
-			showDefMenu();
-            // GAME STARTS
         return 0;
         case 0:
             // Return to last menu

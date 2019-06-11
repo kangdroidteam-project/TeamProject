@@ -3,7 +3,7 @@
 struct minigame_score mini_score;
 
 void mini_maze() {
-    int how_many_col, x = 0, y = 0;
+    int how_many_col = 0, x = 0, y = 0;
     int random_number[5] = {0,};
 	int dest_x, dest_y, time_start, time_end, hint_count = 0;
     int** array_pointer = NULL;
@@ -17,8 +17,17 @@ void mini_maze() {
 	game_title_headline(0, "Finding the way out!\n");
 
 	gotoxy(0, 12);
-    printf("미로판의 크기를 입력하세요.(n * n 형식, n - 정수만 입력)  ");
-    scanf("%d", &how_many_col);
+	while (1) {
+		printf("미로판의 크기를 입력하세요.(n * n 형식, n - 정수만 입력, 최대 21개까지)  ");
+		scanf("%d", &how_many_col);
+		if (how_many_col < 22) {
+			break;
+		}
+		else {
+			printf("조금 더 작은 사이즈를 입력해주세요.\n");
+		}
+	}
+    
     while (getchar() != '\n'); // Flush away remaining buffer
 	dest_x = rand() % (how_many_col - 1) + 1;
 	dest_y = rand() % (how_many_col - 1) + 1;
@@ -35,7 +44,7 @@ void mini_maze() {
     resetArray(array_pointer, how_many_col);
 
     // First location = 0, 0, 5 is the where game character located in.
-    array_pointer[0][0] = 5;
+    array_pointer[how_many_col/2][how_many_col/2] = 5;
 
 	time_start = time(0);
 
