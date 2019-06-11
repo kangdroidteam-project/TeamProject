@@ -44,7 +44,9 @@ void mini_maze() {
     resetArray(array_pointer, how_many_col);
 
     // First location = 0, 0, 5 is the where game character located in.
-    array_pointer[how_many_col/2][how_many_col/2] = 5;
+	x = how_many_col / 2;
+	y = x;
+    array_pointer[y][x] = 5;
 
 	time_start = time(0);
 
