@@ -13,11 +13,19 @@ void showDefMenu(void) {
 
 	do {
 		do {
-			printf("◆◇◆◇◆◇◆◇◆◇◆◇◆◇\n");
-			printf("◇  1) 알파벳 타임어택    ◆\n");
-			printf("◆  2) 단어 타임어택      ◇\n");
-			printf("◇  3) 뒤로 가기          ◆\n");
-			printf("◆◇◆◇◆◇◆◇◆◇◆◇◆◇\n");
+			game_title_headline(0, "과연 최고 기록을 깰 수 있을까?!! \n\n                              타임 어택에 오신 것을 환영합니다.");
+
+			gotoxy(30, 13);
+			printf("1) 알파벳 타임어택    \n");
+
+			gotoxy(30, 17);
+			printf("2) 단어 타임어택      \n");
+
+			gotoxy(30, 21);
+			printf("3) 뒤로 가기          \n");
+
+			gotoxy(30,25);
+			printf("하고 싶은 메뉴를 선택하세요: ");
 
 			scanf("%d", &number1);
 			while (getchar() != '\n');
@@ -30,11 +38,19 @@ void showDefMenu(void) {
 		}
 
 		do {
-			printf("◆◇◆◇◆◇◆◇◆◇◆◇◆◇\n");
-			printf("◇  1) 5개 뿌시기         ◆\n");
-			printf("◆  2) 8개 뿌시기         ◇\n");
-			printf("◇  3) 10개 뿌시기        ◆\n");
-			printf("◆◇◆◇◆◇◆◇◆◇◆◇◆◇\n");
+			game_title_headline(0, "과연 최고 기록을 깰 수 있을까?!! \n\n                              타임 어택에 오신 것을 환영합니다.");
+
+			gotoxy(30, 13);
+			printf("1) 5개 뿌시기         \n");
+
+			gotoxy(30, 17);
+			printf("2) 8개 뿌시기         \n");
+
+			gotoxy(30, 21);
+			printf("3) 10개 뿌시기        \n");
+
+			gotoxy(30, 25);
+			printf("하고 싶은 메뉴를 선택하세요: ");
 
 			scanf("%d", &number2);
 			while (getchar() != '\n');
@@ -48,18 +64,22 @@ void showDefMenu(void) {
 		case 1: // alphabet
 			if (number2 == 1) { //알파벳 5개
 				startGame(5, 1);
-			} else if (number2 == 2) { //알파벳 8개
+			}
+			else if (number2 == 2) { //알파벳 8개
 				startGame(8, 1);
-			} else if (number2 == 3) {  //알파벳 10개
+			}
+			else if (number2 == 3) {  //알파벳 10개
 				startGame(10, 1);
 			}
 			break;
 		case 2: //단어 선택
 			if (number2 == 1) { //단어 5개
 				startGame(5, 0);
-			} else if (number2 == 2) {
+			}
+			else if (number2 == 2) {
 				startGame(8, 0);
-			} else if (number2 == 3) {
+			}
+			else if (number2 == 3) {
 				startGame(10, 0);
 			}
 			break;
@@ -109,9 +129,10 @@ void doSomethingWithRank(int timespent, int mode, int word_count) {
 	char input_rank;
 	int score;
 
-	if (timespent < 11) {
-		score = 10 - timespent;
-	} else {
+	if (timespent < 21) {
+		score = 110 - timespent*5 ;
+	}
+	else {
 		score = 0;
 	}
 
@@ -121,22 +142,23 @@ void doSomethingWithRank(int timespent, int mode, int word_count) {
 			timeat_score.alp_n1 = score;
 			break;
 		case 8:
-			timeat_score.alp_n2 = score;
+			timeat_score.alp_n2 = score+5;
 			break;
 		case 10:
-			timeat_score.alp_n3 = score;
+			timeat_score.alp_n3 = score+10;
 			break;
 		}
-	} else { // word
+	}
+	else { // word
 		switch (word_count) {
 		case 5:
-			timeat_score.word_n1 = score;
+			timeat_score.word_n1 = score+20;
 			break;
 		case 8:
-			timeat_score.word_n2 = score;
+			timeat_score.word_n2 = score + 30;
 			break;
 		case 10:
-			timeat_score.word_n3 = score;
+			timeat_score.word_n3 = score+40;
 			break;
 		}
 	}
@@ -156,7 +178,8 @@ void startGame(int count, int isAlphabet) {
 		if (isAlphabet) {
 			disap[i] = 0;
 			alp[i] = 'a' + rand() % 26;
-		} else {
+		}
+		else {
 			disap[i] = 0;
 			arr[i] = rand() % 9800;
 		}
@@ -177,13 +200,16 @@ void startGame(int count, int isAlphabet) {
 			printf("♥");
 		}
 
+		answer_counter = 0;
+
 		printf("\n\n");
 
 		for (int i = 0; i < count; i++) {
 			if (disap[i] == 0) {
 				if (isAlphabet) {
 					printf(" %d)    %c      \n\n", i + 1, alp[i]);
-				} else {
+				}
+				else {
 					printf(" %d)    %s      \n\n", i + 1, word_list[arr[i]]);
 				}
 			}
@@ -194,7 +220,8 @@ void startGame(int count, int isAlphabet) {
 		printf("입력하시오:");
 		if (isAlphabet) {
 			scanf("%c", &answer1);
-		} else {
+		}
+		else {
 			scanf("%s", user_input);
 		}
 		while (getchar() != '\n');
@@ -206,7 +233,8 @@ void startGame(int count, int isAlphabet) {
 					answer_counter++;
 					counter_end++;
 				}
-			} else {
+			}
+			else {
 				if (!(strcmp(word_list[arr[i]], user_input))) {
 					disap[i]++;
 					answer_counter++;
@@ -229,7 +257,7 @@ void startGame(int count, int isAlphabet) {
 	end = time(0);//시간 끝
 	timespent = end - start;
 
-	if (life > 1) { //걸린시간 보여주기, 랭킹등록, 탈락
+	if (life > 0) { //걸린시간 보여주기, 랭킹등록, 탈락
 		doSomethingWithRank(timespent, isAlphabet, count);
 	}
 	else {
