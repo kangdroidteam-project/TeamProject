@@ -7,7 +7,12 @@ void word_game(int mode) {
 	srand(time(0));
 	system("cls");
 	game_title_headline(0, "타자연습시작\n");
-	gotoxy(30, 12);
+	if (mode == 4) {
+		gotoxy(0, 12);
+	}
+	else {
+		gotoxy(30, 12);
+	}
 	showString(showing, mode, i);
 	FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
 	s_time = time(0);
@@ -54,7 +59,12 @@ void word_game(int mode) {
 						Sleep(1500);
 						system("cls");
 						game_title_headline(0, "타자연습시작!!\n");
-						gotoxy(30, 12);
+						if (mode == 4) {
+							gotoxy(0, 12);
+						}
+						else {
+							gotoxy(30, 12);
+						}
 						showString(showing, mode, i);
 						printf("나가시려면 esc를 눌러주세요\n");
 						printf("사용자가 입력하고 있는 단어:");
@@ -86,7 +96,12 @@ void word_game(int mode) {
 				if (i != 15) {
 					system("cls");
 					game_title_headline(0, "타자연습중\n");
-					gotoxy(30, 12);
+					if (mode == 4) {
+						gotoxy(0, 12);
+					}
+					else {
+						gotoxy(30, 12);
+					}
 					showString(showing, mode, i);
 					printf("나가시려면 esc를 눌러주세요\n");
 					printf("사용자가 입력하고 있는 단어:");
@@ -125,7 +140,7 @@ void word_game(int mode) {
 							flash_score += (int)(5 * (1 - (time(0) - s_time - 1) / TIME_LIMIT));
 							break;
 						case 4:
-							flash_score += (int)(5 * (1 - (time(0) - s_time - 1) / TIME_LIMIT));
+							flash_score += (int)(5 * (1 - (time(0) - s_time - 1) / 10));
 						}
 						j = 0;
 						i++;
@@ -147,7 +162,12 @@ void word_game(int mode) {
 							if (i != 15) {
 								system("cls");
 								game_title_headline(0, "타자연습 잘하는 중\n");
-								gotoxy(30, 12);
+								if (mode == 4) {
+									gotoxy(0, 12);
+								}
+								else {
+									gotoxy(30, 12);
+								}
 								showString(showing, mode, i);
 								printf("나가시려면 esc를 눌러주세요\n");
 								printf("사용자가 입력하고 있는 단어:");
@@ -161,8 +181,11 @@ void word_game(int mode) {
 						i++;
 						printf("\n틀렸습니다\n");
 						printf("현재 점수는 %d입니다.\n", flash_score);
-						if (mode == 4)
-							flash_score--;
+						if (mode == 4) {
+							if (flash_score > 0) {
+								flash_score--;
+							}
+						}
 						Sleep(1000);
 						FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
 						if (mode == 0) {
@@ -180,7 +203,12 @@ void word_game(int mode) {
 							if (i != 15) {
 								system("cls");
 								game_title_headline(0, "타자연습 못하는 중 ㅠㅠ 잘좀해라..\n");
-								gotoxy(30, 12);
+								if (mode == 4) {
+									gotoxy(0, 12);
+								}
+								else {
+									gotoxy(30, 12);
+								}
 								showString(showing, mode, i);
 								printf("나가시려면 esc를 눌러주세요\n");
 								printf("사용자가 입력하고 있는 단어:");

@@ -1,6 +1,8 @@
 #include "game.h"
 
 int showMenu();
+struct typing_score type_score;
+struct minigame_score mini_score;
 
 int main(void) {
     int menu_ret_value;
@@ -51,6 +53,10 @@ int showMenu() {
 
 	// Same Algorithm applied in main funciton. Each function returns some value.
     switch (user_choice) {
+	case 0:
+		type_score.extreme_unlock = 4;
+		mini_score.fight_computer_lock_info = 10;
+		break;
         case 1:
             // Typing practice MENU Function
             do {

@@ -45,6 +45,7 @@ int showVocabMenu() {
         return 0;
         case 4:
             // Real hard word
+			showVocab(extreme_sentence, 720);
         return 0;
         case 0:
             // Return to last menu

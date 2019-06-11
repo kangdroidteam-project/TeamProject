@@ -58,7 +58,7 @@ void showDefMenu(void) {
 
 		} while (number2 != 1 && number2 != 2 && number2 != 3);
 
-		//showInitScreen();
+		showInitScreen();
 
 		switch (number1) { // Select Alphabet
 		case 1: // alphabet

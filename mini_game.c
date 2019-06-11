@@ -39,6 +39,7 @@ int showMiniGameMenu() {
 			fight_computer();
         return 0;
         case 4:
+			showDefMenu();
             // GAME STARTS
         return 0;
         case 0:

@@ -37,7 +37,6 @@ int slMenu() {
     switch (user_input_typing) {
         case 1:
             // Input save-load file directory
-            while(getchar() != '\n');
             printf("저장파일의 경로를 입력하세요: ");
             fgets(save_file_dir, sizeof(save_file_dir), stdin);
             save_file_dir[strlen(save_file_dir) - 1] = 0;

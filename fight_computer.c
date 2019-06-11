@@ -20,7 +20,6 @@ void fight_computer() {
 	srand(time(NULL));	// rand 시드값 초기화
 	static struct difficulty_var diff_var = { 0, 0, 0, 0 };
 
-	while (getchar() != '\n');
 	fight_computer_prolog();			// 게임 시작했을 때 배경 보여주기
 	do {
 		game_title_headline(0,"컴퓨터와 대결하기");
@@ -164,8 +163,8 @@ void set_difficulty(struct difficulty_var *diff_var) {
 				diff_var->time_attack = 4;
 				diff_var->com_penalty = 1;
 				exit_sig_dif = 1;
-				gotoxy(26, 18);
 				game_title_headline(0, "컴퓨터와 대결하기");
+				gotoxy(26, 18);
 				printf("hard 로 설정되었습니다.");
 				Sleep(1500);
 				break;
