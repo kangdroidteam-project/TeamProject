@@ -110,4 +110,5 @@ int showMainScoreMenu() {
             // Get another input;
         return 10;
     }
+	return user_input_typing;
 }
