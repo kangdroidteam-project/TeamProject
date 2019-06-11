@@ -51,11 +51,8 @@ static void game_title_headline(int select, char *input)
 	y = 0;
 	gotoxy(x, y);
 	printf("¦£");
-	for (i = 1; i < 79; i++) {
-		gotoxy(x + i, y);
+	for (i = 0; i < 38; i++)
 		printf("¦¡");
-	}
-	gotoxy(78, 0);
 	printf("¦¤");
 
 	for (i = 1; i < 11; i++)
@@ -78,11 +75,8 @@ static void game_title_headline(int select, char *input)
 
 	gotoxy(x, y);
 	printf("¦¦");
-	for (i = 1; i < 79; i++) {
-		gotoxy(x + i, y);
+	for (i = 0; i < 38; i++)
 		printf("¦¡");
-	}
-	gotoxy(78, 10);
 	printf("¦¥");
 
 	gotoxy(0, 0);

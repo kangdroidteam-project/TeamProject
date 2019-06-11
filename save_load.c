@@ -94,6 +94,8 @@ void saveLogic(char *save_dir) {
     // mini_score
 	makeArray(mini_score.timecalc_try, test);
     makeArray(mini_score.timecalc_ans, test);
+	makeArray(mini_score.timecalc_try_extreme, test);
+	makeArray(mini_score.timecalc_ans_extreme, test);
     makeArray(mini_score.find_road, test);
     makeArray(mini_score.fight_computer, test);
 	makeArray(mini_score.fight_computer_lock_info, test);
@@ -221,17 +223,19 @@ void load(char *save_file_dir) {
 
 	mini_score.timecalc_try = score_saved[4];
 	mini_score.timecalc_ans = score_saved[5];
-	mini_score.find_road = score_saved[6];
-	mini_score.fight_computer = score_saved[7];
-	mini_score.fight_computer_lock_info = score_saved[8];
-	mini_score.mem_word = score_saved[9];
+	mini_score.timecalc_try_extreme = score_saved[6];
+	mini_score.timecalc_ans_extreme = score_saved[7];
+	mini_score.find_road = score_saved[8];
+	mini_score.fight_computer = score_saved[9];
+	mini_score.fight_computer_lock_info = score_saved[10];
+	mini_score.mem_word = score_saved[11];
 
-	timeat_score.alp_n1 = score_saved[10];
-	timeat_score.alp_n2 = score_saved[11];
-	timeat_score.alp_n3 = score_saved[12];
-	timeat_score.word_n1 = score_saved[13];
-	timeat_score.word_n1 = score_saved[14];
+	timeat_score.alp_n1 = score_saved[12];
+	timeat_score.alp_n2 = score_saved[13];
+	timeat_score.alp_n3 = score_saved[14];
 	timeat_score.word_n1 = score_saved[15];
+	timeat_score.word_n1 = score_saved[16];
+	timeat_score.word_n1 = score_saved[17];
 
     fclose(test_file);
 }
