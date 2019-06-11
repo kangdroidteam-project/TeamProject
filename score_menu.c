@@ -62,18 +62,20 @@ int showMainScoreMenu() {
 			game_title_headline(0, "미니게임 점수!\n");
 
 			gotoxy(30, 12);
-            printf("1. 구구단(정답률): %.2lf점\n", ((mini_score.timecalc_try) != 0) ? (double)(mini_score.timecalc_ans) / (mini_score.timecalc_try) * 100 : 0);
+            printf("1. 구구단(정답률): (normal) %.2lf점\n", ((mini_score.timecalc_try) != 0) ? (double)(mini_score.timecalc_ans) / (mini_score.timecalc_try) * 100 : 0);
+			gotoxy(49, 13);
+			printf("(extreme) %.2lf점", ((mini_score.timecalc_try_extreme) != 0) ? (double)(mini_score.timecalc_ans_extreme) / (mini_score.timecalc_try_extreme) * 100 : 0);
 
-			gotoxy(30, 14);
+			gotoxy(30, 15);
             printf("2. 길찾기: %d점\n", mini_score.find_road);
 
-			gotoxy(30, 16);
+			gotoxy(30, 17);
             printf("3. 컴퓨터와의 대결: %d점\n", mini_score.fight_computer);
 
-			gotoxy(30, 18);
+			gotoxy(30, 19);
             printf("4. 단어 기억력: %d점\n", mini_score.mem_word);
 
-			gotoxy(30, 20);
+			gotoxy(30, 21);
 			printf("이전 메뉴로 돌아가려면 엔터키를 입력하세요.. ");
 			fgets(dummy, sizeof(dummy), stdin);
 			break;
