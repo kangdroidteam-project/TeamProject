@@ -171,7 +171,7 @@ void start_game_time_table() {
 	printf("시작!");
 	Sleep(1000);
 	
-	game_title_headline(1, "영어로 구구단 외우기\n");
+	game_title_headline(1, "영어로 구구단 외우기");
 	value_clear(&count, answer, player_answer);	// 값 초기화
 	show_question(&calculate, number_1);		// 문제 출제
 	get_the_digit(calculate, answer, number_1, number_2, number_3, number_4); // 문제의 정답 계산 및 영어 변환
@@ -182,7 +182,11 @@ void start_game_time_table() {
 		if (time(0) == s_time + limit_time) {
 			game_title_headline(1, "영어로 구구단 외우기");
 			gotoxy(30, 12);
-			printf("시간 초과되었습니다.\n");
+			printf("시간 초과되었습니다.");
+			if (difficulty == 1)	// 난이도 extreme 일때
+				(mini_score.timecalc_try_extreme)++;	// 시도 횟수 증가
+			else              // 난이도 normal 일때
+				(mini_score.timecalc_try)++;	// 시도 횟수 증가
 			value_clear(&count, answer, player_answer);
 			show_question(&calculate, number_1);
 			get_the_digit(calculate, answer, number_1, number_2, number_3, number_4);
@@ -218,7 +222,10 @@ void start_game_time_table() {
 			}
 		}
 		if (count == strlen(answer)) { // 문제의 정답의 길이만큼 입력 시 정답 비교
-			(mini_score.timecalc_try)++;	// 시도 횟수 증가
+			if (difficulty == 1)	// 난이도 extreme 일때
+				(mini_score.timecalc_try_extreme)++;	// 시도 횟수 증가
+			else              // 난이도 normal 일때
+				(mini_score.timecalc_try)++;	// 시도 횟수 증가
 			for (int i = 0; i < strlen(answer); i++) {
 				if (player_answer[i] != answer[i]) { // 글자 하나라도 틀리면 flag 0으로 바뀌고 오답 처리
 					flag = 0;
@@ -228,7 +235,10 @@ void start_game_time_table() {
 				}
 			}
 			if (flag == 1) {
-				(mini_score.timecalc_ans)++;	// 정답 횟수 증가
+				if (difficulty == 1)	// 난이도 extreme 일때
+					(mini_score.timecalc_ans_extreme)++;	// 정답 횟수 증가
+				else                // 난이도 normal 일때
+					(mini_score.timecalc_ans)++;	// 정답 횟수 증가
 				game_title_headline(1, "영어로 구구단 외우기");
 				gotoxy(30, 13);
 				printf("정답은 %s 입니다.", answer);
@@ -243,6 +253,10 @@ void start_game_time_table() {
 				printf("%s 를 입력하셨습니다.", player_answer);
 				gotoxy(32, 17);
 				printf("오답입니다.");
+				if (difficulty == 1)	// 난이도 extreme 일때
+					(mini_score.timecalc_try_extreme)++;	// 시도 횟수 증가
+				else              // 난이도 normal 일때
+					(mini_score.timecalc_try)++;	// 시도 횟수 증가
 				FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
 			}
 			FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
@@ -257,17 +271,29 @@ void start_game_time_table() {
 void score_time_table() {
 	char tt_ch;
 
-	game_title_headline(0, "영어로 구구단 외우기");
-	gotoxy(30, 14);
-	printf("시도 횟수 : %d", (mini_score.timecalc_try));
-	gotoxy(30, 16);
-	printf("맞춘 횟수 : %d", (mini_score.timecalc_ans));
-	gotoxy(30, 20);
-	printf("정답률 : %lf(%%)", ((mini_score.timecalc_try) != 0) ? (double)(mini_score.timecalc_ans) / (mini_score.timecalc_try) * 100 : 0);
 
-	gotoxy(19, 24);
-	printf("메뉴로 돌아가려면 아무키나 입력하세요.");
-	scanf("%c", &tt_ch);
+		game_title_headline(0, "영어로 구구단 외우기");
+		gotoxy(15, 12);
+		printf("normal");
+		gotoxy(15, 14);
+		printf("시도 횟수 : %d", (mini_score.timecalc_try));
+		gotoxy(15, 16);
+		printf("맞춘 횟수 : %d", (mini_score.timecalc_ans));
+		gotoxy(15, 20);
+		printf("정답률 : %lf(%%)", ((mini_score.timecalc_try) != 0) ? (double)(mini_score.timecalc_ans) / (mini_score.timecalc_try) * 100 : 0);
+
+		gotoxy(45, 12);
+		printf("extreme");
+		gotoxy(45, 14);
+		printf("시도 횟수 : %d", (mini_score.timecalc_try_extreme));
+		gotoxy(45, 16);
+		printf("맞춘 횟수 : %d", (mini_score.timecalc_ans_extreme));
+		gotoxy(45, 20);
+		printf("정답률 : %lf(%%)", ((mini_score.timecalc_try_extreme) != 0) ? (double)(mini_score.timecalc_ans_extreme) / (mini_score.timecalc_try_extreme) * 100 : 0);
+
+		gotoxy(19, 24);
+		printf("메뉴로 돌아가려면 아무키나 입력하세요.");
+		scanf("%c", &tt_ch);
 }
 
 void show_rule_time_table() {
@@ -301,7 +327,7 @@ void game_difficulty() {
 		gotoxy(17, 13);
 		printf("normal 은 0 을, extreme 은 1 을 선택하세요!");
 		gotoxy(6, 15);
-		printf("normal은 1부터 9까지의 숫자가 출제되고 단어입력제한시간은 10초입니다.");
+		printf("normal은 1부터 9까지의 숫자가 출제되고 단어입력제한시간은 12초입니다.");
 		gotoxy(5, 17);
 		printf("extreme은 1부터 30까지의 숫자가 출제되고 단어입력제한시간은 30초입니다.");
 		gotoxy(14, 21);
@@ -317,7 +343,7 @@ void game_difficulty() {
 			gotoxy(28, 18);
 			printf("normal로 설정되었습니다.");
 			difficulty = 0;
-			limit_time = 10;
+			limit_time = 12;
 			exit_sig_dif = 1;
 			Sleep(1500);
 			break;

@@ -51,8 +51,11 @@ static void game_title_headline(int select, char *input)
 	y = 0;
 	gotoxy(x, y);
 	printf("¦£");
-	for (i = 0; i < 38; i++)
+	for (i = 1; i < 79; i++) {
+		gotoxy(x + i, y);
 		printf("¦¡");
+	}
+	gotoxy(78, 0);
 	printf("¦¤");
 
 	for (i = 1; i < 11; i++)
@@ -75,8 +78,11 @@ static void game_title_headline(int select, char *input)
 
 	gotoxy(x, y);
 	printf("¦¦");
-	for (i = 0; i < 38; i++)
+	for (i = 1; i < 79; i++) {
+		gotoxy(x + i, y);
 		printf("¦¡");
+	}
+	gotoxy(78, 10);
 	printf("¦¥");
 
 	gotoxy(0, 0);
@@ -93,6 +99,8 @@ struct typing_score {
 struct minigame_score {
     int timecalc_try;
 	int timecalc_ans;
+	int timecalc_try_extreme;
+	int timecalc_ans_extreme;
     int find_road;
     int fight_computer;
 	int fight_computer_lock_info;
