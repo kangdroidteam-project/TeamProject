@@ -84,22 +84,22 @@ int showMainScoreMenu() {
 			game_title_headline(0, "타임어택 점수!\n");
 
 			gotoxy(30, 12);
-			printf("1. 알파벳 n개: %d점\n", timeat_score.alp_n1);
+			printf("1. 알파벳 5개: %d점\n", timeat_score.alp_n1);
 
 			gotoxy(30, 14);
-			printf("2. 알파벳 n개: %d점\n", timeat_score.alp_n2);
+			printf("2. 알파벳 8개: %d점\n", timeat_score.alp_n2);
 
 			gotoxy(30, 16);
-			printf("3. 알파벳 n개: %d점\n", timeat_score.alp_n3);
+			printf("3. 알파벳 10개: %d점\n", timeat_score.alp_n3);
 
 			gotoxy(30, 18);
-            printf("4. 단어 n개: %d점\n", timeat_score.word_n1);
+            printf("4. 단어 5개: %d점\n", timeat_score.word_n1);
 
 			gotoxy(30, 20);
-            printf("5. 단어 n개: %d점\n", timeat_score.word_n2);
+            printf("5. 단어 8개: %d점\n", timeat_score.word_n2);
 
 			gotoxy(30, 22);
-            printf("6. 단어 n개: %d점\n", timeat_score.word_n3);
+            printf("6. 단어 10개: %d점\n", timeat_score.word_n3);
 
 			gotoxy(30, 24);
 			printf("이전 메뉴로 돌아가려면 엔터키를 입력하세요.. ");
