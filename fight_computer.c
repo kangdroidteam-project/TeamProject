@@ -250,6 +250,7 @@ void start_game(struct difficulty_var *diff_var) {
 		gotoxy(18, 17);
 		printf("단어를 입력하세요(exit : 저장하지 않고 나가기)");
 		gotoxy(35, 19);
+		FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
 		t1 = time(0);
 		fgets(user_input, 30, stdin);	// 사용자 단어 입력
 		t2 = time(0);
