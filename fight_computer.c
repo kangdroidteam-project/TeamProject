@@ -20,7 +20,6 @@ void fight_computer() {
 	srand(time(NULL));	// rand 시드값 초기화
 	static struct difficulty_var diff_var = { 0, 0, 0, 0 };
 
-	while (getchar() != '\n');
 	fight_computer_prolog();			// 게임 시작했을 때 배경 보여주기
 	do {
 		game_title_headline(0,"컴퓨터와 대결하기");
