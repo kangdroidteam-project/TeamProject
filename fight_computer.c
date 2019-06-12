@@ -4,6 +4,7 @@ void now_total_score(struct difficulty_var *diff_var);
 void player_win();				// 사용자 승리
 void player_lose();				// 사용자 패배
 void fight_computer_prolog();	// 배경
+void printword(int array[]);				// 5개 단어 제시
 
 struct difficulty_var {					// 난이도 변경 요소
 	int sleep_time;
@@ -178,9 +179,10 @@ void set_difficulty(struct difficulty_var *diff_var) {
 void start_game(struct difficulty_var *diff_var) {
 	char user_input[30];		// user_input : 사용자 입력 단어
 	char fc_ch;
-	int user_power = 0, computer_power = 0, rand_number = 0, array[5], judgement, user_burf, computer_burf, burf, exit_sig = 0;
+	int user_power = 0, computer_power = 0, rand_number = 0, array[5] = { 0,0,0,0,0 }, judgement, user_burf, computer_burf, burf, exit_sig = 0;
 	// user_power : 사용자 공격력, computer_power : 컴퓨터 공격력, rand_number : 컴퓨터가 입력할 단어를 word_list에서 랜덤으로 고름
-	// array[5] : 사용자에게 제시할 5개 단어를 랜덤으로 고름, judgement : 0일 때 정답, exit_sig : exit 를 눌렀을때 1이 되어 게임을 종료할수 있도록 함.
+	// array[5] : 사용자에게 제시할 5개 단어를 랜덤으로 고름 ( 10000개 정도의 숫자들 중에서 5개 고름)
+	// judgement : 0일 때 정답, exit_sig : exit 를 눌렀을때 1이 되어 게임을 종료할수 있도록 함.
 	int t1 = 0, t2 = 0, t3 = 0, t4 = 0;	// t1, t2 : 사용자의 단어 입력 시간 측정, t3, t4 : 게임 진행 시간 측정
 	int i, n = 0;
 
@@ -203,9 +205,8 @@ void start_game(struct difficulty_var *diff_var) {
 		computer_burf = 0;
 		for (i = 0; i < 5; i++) {
 			array[i] = rand() % MAX_WORD;
-			gotoxy((rand() % 60) + 5, (rand() % 8) + 2);	// 5개의 단어가 랜덤한 위치에 출력
-			printf("%s", word_list[array[i]]);
 		}
+		printword(array);
 		Sleep(diff_var->sleep_time);		// 난이도에 따른 시간 동안 5개 단어 출력
 		game_title_headline(1, "컴퓨터와 대결하기");
 		burf = rand() % 6;		// 버프 결정
@@ -412,7 +413,7 @@ void player_lose()		// 사용자의 패배
 void fight_computer_prolog()	// 배경
 {
 	char fc_ch;
-
+	
 	game_title_headline(0, "컴퓨터와 대결하기 (배경)");
 	gotoxy(12, 14);
 	printf("서기 이십 이백 이천년 후, 컴퓨터의 딥러닝 발전으로");
@@ -423,4 +424,88 @@ void fight_computer_prolog()	// 배경
 	gotoxy(26, 22);
 	printf("아무키나 입력하여 다음으로");
 	scanf("%c", &fc_ch);
+}
+
+void printword(int array[])
+{
+	int i, wordlength[5], lox[5], loy[5];
+	// wordlength[5] : 뽑은 단어들의 길이 저장, lox[5] : 출력할 위치의 x좌표, loy[5] : 출력할 위치의 y좌표
+	char *fc_word[5][20] = { 0,0,0,0,0 };
+	// *fc_word[] : 5개의 단어 저장
+	for (i = 0; i < 5; i++) {
+		strcpy(fc_word[i], word_list[array[i]]);
+		wordlength[i] = strlen(fc_word[i]);
+	}
+	for (i = 0; i < 5; i++) {
+			lox[i] = (rand() % 60) + 5;				// 5개의 단어가 출력될 위치 설정
+			loy[i] = (rand() % 8) + 2;
+		if (i == 1) {
+			while (1) {
+				if ((lox[i] >= lox[0] && lox[i]) <= (lox[0] + wordlength[0]) && (loy[i] == loy[0])) {
+					lox[i] = (rand() % 60) + 5;				// 5개의 단어가 출력될 위치 재설정
+					loy[i] = (rand() % 8) + 2;
+				}
+				else
+					break;
+			}
+		}
+		else if (i == 2) {
+			while (1) {
+				if ((lox[i] >= lox[0] && lox[i]) <= (lox[0] + wordlength[0]) && (loy[i] == loy[0])) {
+					lox[i] = (rand() % 60) + 5;				// 5개의 단어가 출력될 위치 재설정
+					loy[i] = (rand() % 8) + 2;
+				}
+				else if ((lox[i] >= lox[1] && lox[i]) <= (lox[1] + wordlength[1]) && (loy[i] == loy[1])) {
+					lox[i] = (rand() % 60) + 5;				// 5개의 단어가 출력될 위치 재설정
+					loy[i] = (rand() % 8) + 2;
+				}
+				else
+					break;
+			}
+		}
+		else if (i == 3) {
+			while (1) {
+				if ((lox[i] >= lox[0] && lox[i]) <= (lox[0] + wordlength[0]) && (loy[i] == loy[0])) {
+					lox[i] = (rand() % 60) + 5;				// 5개의 단어가 출력될 위치 재설정
+					loy[i] = (rand() % 8) + 2;
+				}
+				else if ((lox[i] >= lox[1] && lox[i]) <= (lox[1] + wordlength[1]) && (loy[i] == loy[1])) {
+					lox[i] = (rand() % 60) + 5;				// 5개의 단어가 출력될 위치 재설정
+					loy[i] = (rand() % 8) + 2;
+				}
+				else if ((lox[i] >= lox[2] && lox[i]) <= (lox[2] + wordlength[2]) && (loy[i] == loy[2])) {
+					lox[i] = (rand() % 60) + 5;				// 5개의 단어가 출력될 위치 재설정
+					loy[i] = (rand() % 8) + 2;
+				}
+				else
+					break;
+			}
+		}
+		else if (i == 4) {
+			while (1) {
+				if ((lox[i] >= lox[0] && lox[i]) <= (lox[0] + wordlength[0]) && (loy[i] == loy[0])) {
+					lox[i] = (rand() % 60) + 5;				// 5개의 단어가 출력될 위치 재설정
+					loy[i] = (rand() % 8) + 2;
+				}
+				else if ((lox[i] >= lox[1] && lox[i]) <= (lox[1] + wordlength[1]) && (loy[i] == loy[1])) {
+					lox[i] = (rand() % 60) + 5;				// 5개의 단어가 출력될 위치 재설정
+					loy[i] = (rand() % 8) + 2;
+				}
+				else if ((lox[i] >= lox[2] && lox[i]) <= (lox[2] + wordlength[2]) && (loy[i] == loy[2])) {
+					lox[i] = (rand() % 60) + 5;				// 5개의 단어가 출력될 위치 재설정
+					loy[i] = (rand() % 8) + 2;
+				}
+				else if ((lox[i] >= lox[3] && lox[i]) <= (lox[3] + wordlength[3]) && (loy[i] == loy[3])) {
+					lox[i] = (rand() % 60) + 5;				// 5개의 단어가 출력될 위치 재설정
+					loy[i] = (rand() % 8) + 2;
+				}
+				else
+					break;
+			}
+		}
+	}
+	for (i = 0; i < 5; i++) {
+		gotoxy(lox[i], loy[i]);
+		printf("%s",fc_word[i]);
+	}
 }
