@@ -58,6 +58,7 @@ void word_game(int mode) {
 						j = 0;
 						Sleep(1500);
 						system("cls");
+						s_time = time(0);
 						game_title_headline(0, "타자연습시작!!\n");
 						if (mode == 4) {
 							gotoxy(0, 12);
