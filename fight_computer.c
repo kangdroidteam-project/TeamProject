@@ -164,8 +164,8 @@ void set_difficulty(struct difficulty_var *diff_var) {
 				diff_var->time_attack = 4;
 				diff_var->com_penalty = 1;
 				exit_sig_dif = 1;
-				gotoxy(26, 18);
 				game_title_headline(0, "컴퓨터와 대결하기");
+				gotoxy(26, 18);
 				printf("hard 로 설정되었습니다.");
 				Sleep(1500);
 				break;
@@ -430,8 +430,8 @@ void printword(int array[])
 {
 	int i, wordlength[5], lox[5], loy[5];
 	// wordlength[5] : 뽑은 단어들의 길이 저장, lox[5] : 출력할 위치의 x좌표, loy[5] : 출력할 위치의 y좌표
-	char *fc_word[5][20] = { 0,0,0,0,0 };
-	// *fc_word[] : 5개의 단어 저장
+	char fc_word[5][20] = { 0,0,0,0,0 };
+	// fc_word[5][20] : 5개의 단어 저장
 	for (i = 0; i < 5; i++) {
 		strcpy(fc_word[i], word_list[array[i]]);
 		wordlength[i] = strlen(fc_word[i]);
