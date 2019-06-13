@@ -170,20 +170,30 @@ void startGame(int count, int isAlphabet) {
 	int start, end, timespent, life; //시간 재기 변수
 	int disap[11], arr[11]; //단어 사라지게하는 변수
 	int answer_counter = 0, counter_end = 0; //word count
-	char user_input[30], alp[11], answer1; //알파벳, 단어 생성 배열
+	char c,user_input[30], alp[27], answer1; //알파벳, 단어 생성 배열
 
 	life = 3; //생명부여
 
 	for (int i = 0; i < 11; i++) { //사라지는 변수 초기화, 랜덤 알파벳 생성
 		if (isAlphabet) {
 			disap[i] = 0;
-			alp[i] = 'a' + rand() % 26;
+			for (int i = 0; i < 26; i++)
+				alp[i] = 'a' + i;
+			for (int i = 0; i < 26; i++) {
+				int k = rand()%26;
+				int j = rand()%26;
+				c = alp[k];
+				alp[k] = alp[j];
+				alp[j] = c;
+			}
+
 		}
 		else {
 			disap[i] = 0;
 			arr[i] = rand() % 9800;
 		}
 	}
+
 
 	start = time(0); //시간 시작
 
@@ -232,6 +242,7 @@ void startGame(int count, int isAlphabet) {
 					disap[i]++;
 					answer_counter++;
 					counter_end++;
+					alp[i] = 0;
 				}
 			}
 			else {
